@@ -103,7 +103,7 @@ public class ABCToAWEParser {
     }
     private static int getNumOfCopies(char sym) {
         int len = Integer.parseInt(String.valueOf(sym));
-        return (len/2)-1;
+        return len-1;
     }
     private static boolean toneHeight(char c) {
         return Character.isLetter(c);
