@@ -98,7 +98,7 @@ public class ABCToAWEParserFormatTest {
     public void testEightNoteSharp() throws AwesomeException {
         String abcString = "^A8|";
         String aweString = "^A-------|";
-        assertEquals(getAWELineFromABCString(abcString).getLineString(), aweString);
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
     @Test
@@ -148,13 +148,43 @@ public class ABCToAWEParserFormatTest {
         String abcString = "x x B2 A2 ^G2 A2 | c8   d2 c2 B2 c2 | e8   f2 e2 ^d2 e2 | b2 a2 ^g2 a2 b2 a2 ^g2 a2 | c'8 a4 c'4 | b4 a4 g4 a4 | b4 a4 g4 a4 | b4 a4 g4 ^f4 | e8 B2 A2 ^G2 A2 |";
         String aweString = "xxB-A-^G-A-|c-------d-c-B-c-|e-------f-e-^d-e-|b-a-^g-a-b-a-^g-a-|c'-------a---c'---|b---a---g---a---|b---a---g---a---|b---a---g---^f---|e-------B-A-^G-A-|";
         AWELine line = getAWELineFromABCString(abcString);
-        assertEquals(line.getBar(1).getUnits().size(), 16); // First "whole" bar
+        assertEquals(line.getBar(1).getTimeSlots().size(), 16); // First "whole" bar
     }
     private AWELine getAWELineFromABCString(String abcString) throws AwesomeException {
         List<String> lines = new ArrayList<String>();
         lines.add(abcString);
         AWEFile aweFile = ABCToAWEParser.getAWEFile(new ABCFile(lines));
         return aweFile.getAWELine(0);
+    }
+
+    @Test
+    public void testTwoSimpleNotesSimultaneously() throws AwesomeException {
+        String abcString = "[AC]|";
+        String aweString = "[AC]|";
+        AWELine line = getAWELineFromABCString(abcString);
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+    @Test
+    public void testTwoComplexNotesSimultaneously() throws AwesomeException {
+        String abcString = "[_A^C]|";
+        String aweString = "[_A^C]|";
+        AWELine line = getAWELineFromABCString(abcString);
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testMultipleChords() throws AwesomeException {
+        String abcString = "[CEG][FAC]|";
+        String aweString = "[CEG][FAC]|";
+        AWELine line = getAWELineFromABCString(abcString);
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+    @Test
+    public void testMultipleChordsAndSingleNotes() throws AwesomeException {
+        String abcString = "[CEG]D2[FAC]G4[CEG]|";
+        String aweString = "[CEG]D-[FAC]G---[CEG]|";
+        AWELine line = getAWELineFromABCString(abcString);
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
 }

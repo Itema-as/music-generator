@@ -19,6 +19,8 @@ public class ABCToAWEParser {
         public static final char COPY = '-';
         public static final char OCT_UP = '\'';
         public static final char OCT_DOWN = ',';
+        public static final char CHORD_START = '[';
+        public static final char CHORD_END = ']';
     }
 
     public static AWEFile getAWEFile(ABCFile abcFile) {
@@ -36,19 +38,34 @@ public class ABCToAWEParser {
         AWEUnit unit = null;
         AWELine line = new AWELine();
         AWEBar bar = new AWEBar();
-
+        AWETimeSlot timeSlot = new AWETimeSlot();
+        boolean insideChord = false;
         for(char sym: symbols) {
+            if(chordStart(sym)) {
+                insideChord = true;
+            }
+            if(chordEnd(sym)) {
+                insideChord = false;
+            }
             if(endOfLastUnit(unit, sym)) {
                 if(unit != null) {
                     if(!endLine(sym) && !"".equals(unit.getTone())) {
-                        bar.addUnit(unit);
+                        timeSlot.addUnit(unit);
+                        if(!insideChord) {
+                            bar.addTimeSlot(timeSlot);
+                            timeSlot = new AWETimeSlot();
+                        }
                     }
                     if (bar(sym)) {
                         line.addBar(bar);
                         bar = new AWEBar();
                     }
                 }
+
                 unit = new AWEUnit();
+                if(!insideChord) {
+                    timeSlot = new AWETimeSlot();
+                }
             }
 
             if(toneHeight(sym)) {
@@ -59,13 +76,17 @@ public class ABCToAWEParser {
             }
             if(toneLength(sym)) {
                 // Create a new unit
-                bar.addUnit(unit);
-                for(int i=0; i<getNumOfCopies(sym); i++) {
+                timeSlot.addUnit(unit);
+                bar.addTimeSlot(timeSlot);
+                for(int i=0; i<getNumOfCopies(sym)-1; i++) {
                     unit = new AWEUnit();
                     unit.setTone(String.valueOf(Symbol.COPY));
-                    bar.addUnit(unit);
+                    timeSlot = new AWETimeSlot();
+                    timeSlot.addUnit(unit);
+                    bar.addTimeSlot(timeSlot);
                 }
                 unit = new AWEUnit();
+                timeSlot = new AWETimeSlot();
             }
             if(octaveUp(sym) || octaveDown(sym)) {
                 unit.setOctave(String.valueOf(sym));
@@ -92,6 +113,8 @@ public class ABCToAWEParser {
                 (unit.getTone() != "" && (sharp(sym)) || flat(sym)) ||  // Tone exists, but there is a new first symbol(sharp/flat)
                 (unit.getTone() != "" && toneHeight(sym)) ||            // Tone exists, and there is a new tone
                 (unit.getTone() == String.valueOf(Symbol.PAUSE)) ||     // Tone exists, and is a pause
+                chordStart(sym) ||                                      // Start of a new chord
+                chordEnd(sym)   ||                                        // End of a chord
                 bar(sym) ||                                             // End of bar
                 endLine(sym);                                           // End of line
     }
@@ -121,6 +144,13 @@ public class ABCToAWEParser {
     }
     private static boolean octaveDown(char c) {
         return c == Symbol.OCT_DOWN;
+    }
+
+    private static boolean chordStart(char c) {
+        return c == Symbol.CHORD_START;
+    }
+    private static boolean chordEnd(char c) {
+        return c == Symbol.CHORD_END;
     }
 
 }
