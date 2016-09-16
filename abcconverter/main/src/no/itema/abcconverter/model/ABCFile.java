@@ -1,5 +1,6 @@
 package no.itema.abcconverter.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,19 @@ public class ABCFile {
         key = "C";
         metronome = "2/4";
         this.lines = lines;
+    }
+
+    public ABCFile(String fileContents) {
+        length = "1/16";
+        key = "C";
+        metronome = "2/4";
+        lines = new ArrayList<String>();
+
+        String[] l = fileContents.split("\n");
+        for(String line: l) {
+            lines.add(line);
+        }
+        System.out.println(fileContents);
     }
 
     public String getLength() {

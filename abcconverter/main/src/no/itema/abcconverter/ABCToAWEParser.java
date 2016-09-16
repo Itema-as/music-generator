@@ -21,9 +21,7 @@ public class ABCToAWEParser {
         public static final char OCT_DOWN = ',';
     }
 
-
-
-    public static AWEFile getAWEFormat(ABCFile abcFile) {
+    public static AWEFile getAWEFile(ABCFile abcFile) {
         AWEFile awe = new AWEFile();
         for(String abcLine: abcFile.getLines()) {
             awe.addLine(parseLine(abcLine));
@@ -78,32 +76,33 @@ public class ABCToAWEParser {
     }
 
     private static boolean endOfLastUnit(AWEUnit unit, char sym) {
-        System.out.println("Symbol " + sym + ": " + (unit == null) + ":");
+        //System.out.println("Symbol " + sym + ": " + (unit == null) + ":");
         if(unit != null) {
+            /*
             System.out.println(
                     (unit.getTone() != "" && sharp(sym)) + ", " +
                     (unit.getTone() != "" && flat(sym)) + ", " +
                     (unit.getTone() != "" && toneHeight(sym)) + ", " +
                     (unit.getTone() == "x") + ", " +
                     (endLine(sym)));
+            */
         }
 
-        return unit == null || // This is the first unit
-                (unit.getTone() != "" && (sharp(sym)) || flat(sym)) || // Tone exists, but there is a new first symbol(sharp/flat)
-                (unit.getTone() != "" && toneHeight(sym)) || // Tone exists, and there is a new tone
-                (unit.getTone() == String.valueOf(Symbol.PAUSE)) ||
-                bar(sym) || // End of bar
-                endLine(sym); // End of line
+        return unit == null ||                                          // This is the first unit
+                (unit.getTone() != "" && (sharp(sym)) || flat(sym)) ||  // Tone exists, but there is a new first symbol(sharp/flat)
+                (unit.getTone() != "" && toneHeight(sym)) ||            // Tone exists, and there is a new tone
+                (unit.getTone() == String.valueOf(Symbol.PAUSE)) ||     // Tone exists, and is a pause
+                bar(sym) ||                                             // End of bar
+                endLine(sym);                                           // End of line
     }
-    private static boolean bar(char sym) {
-        return sym == Symbol.BAR;
+    private static boolean bar(char c) {
+        return c == Symbol.BAR;
     }
-    private static boolean endLine(char sym) {
-        return sym == Symbol.LINE_END;
+    private static boolean endLine(char c) {
+        return c == Symbol.LINE_END;
     }
-    private static int getNumOfCopies(char sym) {
-        int len = Integer.parseInt(String.valueOf(sym));
-        return len-1;
+    private static int getNumOfCopies(char c) {
+        return Integer.parseInt(String.valueOf(c));
     }
     private static boolean toneHeight(char c) {
         return Character.isLetter(c);

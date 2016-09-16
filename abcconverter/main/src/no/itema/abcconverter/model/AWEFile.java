@@ -27,6 +27,14 @@ public class AWEFile {
         throw new AwesomeException("No line at this index");
     }
 
+    public String getFileString() {
+        String res = "";
+        for(AWELine b: lines) {
+            res += b.getLineString();
+        }
+        return res;
+    }
+
     public List<AWELine> getLines() {
         return lines;
     }
