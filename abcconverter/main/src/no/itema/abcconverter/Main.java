@@ -4,6 +4,7 @@ import no.itema.abcconverter.io.FileManager;
 import no.itema.abcconverter.model.ABCFile;
 import no.itema.abcconverter.model.AWEFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.*;
@@ -75,6 +76,9 @@ public class Main {
     }
 
     private static boolean convert(String file, String outfile) throws IOException {
+        if (new File(file).length() > 1000000) {
+            return false; //skip crazy big files, they're just mistakes by midi2abc
+        }
         ABCFile abcFile = new ABCFile(FileManager.getFileContents(file));
         AWEFile aweFile = ABCToAWEParser.getAWEFile(abcFile);
         if (!aweFile.isValid()) {

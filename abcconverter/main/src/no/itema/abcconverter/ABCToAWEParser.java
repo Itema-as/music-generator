@@ -25,11 +25,8 @@ public class ABCToAWEParser {
 
     public static AWEFile getAWEFile(ABCFile abcFile) {
         AWEFile awe = new AWEFile();
-        List<String> lines = abcFile.getLines();
-        if (lines.size() < 100000) { //skip crazy big files, they're just mistakes by midi2abc
-            for (String abcLine : abcFile.getLines()) {
-                awe.addLine(parseLine(abcLine));
-            }
+        for (String abcLine : abcFile.getLines()) {
+            awe.addLine(parseLine(abcLine));
         }
         return awe;
     }
