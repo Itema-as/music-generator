@@ -30,7 +30,7 @@ public class ABCFile {
         for(String line: l) {
             lines.add(line);
         }
-        System.out.println(fileContents);
+        //System.out.println(fileContents);
     }
 
     public String getLength() {

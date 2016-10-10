@@ -42,4 +42,15 @@ public class AWEFile {
     public void addLine(AWELine line) {
         this.lines.add(line);
     }
+
+    public boolean isValid() {
+        for (AWELine line : lines) {
+            for (AWEBar bar : line.getBars()) {
+                if (bar.getTimeSlots().size() != 16) {
+                    return false;
+                }
+            }
+        }
+        return lines.size() > 0;
+    }
 }
