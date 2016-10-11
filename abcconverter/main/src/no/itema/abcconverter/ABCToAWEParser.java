@@ -1,6 +1,7 @@
 package no.itema.abcconverter;
 
 import no.itema.abcconverter.model.*;
+import no.itema.abcconverter.util.AwesomeException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ABCToAWEParser {
         public static final char CHORD_END = ']';
     }
 
-    public static AWEFile getAWEFile(ABCFile abcFile) {
+    public static AWEFile getAWEFile(ABCFile abcFile) throws AwesomeException {
         AWEFile awe = new AWEFile();
         for (String abcLine : abcFile.getLines()) {
             awe.addLine(parseLine(abcLine));
@@ -31,7 +32,7 @@ public class ABCToAWEParser {
         return awe;
     }
 
-    private static AWELine parseLine(String abcLine) {
+    private static AWELine parseLine(String abcLine) throws AwesomeException {
 
         abcLine += Symbol.LINE_END;
         char[] symbols = abcLine.trim().toCharArray();
@@ -41,6 +42,9 @@ public class ABCToAWEParser {
         AWETimeSlot timeSlot = new AWETimeSlot();
         boolean insideChord = false;
         for(char sym: symbols) {
+            //if("/".equals(String.valueOf(sym))) {
+            //    throw new AwesomeException("The file is corrupt! I found a SLASH!!");
+            //}
             if(chordStart(sym)) {
                 insideChord = true;
             }

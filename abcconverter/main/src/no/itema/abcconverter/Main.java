@@ -3,6 +3,7 @@ package no.itema.abcconverter;
 import no.itema.abcconverter.io.FileManager;
 import no.itema.abcconverter.model.ABCFile;
 import no.itema.abcconverter.model.AWEFile;
+import no.itema.abcconverter.util.AwesomeException;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +13,12 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AwesomeException {
 
         try {
-            convertAll("/media/lars/HDD2/130000_Pop_Rock_Classical_Videogame_EDM_MIDI_Archive[6_19_15]");
-            //convert("resources/rondo.abc");
+            //convertAll("/media/lars/HDD2/130000_Pop_Rock_Classical_Videogame_EDM_MIDI_Archive[6_19_15]");
+            convertAll("resources/");
+            //convert("resources/rondo.abc", "resources/rondo.awe");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,6 +65,9 @@ public class Main {
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                    } catch (AwesomeException e) {
+                        System.out.println("Woopsie! " + file.toString());
+                        e.printStackTrace();
                     }
                 }
                 return FileVisitResult.CONTINUE;
@@ -75,15 +80,15 @@ public class Main {
         });
     }
 
-    private static boolean convert(String file, String outfile) throws IOException {
+    private static boolean convert(String file, String outfile) throws IOException, AwesomeException {
         if (new File(file).length() > 1000000) {
             return false; //skip crazy big files, they're just mistakes by midi2abc
         }
         ABCFile abcFile = new ABCFile(FileManager.getFileContents(file));
         AWEFile aweFile = ABCToAWEParser.getAWEFile(abcFile);
-        if (!aweFile.isValid()) {
-            return false;
-        }
+        //if (!aweFile.isValid()) {
+        //    return false;
+        //}
         String aweContents = aweFile.getFileString();
         FileManager.saveFileContents(outfile, aweContents);
         return true;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/ABCToAWEParser.java" line="41" mnemonic="6" />
+    <bookmark url="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/ABCToAWEParser.java" line="42" mnemonic="6" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5814f88b-f158-47bf-8aa3-0c950a2bd600" name="Default" comment="" />
@@ -30,44 +30,30 @@
         <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/ABCToAWEParser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+              <caret line="44" column="14" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4528#4529#0" expanded="true" />
-                <element signature="e#4566#4567#0" expanded="true" />
-                <element signature="e#4611#4612#0" expanded="true" />
-                <element signature="e#4654#4655#0" expanded="true" />
-                <element signature="e#4702#4703#0" expanded="true" />
-                <element signature="e#4760#4761#0" expanded="true" />
-                <element signature="e#4808#4809#0" expanded="true" />
-                <element signature="e#4852#4853#0" expanded="true" />
-                <element signature="e#4900#4901#0" expanded="true" />
-                <element signature="e#4943#4944#0" expanded="true" />
-                <element signature="e#4986#4987#0" expanded="true" />
-                <element signature="e#5026#5027#0" expanded="true" />
-                <element signature="e#5068#5069#0" expanded="true" />
-                <element signature="e#5107#5108#0" expanded="true" />
-                <element signature="e#5153#5154#0" expanded="true" />
-                <element signature="e#5194#5195#0" expanded="true" />
-                <element signature="e#5242#5243#0" expanded="true" />
-                <element signature="e#5285#5286#0" expanded="true" />
-                <element signature="e#5334#5335#0" expanded="true" />
-                <element signature="e#5380#5381#0" expanded="true" />
-                <element signature="e#5426#5427#0" expanded="true" />
-                <element signature="e#5470#5471#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ABCToAWEParserFormatTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FileManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/io/FileManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ABCToAWEParserFormatTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/no/itema/abcconverter/ABCToAWEParserFormatTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8194946">
-              <caret line="185" column="29" selection-start-line="185" selection-start-column="29" selection-end-line="185" selection-end-column="29" />
-              <folding>
-                <element signature="e#6208#6216#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-51.38889">
+              <caret line="195" column="31" selection-start-line="195" selection-start-column="31" selection-end-line="195" selection-end-column="31" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -76,19 +62,47 @@
         <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <caret line="89" column="10" selection-start-line="89" selection-start-column="10" selection-end-line="89" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rondo.abc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/rondo.abc">
+      <file leaf-file-name="rondo.abc.awe" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/awe/rondo.abc.awe">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rondo2.abc.awe" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/awe/rondo2.abc.awe">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rondo.abc" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/rondo.abc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.10980967">
+              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rondo2.abc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/rondo2.abc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -98,7 +112,7 @@
         <entry file="file://$PROJECT_DIR$/resources/rondo.awe">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -108,68 +122,8 @@
         <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEBar.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding>
-                <element signature="e#258#259#0" expanded="true" />
-                <element signature="e#319#320#0" expanded="true" />
-                <element signature="e#369#370#0" expanded="true" />
-                <element signature="e#411#412#0" expanded="true" />
-                <element signature="e#490#491#0" expanded="true" />
-                <element signature="e#974#975#0" expanded="true" />
-                <element signature="e#1018#1019#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AWETimeSlot.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWETimeSlot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <caret line="25" column="53" selection-start-line="25" selection-start-column="53" selection-end-line="25" selection-end-column="53" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AWEUnit.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEUnit.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#991#992#0" expanded="true" />
-                <element signature="e#1020#1021#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AWEFile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#808#809#0" expanded="true" />
-                <element signature="e#836#837#0" expanded="true" />
-                <element signature="e#877#878#0" expanded="true" />
-                <element signature="e#913#914#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ABCFile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/ABCFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -215,15 +169,18 @@
         <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/io/AwesomeFileHandler.java" />
         <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/io/FileHandler.java" />
         <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/io/FileManager.java" />
-        <option value="$PROJECT_DIR$/resources/rondo.abc" />
         <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/model/ABCFile.java" />
         <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEFile.java" />
-        <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/Main.java" />
         <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEUnit.java" />
         <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEBar.java" />
         <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWETimeSlot.java" />
-        <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/ABCToAWEParser.java" />
+        <option value="$PROJECT_DIR$/resources/rondo.awe" />
         <option value="$PROJECT_DIR$/test/no/itema/abcconverter/ABCToAWEParserFormatTest.java" />
+        <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/ABCToAWEParser.java" />
+        <option value="$PROJECT_DIR$/resources/rondo2.abc" />
+        <option value="$PROJECT_DIR$/main/src/no/itema/abcconverter/Main.java" />
+        <option value="$PROJECT_DIR$/resources/awe/rondo2.abc.awe" />
+        <option value="$PROJECT_DIR$/resources/rondo.abc" />
       </list>
     </option>
   </component>
@@ -237,10 +194,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="2198" />
-    <option name="y" value="-367" />
-    <option name="width" value="1802" />
-    <option name="height" value="1413" />
+    <option name="y" value="23" />
+    <option name="width" value="1920" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -367,9 +323,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -421,6 +376,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="abcconverter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="abcconverter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="awe" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -500,6 +473,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -521,20 +495,24 @@
       <recent name="no.itema.abcconverter" />
       <recent name="no.itema" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/main" />
-    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/awe" />
+      <recent name="$PROJECT_DIR$/main" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="no.itema.abcconverter.model" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="no.itema.abcconverter" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ABCToAWEParserFormatTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="ABCToAWEParserFormatTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -549,6 +527,84 @@
       <option name="MAIN_CLASS_NAME" value="no.itema.abcconverter.ABCToAWEParserFormatTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ABCToAWEParserFormatTest.testMultipleChordsAndSingleNotes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="no.itema.abcconverter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="abcconverter" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="no.itema.abcconverter" />
+      <option name="MAIN_CLASS_NAME" value="no.itema.abcconverter.ABCToAWEParserFormatTest" />
+      <option name="METHOD_NAME" value="testMultipleChordsAndSingleNotes" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ABCToAWEParserFormatTest.testMultipleNotes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="no.itema.abcconverter.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="abcconverter" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="no.itema.abcconverter" />
+      <option name="MAIN_CLASS_NAME" value="no.itema.abcconverter.ABCToAWEParserFormatTest" />
+      <option name="METHOD_NAME" value="testMultipleNotes" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ABCToAWEParserFormatTest.testDividedNotes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="no.itema.abcconverter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="abcconverter" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="no.itema.abcconverter" />
+      <option name="MAIN_CLASS_NAME" value="no.itema.abcconverter.ABCToAWEParserFormatTest" />
+      <option name="METHOD_NAME" value="testDividedNotes" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" />
@@ -579,84 +635,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="abcconverter" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="ABCToAWEParserFormatTest.testEightNoteSharp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="no.itema.abcconverter.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="abcconverter" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="no.itema.abcconverter" />
-      <option name="MAIN_CLASS_NAME" value="no.itema.abcconverter.ABCToAWEParserFormatTest" />
-      <option name="METHOD_NAME" value="testEightNoteSharp" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="ABCToAWEParserFormatTest.testDoubleNote" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="no.itema.abcconverter.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="abcconverter" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="no.itema.abcconverter" />
-      <option name="MAIN_CLASS_NAME" value="no.itema.abcconverter.ABCToAWEParserFormatTest" />
-      <option name="METHOD_NAME" value="testDoubleNote" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="ABCToAWEParserFormatTest.testTwoNotesSimultaneously" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="no.itema.abcconverter.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="abcconverter" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="no.itema.abcconverter" />
-      <option name="MAIN_CLASS_NAME" value="no.itema.abcconverter.ABCToAWEParserFormatTest" />
-      <option name="METHOD_NAME" value="testTwoNotesSimultaneously" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -1081,18 +1059,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Main" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testEightNoteSharp" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testDoubleNote" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testTwoNotesSimultaneously" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testMultipleChordsAndSingleNotes" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testMultipleNotes" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testDividedNotes" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testTwoNotesSimultaneously" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testDoubleNote" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testEightNoteSharp" />
-        <item index="4" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testDividedNotes" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testMultipleNotes" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.ABCToAWEParserFormatTest.testMultipleChordsAndSingleNotes" />
       </list>
     </recent_temporary>
   </component>
@@ -1107,67 +1085,68 @@
       <option name="number" value="Default" />
       <updated>1473840829905</updated>
       <workItem from="1473840837524" duration="31593000" />
-      <workItem from="1473941359723" duration="17431000" />
+      <workItem from="1473941359723" duration="18643000" />
+      <workItem from="1476200534386" duration="6271000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 15h 55m 05s.xml">
+    <history-entry file="ABCToAWEParserFormatTest - 2016.10.11 at 18h 16m 29s.xml">
       <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 15h 55m 57s.xml">
+    <history-entry file="ABCToAWEParserFormatTest - 2016.10.11 at 18h 18m 32s.xml">
       <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 15h 57m 45s.xml">
+    <history-entry file="ABCToAWEParserFormatTest - 2016.10.11 at 18h 19m 10s.xml">
       <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 15h 58m 59s.xml">
+    <history-entry file="ABCToAWEParserFormatTest - 2016.10.11 at 19h 09m 51s.xml">
       <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 16h 02m 52s.xml">
+    <history-entry file="ABCToAWEParserFormatTest - 2016.10.11 at 19h 19m 41s.xml">
       <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 16h 04m 02s.xml">
+    <history-entry file="ABCToAWEParserFormatTest - 2016.10.11 at 19h 22m 22s.xml">
       <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 16h 05m 00s.xml">
+    <history-entry file="ABCToAWEParserFormatTest - 2016.10.11 at 19h 25m 20s.xml">
       <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 16h 05m 36s.xml">
+    <history-entry file="ABCToAWEParserFormatTest - 2016.10.11 at 19h 29m 01s.xml">
       <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 16h 07m 03s.xml">
-      <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
+    <history-entry file="ABCToAWEParserFormatTest_testDividedNotes - 2016.10.11 at 19h 24m 53s.xml">
+      <configuration name="ABCToAWEParserFormatTest.testDividedNotes" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ABCToAWEParserFormatTest - 2016.09.16 at 16h 08m 19s.xml">
-      <configuration name="ABCToAWEParserFormatTest" configurationId="JUnit" />
+    <history-entry file="ABCToAWEParserFormatTest_testMultipleNotes - 2016.10.11 at 18h 18m 00s.xml">
+      <configuration name="ABCToAWEParserFormatTest.testMultipleNotes" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49024000" />
+    <option name="totallyTimeSpent" value="56507000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2198" y="-367" width="1802" height="1413" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1920" height="1053" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905984" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281768" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2015444" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2395722" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299923" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15852273" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2087327" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299923" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24936257" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33667955" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41436464" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1190,13 +1169,13 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/test/no/itema/abcconverter/ABCToAWEParserFormatTest.java</url>
-          <line>186</line>
+          <url>file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWELine.java</url>
+          <line>33</line>
           <properties />
-          <option name="timeStamp" value="25" />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="26" />
+      <option name="time" value="35" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1208,31 +1187,9 @@
     <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/ABCToAWEParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="91" column="70" selection-start-line="91" selection-start-column="70" selection-end-line="91" selection-end-column="70" />
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4528#4529#0" expanded="true" />
-            <element signature="e#4566#4567#0" expanded="true" />
-            <element signature="e#4611#4612#0" expanded="true" />
-            <element signature="e#4654#4655#0" expanded="true" />
-            <element signature="e#4702#4703#0" expanded="true" />
-            <element signature="e#4760#4761#0" expanded="true" />
-            <element signature="e#4808#4809#0" expanded="true" />
-            <element signature="e#4852#4853#0" expanded="true" />
-            <element signature="e#4900#4901#0" expanded="true" />
-            <element signature="e#4943#4944#0" expanded="true" />
-            <element signature="e#4986#4987#0" expanded="true" />
-            <element signature="e#5026#5027#0" expanded="true" />
-            <element signature="e#5068#5069#0" expanded="true" />
-            <element signature="e#5107#5108#0" expanded="true" />
-            <element signature="e#5153#5154#0" expanded="true" />
-            <element signature="e#5194#5195#0" expanded="true" />
-            <element signature="e#5242#5243#0" expanded="true" />
-            <element signature="e#5285#5286#0" expanded="true" />
-            <element signature="e#5334#5335#0" expanded="true" />
-            <element signature="e#5380#5381#0" expanded="true" />
-            <element signature="e#5426#5427#0" expanded="true" />
-            <element signature="e#5470#5471#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1241,9 +1198,97 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/rondo.abc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/rondo.awe">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWETimeSlot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEUnit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
           <folding>
-            <element signature="e#6208#6216#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#913#914#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/ABCFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/ABCToAWEParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="91" column="70" selection-start-line="91" selection-start-column="70" selection-end-line="91" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/no/itema/abcconverter/ABCToAWEParserFormatTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1252,7 +1297,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1261,15 +1306,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
-          <folding>
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#319#320#0" expanded="true" />
-            <element signature="e#369#370#0" expanded="true" />
-            <element signature="e#411#412#0" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <element signature="e#974#975#0" expanded="true" />
-            <element signature="e#1018#1019#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,8 +1316,6 @@
           <caret line="36" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#808#809#0" expanded="true" />
-            <element signature="e#836#837#0" expanded="true" />
             <element signature="e#877#878#0" expanded="true" />
             <element signature="e#913#914#0" expanded="true" />
           </folding>
@@ -1314,77 +1349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.7777777">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWELine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/rondo.abc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/rondo.awe">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/io/FileManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16111708">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/ABCFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#808#809#0" expanded="true" />
-            <element signature="e#836#837#0" expanded="true" />
-            <element signature="e#877#878#0" expanded="true" />
-            <element signature="e#913#914#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1394,8 +1358,6 @@
           <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#991#992#0" expanded="true" />
-            <element signature="e#1020#1021#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1408,61 +1370,115 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="45" column="19" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#913#914#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWELine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/ABCFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/model/AWEBar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#319#320#0" expanded="true" />
-            <element signature="e#369#370#0" expanded="true" />
-            <element signature="e#411#412#0" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <element signature="e#974#975#0" expanded="true" />
-            <element signature="e#1018#1019#0" expanded="true" />
-          </folding>
+          <caret line="25" column="53" selection-start-line="25" selection-start-column="53" selection-end-line="25" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/no/itema/abcconverter/ABCToAWEParserFormatTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-51.38889">
+          <caret line="195" column="31" selection-start-line="195" selection-start-column="31" selection-end-line="195" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/rondo.awe">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/rondo2.abc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="89" column="10" selection-start-line="89" selection-start-column="10" selection-end-line="89" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/awe/rondo.abc.awe">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/awe/rondo2.abc.awe">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/ABCToAWEParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <caret line="44" column="14" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4528#4529#0" expanded="true" />
-            <element signature="e#4566#4567#0" expanded="true" />
-            <element signature="e#4611#4612#0" expanded="true" />
-            <element signature="e#4654#4655#0" expanded="true" />
-            <element signature="e#4702#4703#0" expanded="true" />
-            <element signature="e#4760#4761#0" expanded="true" />
-            <element signature="e#4808#4809#0" expanded="true" />
-            <element signature="e#4852#4853#0" expanded="true" />
-            <element signature="e#4900#4901#0" expanded="true" />
-            <element signature="e#4943#4944#0" expanded="true" />
-            <element signature="e#4986#4987#0" expanded="true" />
-            <element signature="e#5026#5027#0" expanded="true" />
-            <element signature="e#5068#5069#0" expanded="true" />
-            <element signature="e#5107#5108#0" expanded="true" />
-            <element signature="e#5153#5154#0" expanded="true" />
-            <element signature="e#5194#5195#0" expanded="true" />
-            <element signature="e#5242#5243#0" expanded="true" />
-            <element signature="e#5285#5286#0" expanded="true" />
-            <element signature="e#5334#5335#0" expanded="true" />
-            <element signature="e#5380#5381#0" expanded="true" />
-            <element signature="e#5426#5427#0" expanded="true" />
-            <element signature="e#5470#5471#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/no/itema/abcconverter/ABCToAWEParserFormatTest.java">
+    <entry file="file://$PROJECT_DIR$/main/src/no/itema/abcconverter/io/FileManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8194946">
-          <caret line="185" column="29" selection-start-line="185" selection-start-column="29" selection-end-line="185" selection-end-column="29" />
-          <folding>
-            <element signature="e#6208#6216#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/rondo.abc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10980967">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
