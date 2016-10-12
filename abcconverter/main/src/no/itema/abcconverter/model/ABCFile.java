@@ -9,52 +9,65 @@ import java.util.List;
 public class ABCFile {
 
     private List<String> lines;
-    private String length;
-    private String key;
-    private String metronome;
+    private Header header;
 
     public ABCFile(List<String> lines) {
-        length = "1/16";
-        key = "C";
-        metronome = "2/4";
         this.lines = lines;
     }
 
     public ABCFile(String fileContents) {
-        length = "1/16";
-        key = "C";
-        metronome = "2/4";
-        lines = new ArrayList<String>();
+        lines = new ArrayList<>();
+        String referenceNumber = "";
+        String composer = "";
+        String metronome = "";
+        String key = "";
+        String length = "";
+        boolean headerIsRead = false;
 
         String[] l = fileContents.split("\n");
-        for(String line: l) {
-            lines.add(line);
+        for (String line : l) {
+            if (line.startsWith("X")) {
+                referenceNumber = line.substring(2).trim();
+            } else if (line.startsWith("T")) {
+                composer = line.substring(2).trim();
+            } else if (line.startsWith("M")) {
+                metronome = line.substring(2).trim();
+            } else if (line.startsWith("L")) {
+                length = line.substring(2).trim();
+            } else if (line.startsWith("K")) {
+                key = line.substring(2).trim();
+                headerIsRead = true;
+                continue;
+            }
+
+            header = new Header(referenceNumber, composer, metronome, key, length);
+
+            if (headerIsRead) {
+                if (!line.trim().isEmpty())
+                lines.add(line);
+            }
         }
         //System.out.println(fileContents);
     }
 
     public String getLength() {
-        return length;
-    }
-
-    public void setLength(String length) {
-        this.length = length;
+        return header.getLength();
     }
 
     public String getKey() {
-        return key;
+        return header.getKey();
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public String getComposer() {
+        return header.getComposer();
+    }
+
+    public String getReferenceNumber() {
+        return header.getReferenceNumber();
     }
 
     public String getMetronome() {
-        return metronome;
-    }
-
-    public void setMetronome(String metronome) {
-        this.metronome = metronome;
+        return header.getMetronome();
     }
 
     public List<String> getLines() {

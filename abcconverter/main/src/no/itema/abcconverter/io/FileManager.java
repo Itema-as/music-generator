@@ -1,9 +1,14 @@
 package no.itema.abcconverter.io;
 
+import no.itema.abcconverter.model.Header;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 /**
  * Created by jih on 16/09/16.

@@ -1,16 +1,21 @@
 package no.itema.abcconverter;
 
-import no.itema.abcconverter.model.*;
+import no.itema.abcconverter.io.FileManager;
+import no.itema.abcconverter.model.ABCFile;
+import no.itema.abcconverter.model.AWEFile;
+import no.itema.abcconverter.model.AWELine;
 import no.itema.abcconverter.util.AwesomeException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by jih on 14/09/16.
@@ -24,7 +29,7 @@ public class ABCToAWEParserFormatTest {
 
     @Before
     public void setUp() throws Exception {
-        line = new ArrayList<String>();
+        line = new ArrayList<>();
     }
 
     @Test
@@ -155,7 +160,7 @@ public class ABCToAWEParserFormatTest {
         assertEquals(line.getBar(1).getTimeSlots().size(), 16); // First "whole" bar
     }
     private AWELine getAWELineFromABCString(String abcString) throws AwesomeException {
-        List<String> lines = new ArrayList<String>();
+        List<String> lines = new ArrayList<>();
         lines.add(abcString);
         AWEFile aweFile = ABCToAWEParser.getAWEFile(new ABCFile(lines));
         return aweFile.getAWELine(0);
@@ -196,6 +201,18 @@ public class ABCToAWEParserFormatTest {
         exception.expect(AwesomeException.class);
         String abcString = "C/2|";
         AWELine line = getAWELineFromABCString(abcString);
+    }
+
+    @Test
+    public void testParseFile() throws AwesomeException, IOException {
+        String file = "resources/rondo.abc";
+        ABCFile abcFile = new ABCFile(FileManager.getFileContents(file));
+        assertEquals("14", abcFile.getReferenceNumber());
+        assertEquals("K331 piano sonata n11 3mov simplified", abcFile.getComposer());
+        assertEquals("2/4", abcFile.getMetronome());
+        assertEquals("1/16", abcFile.getLength());
+        assertEquals("C", abcFile.getKey());
+        assertEquals(1, abcFile.getLines().size());
     }
 
 }
