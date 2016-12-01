@@ -145,6 +145,15 @@ public class ABCToAWEParserFormatTest {
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(line.getLineString(), aweString);
     }
+
+    @Test
+    public void testHalfsHandling() throws AwesomeException {
+        String abcString = "x x B/2 B/2 B A2 ^G2 A2 |";
+        String aweString = "x x B/2B/2 B A - ^G - A - | ";
+        AWELine line = getAWELineFromABCString(abcString);
+        assertEquals(aweString, line.getLineString());
+    }
+
     @Test
     public void testCorrectNumberOfBars() throws AwesomeException {
         String abcString = "x x B2 A2 ^G2 A2 | c8   d2 c2 B2 c2 | e8   f2 e2 ^d2 e2 | b2 a2 ^g2 a2 b2 a2 ^g2 a2 | c'8 a4 c'4 | b4 a4 g4 a4 | b4 a4 g4 a4 | b4 a4 g4 ^f4 | e8 B2 A2 ^G2 A2 |";
@@ -194,13 +203,6 @@ public class ABCToAWEParserFormatTest {
         String aweString = "[CEG] D - [FAC] G - - - [CEG] | ";
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
-    }
-
-    @Test
-    public void testDividedNotes() throws AwesomeException {
-        exception.expect(AwesomeException.class);
-        String abcString = "C/2|";
-        AWELine line = getAWELineFromABCString(abcString);
     }
 
     @Test

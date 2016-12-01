@@ -1,5 +1,7 @@
 package no.itema.abcconverter;
 
+import abc.notation.Tune;
+import abc.parser.TuneBook;
 import no.itema.abcconverter.io.FileManager;
 import no.itema.abcconverter.model.ABCFile;
 import no.itema.abcconverter.model.AWEFile;
@@ -16,6 +18,9 @@ public class Main {
     public static void main(String[] args) throws AwesomeException {
 
         try {
+            TuneBook tuneBook = new TuneBook(new File("resources/rondo.abc"));
+            Tune tune = tuneBook.getTune(0);
+
             //convertAll("/media/lars/HDD2/130000_Pop_Rock_Classical_Videogame_EDM_MIDI_Archive[6_19_15]");
             convertAll("resources/");
             //convert("resources/rondo.abc", "resources/rondo.awe");

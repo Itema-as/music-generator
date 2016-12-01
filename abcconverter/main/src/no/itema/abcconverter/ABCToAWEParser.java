@@ -5,6 +5,7 @@ import no.itema.abcconverter.util.AwesomeException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by jih on 14/09/16.
@@ -25,11 +26,47 @@ public class ABCToAWEParser {
     }
 
     public static AWEFile getAWEFile(ABCFile abcFile) throws AwesomeException {
+
+        AWEFile awe = parse(abcFile);
+
+        convertToUnifiedTimeSlots(awe);
+
+        return awe;
+    }
+
+    private static AWEFile parse(ABCFile abcFile) throws AwesomeException {
         AWEFile awe = new AWEFile();
         for (String abcLine : abcFile.getLines()) {
             awe.addLine(parseLine(abcLine));
         }
         return awe;
+    }
+
+    private static void convertToUnifiedTimeSlots(AWEFile awe) {
+
+        for (AWELine line : awe.getLines()) {
+            for (AWEBar bar : line.getBars()) {
+                List<AWETimeSlot> timeSlots = bar.getTimeSlots();
+                ListIterator<AWETimeSlot> iterator = timeSlots.listIterator();
+                while (iterator.hasNext()) {
+                    AWETimeSlot timeSlot = iterator.next();
+                    //split timeslot into multiple, if it is overflowing
+                    while (timeSlot.overflows()) {
+                        List<AWEUnit> overflow = timeSlot.overflows()
+                                ? timeSlot.chopOfOverflow()
+                                : null;
+
+                        if (overflow != null && overflow.size() > 0) {
+                            timeSlot = new AWETimeSlot(overflow);
+                            iterator.add(timeSlot); //add after the current, but before what will be returned by iterator.next()
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
     private static AWELine parseLine(String abcLine) throws AwesomeException {
@@ -78,20 +115,23 @@ public class ABCToAWEParser {
             if(sharp(sym) || flat(sym)) {
                 unit.setTransp(unit.getTransp() + String.valueOf(sym));
             }
+
             if(toneLength(sym)) {
                 // Create a new unit
+                unit.setToneLength(Integer.parseInt(String.valueOf(sym)));
                 timeSlot.addUnit(unit);
                 bar.addTimeSlot(timeSlot);
-                for(int i=0; i<getNumOfCopies(sym)-1; i++) {
+                /*for(int i=0; i<getNumOfCopies(sym)-1; i++) {
                     unit = new AWEUnit();
                     unit.setTone(String.valueOf(Symbol.COPY));
                     timeSlot = new AWETimeSlot();
                     timeSlot.addUnit(unit);
                     bar.addTimeSlot(timeSlot);
-                }
+                }*/
                 unit = new AWEUnit();
                 timeSlot = new AWETimeSlot();
             }
+
             if(octaveUp(sym) || octaveDown(sym)) {
                 unit.setOctave(String.valueOf(sym));
             }
@@ -118,7 +158,7 @@ public class ABCToAWEParser {
                 (unit.getTone() != "" && toneHeight(sym)) ||            // Tone exists, and there is a new tone
                 (unit.getTone() == String.valueOf(Symbol.PAUSE)) ||     // Tone exists, and is a pause
                 chordStart(sym) ||                                      // Start of a new chord
-                chordEnd(sym)   ||                                        // End of a chord
+                chordEnd(sym)   ||                                      // End of a chord
                 bar(sym) ||                                             // End of bar
                 endLine(sym);                                           // End of line
     }
