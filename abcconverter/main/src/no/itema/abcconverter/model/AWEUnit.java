@@ -8,14 +8,14 @@ import java.util.List;
 /**
  * Created by jih on 14/09/16.
  */
-public class AWEUnit {
+public class AWEUnit implements AWETimedUnit {
 
     List<String> symbols;
     String tone;
     String transp;
     String octave;
     double toneLength;
-
+    private boolean toneLengthIsFractional;
 
 
     public AWEUnit() {
@@ -35,7 +35,7 @@ public class AWEUnit {
     }
 
     public String getUnitString() {
-        return transp + tone + octave;
+        return transp + tone + octave + toneLengthString();
     }
 
     public void addSymbol(String symbol) {
@@ -68,12 +68,24 @@ public class AWEUnit {
 
     public double getToneLength() { return this.toneLength; }
 
+    public void setToneLengthIsFractional(boolean toneLengthIsFractional) { this.toneLengthIsFractional = toneLengthIsFractional; }
+
+    public boolean getToneLengthIsFractional() { return this.toneLengthIsFractional; }
+
+    private String toneLengthString() {
+        return toneLength < (1 - 0.00001)
+                ? ("" + ABCToAWEParser.Symbol.FRACTIONAL_TONE_LENGTH_START + Math.round(1/toneLength))
+                : toneLength > (1 + 0.00001)
+                    ? "" + Math.round(toneLength)
+                    : "";
+    }
+
     public void setToneLength(double toneLength) {
         if (toneLength <= 0) throw new IllegalArgumentException("Tone length must be positive");
         this.toneLength = toneLength;
     }
 
-    public AWEUnit[] split(double time) {
+    public AWETimedUnit[] split(double time) {
         // Take a unit and split it into two.
         // The first unit gets the toneLength of the parameter, the second gets the remaining tone length.
         if (toneLength <= time) {
@@ -90,5 +102,6 @@ public class AWEUnit {
         b.toneLength = toneLength - time;
         return new AWEUnit[] { a, b };
     }
+
 
 }

@@ -23,6 +23,8 @@ public class ABCToAWEParser {
         public static final char OCT_DOWN = ',';
         public static final char CHORD_START = '[';
         public static final char CHORD_END = ']';
+        public static final char FRACTIONAL_TONE_LENGTH_START = '/';
+
     }
 
     public static AWEFile getAWEFile(ABCFile abcFile) throws AwesomeException {
@@ -48,11 +50,25 @@ public class ABCToAWEParser {
             for (AWEBar bar : line.getBars()) {
                 List<AWETimeSlot> timeSlots = bar.getTimeSlots();
                 ListIterator<AWETimeSlot> iterator = timeSlots.listIterator();
+                AWETimeSlot prevTimeSlot = null;
                 while (iterator.hasNext()) {
                     AWETimeSlot timeSlot = iterator.next();
+
+                    if (prevTimeSlot != null && !prevTimeSlot.isFilled()) {
+                        List<AWETimedUnit> units = timeSlot.chopOfFromBeginning(prevTimeSlot.remainingSpace());
+                        for (AWETimedUnit unit : units) {
+                            prevTimeSlot.addUnit(unit);
+                        }
+                        if (timeSlot.totalToneLength() == 0) {
+                            iterator.remove();
+                            continue;
+                        }
+                    }
+
+
                     //split timeslot into multiple, if it is overflowing
                     while (timeSlot.overflows()) {
-                        List<AWEUnit> overflow = timeSlot.overflows()
+                        List<AWETimedUnit> overflow = timeSlot.overflows()
                                 ? timeSlot.chopOfOverflow()
                                 : null;
 
@@ -63,9 +79,9 @@ public class ABCToAWEParser {
                             break;
                         }
                     }
+                    prevTimeSlot = timeSlot;
                 }
             }
-
         }
     }
 
@@ -77,12 +93,17 @@ public class ABCToAWEParser {
         AWELine line = new AWELine();
         AWEBar bar = new AWEBar();
         AWETimeSlot timeSlot = new AWETimeSlot();
+        AWEUnitContainer container = timeSlot;
+
         boolean insideChord = false;
         for(char sym: symbols) {
             //if("/".equals(String.valueOf(sym))) {
             //    throw new AwesomeException("The file is corrupt! I found a SLASH!!");
             //}
             if(chordStart(sym)) {
+                AWEChord chord = new AWEChord();
+                container = chord;
+                timeSlot.addUnit(chord);
                 insideChord = true;
             }
             if(chordEnd(sym)) {
@@ -91,10 +112,11 @@ public class ABCToAWEParser {
             if(endOfLastUnit(unit, sym)) {
                 if(unit != null) {
                     if(!endLine(sym) && !"".equals(unit.getTone())) {
-                        timeSlot.addUnit(unit);
+                        container.addUnit(unit);
                         if(!insideChord) {
                             bar.addTimeSlot(timeSlot);
                             timeSlot = new AWETimeSlot();
+                            container = timeSlot;
                         }
                     }
                     if (bar(sym)) {
@@ -106,9 +128,13 @@ public class ABCToAWEParser {
                 unit = new AWEUnit();
                 if(!insideChord) {
                     timeSlot = new AWETimeSlot();
+                    container = timeSlot;
                 }
             }
 
+            if(fractionalToneLengthStart(sym)) {
+                unit.setToneLengthIsFractional(true);
+            }
             if(toneHeight(sym)) {
                 unit.setTone(String.valueOf(sym));
             }
@@ -118,9 +144,9 @@ public class ABCToAWEParser {
 
             if(toneLength(sym)) {
                 // Create a new unit
-                unit.setToneLength(Integer.parseInt(String.valueOf(sym)));
-                timeSlot.addUnit(unit);
-                bar.addTimeSlot(timeSlot);
+                int length = Integer.parseInt(String.valueOf(sym));
+                unit.setToneLength(unit.getToneLengthIsFractional() ? 1.0/length : length);
+                container.addUnit(unit);
                 /*for(int i=0; i<getNumOfCopies(sym)-1; i++) {
                     unit = new AWEUnit();
                     unit.setTone(String.valueOf(Symbol.COPY));
@@ -129,7 +155,9 @@ public class ABCToAWEParser {
                     bar.addTimeSlot(timeSlot);
                 }*/
                 unit = new AWEUnit();
+                bar.addTimeSlot(timeSlot);
                 timeSlot = new AWETimeSlot();
+                container = timeSlot;
             }
 
             if(octaveUp(sym) || octaveDown(sym)) {
@@ -162,6 +190,7 @@ public class ABCToAWEParser {
                 bar(sym) ||                                             // End of bar
                 endLine(sym);                                           // End of line
     }
+    private static boolean fractionalToneLengthStart(char c) { return c == Symbol.FRACTIONAL_TONE_LENGTH_START; }
     private static boolean bar(char c) {
         return c == Symbol.BAR;
     }

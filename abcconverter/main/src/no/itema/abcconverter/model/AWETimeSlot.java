@@ -8,22 +8,22 @@ import java.util.List;
 /**
  * Created by jih on 14/09/16.
  */
-public class AWETimeSlot {
-    List<AWEUnit> units;
+public class AWETimeSlot implements AWEUnitContainer {
+    List<AWETimedUnit> units;
 
     public AWETimeSlot() {
-        this.units = new ArrayList<AWEUnit>();
+        this.units = new ArrayList<AWETimedUnit>();
     }
 
-    public AWETimeSlot(List<AWEUnit> units) {
+    public AWETimeSlot(List<AWETimedUnit> units) {
         this.units = units;
     }
 
-    public List<AWEUnit> getUnits() {
+    public List<AWETimedUnit> getUnits() {
         return units;
     }
 
-    public AWEUnit getUnit(int index) throws AwesomeException {
+    public AWETimedUnit getUnit(int index) throws AwesomeException {
         if(index<units.size()) {
             return units.get(index);
         }
@@ -31,21 +31,20 @@ public class AWETimeSlot {
     }
 
     public String getTimeSlotString() {
-        String res = units.size() > 1 ? "[": "";
-        for(AWEUnit u: units) {
+        String res = "";
+        for(AWETimedUnit u: units) {
             res += u.getUnitString();
         }
-        res += units.size() > 1 ? "]": "";;
         return res;
     }
 
-    public void addUnit(AWEUnit unit) {
+    public void addUnit(AWETimedUnit unit) {
         this.units.add(unit);
     }
 
-    private double totalToneLength() {
+    public double totalToneLength() {
         double length = 0;
-        for (AWEUnit unit : getUnits()) {
+        for (AWETimedUnit unit : getUnits()) {
             length += unit.getToneLength();
         }
         return length;
@@ -59,30 +58,49 @@ public class AWETimeSlot {
         return totalToneLength() > 1 + 0.00001;
     }
 
-    public List<AWEUnit> chopOfOverflow() {
+    public double remainingSpace() { return 1 - totalToneLength(); }
+
+    private ArrayList<ArrayList<AWETimedUnit>> splitAt(double time) {
         double length = 0;
         int i = 0;
-        List<AWEUnit> fittingUnits = new ArrayList<AWEUnit>();
-        List<AWEUnit> overflow = new ArrayList<AWEUnit>();
-        for (AWEUnit unit : getUnits()) {
-            boolean fits = length + unit.getToneLength() <= 1 + 0.00001;
+        ArrayList<AWETimedUnit> before = new ArrayList<AWETimedUnit>();
+        ArrayList<AWETimedUnit> after = new ArrayList<AWETimedUnit>();
+        for (AWETimedUnit unit : getUnits()) {
+            boolean fits = length + unit.getToneLength() <= time + 0.00001;
             if (fits) {
-                fittingUnits.add(unit);
+                before.add(unit);
             } else {
-                double remainingSpace = 1 - length;
+                double remainingSpace = time - length;
                 if (remainingSpace > 0) {
-                    AWEUnit[] parts = unit.split(remainingSpace);
-                    fittingUnits.add(parts[0]);
-                    overflow.add(parts[1]);
-                    length = 1;
+                    AWETimedUnit[] parts = unit.split(remainingSpace);
+                    before.add(parts[0]);
+                    after.add(parts[1]);
+                    length = time;
                 } else {
-                    overflow.add(unit);
+                    after.add(unit);
                 }
             }
             length += unit.getToneLength();
         }
+        ArrayList<ArrayList<AWETimedUnit>> lists = new ArrayList<ArrayList<AWETimedUnit>>();
+        lists.add(before);
+        lists.add(after);
+        return lists;
+    }
+
+    public List<AWETimedUnit> chopOfFromBeginning(double time) {
+        ArrayList<ArrayList<AWETimedUnit>> parts = splitAt(time);
+        ArrayList<AWETimedUnit> before = parts.get(0);
+        ArrayList<AWETimedUnit> after = parts.get(1);
+        this.units = after;
+        return before;
+    }
+
+    public List<AWETimedUnit> chopOfOverflow() {
+        ArrayList<ArrayList<AWETimedUnit>> parts = splitAt(1);
+        ArrayList<AWETimedUnit> fittingUnits = parts.get(0);
+        ArrayList<AWETimedUnit> overflow = parts.get(1);
         this.units = fittingUnits;
         return overflow;
     }
-
 }
