@@ -69,6 +69,22 @@ public class ABCToAWEParserFormatTest {
         assertEquals(getAWELineFromABCString(abcString).getLineString(), aweString);
     }
 
+
+
+    @Test
+    public void testTripleDownNote() throws AwesomeException {
+        String abcString = "A,,,/2 | ";
+        String aweString = "A,,,/2 | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testTripleUpNote() throws AwesomeException {
+        String abcString = "A'''/2 | ";
+        String aweString = "A'''/2 | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
     @Test
     public void testFlatNote() throws AwesomeException {
         String abcString = "_A | ";
@@ -163,12 +179,21 @@ public class ABCToAWEParserFormatTest {
     }
 
     @Test
+    public void testHarderFractionsHandling() throws AwesomeException {
+        String abcString = "ge c3/2x/2 Gc3/2x/2e|";
+        String aweString = "g e c -/2x/2 G c -/2x/2 e | ";
+        AWELine line = getAWELineFromABCString(abcString);
+        assertEquals(aweString, line.getLineString());
+    }
+
+    @Test
     public void testCorrectNumberOfBars() throws AwesomeException {
         String abcString = "x x B2 A2 ^G2 A2 | c8   d2 c2 B2 c2 | e8   f2 e2 ^d2 e2 | b2 a2 ^g2 a2 b2 a2 ^g2 a2 | c'8 a4 c'4 | b4 a4 g4 a4 | b4 a4 g4 a4 | b4 a4 g4 ^f4 | e8 B2 A2 ^G2 A2 |";
         String aweString = "xxB-A-^G-A-|c-------d-c-B-c-|e-------f-e-^d-e-|b-a-^g-a-b-a-^g-a-|c'-------a---c'---|b---a---g---a---|b---a---g---a---|b---a---g---^f---|e-------B-A-^G-A-|";
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(line.getBars().size(), 9); // Including start
     }
+
     @Test
     public void testCorrectNumberOfUnits() throws AwesomeException {
         String abcString = "x x B2 A2 ^G2 A2 | c8   d2 c2 B2 c2 | e8   f2 e2 ^d2 e2 | b2 a2 ^g2 a2 b2 a2 ^g2 a2 | c'8 a4 c'4 | b4 a4 g4 a4 | b4 a4 g4 a4 | b4 a4 g4 ^f4 | e8 B2 A2 ^G2 A2 |";

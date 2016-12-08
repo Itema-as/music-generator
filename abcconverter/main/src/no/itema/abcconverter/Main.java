@@ -22,8 +22,9 @@ public class Main {
             Tune tune = tuneBook.getTune(0);
 
             //convertAll("/media/lars/HDD2/130000_Pop_Rock_Classical_Videogame_EDM_MIDI_Archive[6_19_15]");
-            convertAll("resources/");
+            //convertAll("resources/");
             //convert("resources/rondo.abc", "resources/rondo.awe");
+            convert("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,13 +90,19 @@ public class Main {
         if (new File(file).length() > 1000000) {
             return false; //skip crazy big files, they're just mistakes by midi2abc
         }
-        ABCFile abcFile = new ABCFile(FileManager.getFileContents(file));
-        AWEFile aweFile = ABCToAWEParser.getAWEFile(abcFile);
+        String fileContents = FileManager.getFileContents(file);
+        ABCFile abcFile = new ABCFile(fileContents);
+        AWEFile aweFile;
+        try {
+            aweFile = ABCToAWEParser.getAWEFile(abcFile);
+        } catch (Exception e) {
+            return false;
+        }
         //if (!aweFile.isValid()) {
         //    return false;
         //}
         String aweContents = aweFile.getFileString();
-        FileManager.saveFileContents(outfile, aweContents);
+        //FileManager.saveFileContents(outfile, aweContents);
         return true;
     }
 

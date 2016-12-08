@@ -4,6 +4,7 @@ import no.itema.abcconverter.model.*;
 import no.itema.abcconverter.util.AwesomeException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -39,6 +40,10 @@ public class ABCToAWEParser {
     private static AWEFile parse(ABCFile abcFile) throws AwesomeException {
         AWEFile awe = new AWEFile();
         for (String abcLine : abcFile.getLines()) {
+            //TODO: skip lines that aren't music.
+            //-detect instrument indications: %%MIDI channel 10
+            //-put music into seperate buckets per instrument track
+            //-finally check that all instrument tracks have same number of units, throw otherwise
             awe.addLine(parseLine(abcLine));
         }
         return awe;
@@ -96,10 +101,8 @@ public class ABCToAWEParser {
         AWEUnitContainer container = timeSlot;
 
         boolean insideChord = false;
-        for(char sym: symbols) {
-            //if("/".equals(String.valueOf(sym))) {
-            //    throw new AwesomeException("The file is corrupt! I found a SLASH!!");
-            //}
+        for (int i = 0; i < symbols.length; i++) {
+            char sym = symbols[i];
             if(chordStart(sym)) {
                 AWEChord chord = new AWEChord();
                 container = chord;
@@ -145,23 +148,23 @@ public class ABCToAWEParser {
             if(toneLength(sym)) {
                 // Create a new unit
                 int length = Integer.parseInt(String.valueOf(sym));
-                unit.setToneLength(unit.getToneLengthIsFractional() ? 1.0/length : length);
-                container.addUnit(unit);
-                /*for(int i=0; i<getNumOfCopies(sym)-1; i++) {
+                if (unit.getToneLengthIsFractional()) {
+                    unit.setToneLengthDenominator(length);
+                } else {
+                    unit.setToneLengthNumerator(length);
+                }
+                boolean unitIsDone = (i+1 == symbols.length) || !fractionalToneLengthStart(symbols[i+1]);
+                if (unitIsDone) {
+                    container.addUnit(unit);
                     unit = new AWEUnit();
-                    unit.setTone(String.valueOf(Symbol.COPY));
-                    timeSlot = new AWETimeSlot();
-                    timeSlot.addUnit(unit);
                     bar.addTimeSlot(timeSlot);
-                }*/
-                unit = new AWEUnit();
-                bar.addTimeSlot(timeSlot);
-                timeSlot = new AWETimeSlot();
-                container = timeSlot;
+                    timeSlot = new AWETimeSlot();
+                    container = timeSlot;
+                }
             }
 
             if(octaveUp(sym) || octaveDown(sym)) {
-                unit.setOctave(String.valueOf(sym));
+                unit.addOctave(String.valueOf(sym));
             }
         }
 
@@ -197,9 +200,6 @@ public class ABCToAWEParser {
     private static boolean endLine(char c) {
         return c == Symbol.LINE_END;
     }
-    private static int getNumOfCopies(char c) {
-        return Integer.parseInt(String.valueOf(c));
-    }
     private static boolean toneHeight(char c) {
         return Character.isLetter(c);
     }
@@ -215,9 +215,7 @@ public class ABCToAWEParser {
     private static boolean octaveUp(char c) {
         return c == Symbol.OCT_UP;
     }
-    private static boolean octaveDown(char c) {
-        return c == Symbol.OCT_DOWN;
-    }
+    private static boolean octaveDown(char c) { return c == Symbol.OCT_DOWN; }
 
     private static boolean chordStart(char c) {
         return c == Symbol.CHORD_START;
