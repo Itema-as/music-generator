@@ -24,67 +24,89 @@ public class ABCToAWEParser {
         public static final char OCT_DOWN = ',';
         public static final char CHORD_START = '[';
         public static final char CHORD_END = ']';
+        public static final char NATURAL = '=';
         public static final char FRACTIONAL_TONE_LENGTH_START = '/';
+        public static final char TIE = '-';
 
     }
 
-    public static AWEFile getAWEFile(ABCFile abcFile) throws AwesomeException {
+    public static AWEFile getAWEFileWithDefaultChannel(ABCFile abcFile) throws AwesomeException {
+        AWEFile awe = new AWEFile();
+        awe.addChannel(-1);
+        return getAWEFile(abcFile, awe);
+    }
 
-        AWEFile awe = parse(abcFile);
+    public static AWEFile getAWEFile(ABCFile abcFile) throws AwesomeException {
+        return getAWEFile(abcFile, new AWEFile());
+    }
+
+    public static AWEFile getAWEFile(ABCFile abcFile, AWEFile awefile) throws AwesomeException {
+
+        AWEFile awe = parse(abcFile, awefile);
 
         convertToUnifiedTimeSlots(awe);
 
         return awe;
     }
 
-    private static AWEFile parse(ABCFile abcFile) throws AwesomeException {
-        AWEFile awe = new AWEFile();
+
+    private static AWEFile parse(ABCFile abcFile, AWEFile awe) throws AwesomeException {
         for (String abcLine : abcFile.getLines()) {
-            //TODO: skip lines that aren't music.
-            //-detect instrument indications: %%MIDI channel 10
-            //-put music into seperate buckets per instrument track
-            //-finally check that all instrument tracks have same number of units, throw otherwise
+            if (abcLine.startsWith("%%MIDI channel")) {
+                int instrument = Integer.parseInt(abcLine.replaceAll("[^0-9]", ""));
+                awe.addChannel(instrument);
+            }
+
+            //skip lines that aren't music.
+            if (abcLine.startsWith("%")) {
+                continue;
+            }
+            if (abcLine.contains(":")) {
+                continue;
+            }
+
             awe.addLine(parseLine(abcLine));
         }
         return awe;
     }
 
     private static void convertToUnifiedTimeSlots(AWEFile awe) {
+        for (AWEChannel channel : awe.getChannels()) {
+            for (AWELine line : channel.getLines()) {
+                for (AWEBar bar : line.getBars()) {
+                    List<AWETimeSlot> timeSlots = bar.getTimeSlots();
+                    ListIterator<AWETimeSlot> iterator = timeSlots.listIterator();
+                    AWETimeSlot prevTimeSlot = null;
+                    while (iterator.hasNext()) {
+                        AWETimeSlot timeSlot = iterator.next();
 
-        for (AWELine line : awe.getLines()) {
-            for (AWEBar bar : line.getBars()) {
-                List<AWETimeSlot> timeSlots = bar.getTimeSlots();
-                ListIterator<AWETimeSlot> iterator = timeSlots.listIterator();
-                AWETimeSlot prevTimeSlot = null;
-                while (iterator.hasNext()) {
-                    AWETimeSlot timeSlot = iterator.next();
+                        if (prevTimeSlot != null && !prevTimeSlot.isFilled()) {
+                            List<AWETimedUnit> units = timeSlot.chopOfFromBeginning(prevTimeSlot.remainingSpace());
+                            for (AWETimedUnit unit : units) {
+                                prevTimeSlot.addUnit(unit);
+                            }
+                            if (timeSlot.totalToneLength() == 0) {
+                                iterator.remove();
+                                continue;
+                            }
+                        }
 
-                    if (prevTimeSlot != null && !prevTimeSlot.isFilled()) {
-                        List<AWETimedUnit> units = timeSlot.chopOfFromBeginning(prevTimeSlot.remainingSpace());
-                        for (AWETimedUnit unit : units) {
-                            prevTimeSlot.addUnit(unit);
+
+                        //split timeslot into multiple, if it is overflowing
+                        while (timeSlot.overflows()) {
+                            List<AWETimedUnit> overflow = timeSlot.overflows()
+                                    ? timeSlot.chopOfOverflow()
+                                    : null;
+
+                            if (overflow != null && overflow.size() > 0) {
+                                timeSlot = new AWETimeSlot(overflow);
+                                iterator.add(timeSlot); //add after the current, but before what will be returned by iterator.next()
+                            } else {
+                                break;
+                            }
                         }
-                        if (timeSlot.totalToneLength() == 0) {
-                            iterator.remove();
-                            continue;
-                        }
+                        prevTimeSlot = timeSlot;
                     }
-
-
-                    //split timeslot into multiple, if it is overflowing
-                    while (timeSlot.overflows()) {
-                        List<AWETimedUnit> overflow = timeSlot.overflows()
-                                ? timeSlot.chopOfOverflow()
-                                : null;
-
-                        if (overflow != null && overflow.size() > 0) {
-                            timeSlot = new AWETimeSlot(overflow);
-                            iterator.add(timeSlot); //add after the current, but before what will be returned by iterator.next()
-                        } else {
-                            break;
-                        }
-                    }
-                    prevTimeSlot = timeSlot;
                 }
             }
         }
@@ -126,6 +148,18 @@ public class ABCToAWEParser {
                         line.addBar(bar);
                         bar = new AWEBar();
                     }
+                    if (endLine(sym)) {
+                        //wrap up loose ends
+                        if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
+                            container.addUnit(unit);
+                            if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
+                                bar.addTimeSlot(timeSlot);
+                                if (!line.getBars().contains(bar)) {
+                                    line.addBar(bar);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 unit = new AWEUnit();
@@ -144,6 +178,13 @@ public class ABCToAWEParser {
             if(sharp(sym) || flat(sym)) {
                 unit.setTransp(unit.getTransp() + String.valueOf(sym));
             }
+            if(natural(sym)) {
+                unit.addSymbol(String.valueOf(sym));
+            }
+            if(tie(sym)) {
+                throw new AwesomeException("Don't know how to handle ABC ties yet");
+            }
+
 
             if(toneLength(sym)) {
                 // Create a new unit
@@ -167,6 +208,7 @@ public class ABCToAWEParser {
                 unit.addOctave(String.valueOf(sym));
             }
         }
+
 
         return line;
     }
@@ -216,6 +258,8 @@ public class ABCToAWEParser {
         return c == Symbol.OCT_UP;
     }
     private static boolean octaveDown(char c) { return c == Symbol.OCT_DOWN; }
+    private static boolean natural(char c) { return c == Symbol.NATURAL; }
+    private static boolean tie(char c) { return c == Symbol.TIE; }
 
     private static boolean chordStart(char c) {
         return c == Symbol.CHORD_START;

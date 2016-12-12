@@ -37,15 +37,15 @@ public class ABCToAWEParserFormatTest {
         abcFile = new ABCFile(line);
         AWEFile aweFile = ABCToAWEParser.getAWEFile(abcFile);
         assertTrue(aweFile != null);
-        assertEquals(aweFile.getLines().size(), 0);
+        assertEquals(aweFile.getNumLines(), 0);
     }
 
     @Test
     public void testOneLineAWEFileIsCreated() throws AwesomeException {
         line.add(0, "ABC");
         abcFile = new ABCFile(line);
-        AWEFile aweFile = ABCToAWEParser.getAWEFile(abcFile);
-        assertEquals(1, aweFile.getLines().size());
+        AWEFile aweFile = ABCToAWEParser.getAWEFileWithDefaultChannel(abcFile);
+        assertEquals(1, aweFile.getNumLines());
     }
 
     @Test
@@ -53,6 +53,20 @@ public class ABCToAWEParserFormatTest {
         String abcString = "A|";
         String aweString = "A | ";
         assertEquals(getAWELineFromABCString(abcString).getLineString(), aweString);
+    }
+
+    @Test
+    public void testNaturalSymbol() throws AwesomeException {
+        String abcString = "=C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 |";
+        String aweString = "=C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testShouldntRequireABarAtEnd() throws AwesomeException {
+        String abcString = "A ";
+        String aweString = "A | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
     @Test
@@ -68,8 +82,6 @@ public class ABCToAWEParserFormatTest {
         String aweString = "^^A | ";
         assertEquals(getAWELineFromABCString(abcString).getLineString(), aweString);
     }
-
-
 
     @Test
     public void testTripleDownNote() throws AwesomeException {
@@ -204,8 +216,8 @@ public class ABCToAWEParserFormatTest {
     private AWELine getAWELineFromABCString(String abcString) throws AwesomeException {
         List<String> lines = new ArrayList<>();
         lines.add(abcString);
-        AWEFile aweFile = ABCToAWEParser.getAWEFile(new ABCFile(lines));
-        return aweFile.getAWELine(0);
+        AWEFile aweFile = ABCToAWEParser.getAWEFileWithDefaultChannel(new ABCFile(lines));
+        return aweFile.getAWELine(0, 0);
     }
 
     @Test

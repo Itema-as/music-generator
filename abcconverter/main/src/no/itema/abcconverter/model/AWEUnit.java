@@ -14,14 +14,16 @@ public class AWEUnit implements AWETimedUnit {
     String tone;
     String transp;
     List<String> octaves;
+    private String natural;
     private boolean toneLengthIsFractional;
     private double toneLengthNumerator;
     private double toneLengthDenominator;
 
     public AWEUnit() {
-        this.symbols = new ArrayList<String>();
+        symbols = new ArrayList<String>();
         tone = "";
         transp = "";
+        natural = "";
         octaves = new ArrayList<String>();
         toneLengthNumerator = 1;
         toneLengthDenominator = 1;
@@ -36,7 +38,7 @@ public class AWEUnit implements AWETimedUnit {
     }
 
     public String getUnitString() {
-        return transp + tone + String.join("", octaves) + toneLengthString();
+        return String.join("", symbols) + transp + tone + String.join("", octaves) + toneLengthString();
     }
 
     public void addSymbol(String symbol) {

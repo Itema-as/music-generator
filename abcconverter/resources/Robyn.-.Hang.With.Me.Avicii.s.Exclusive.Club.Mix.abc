@@ -1,0 +1,162 @@
+X: 1
+T: from R/R/Robyn - Hang With Me (Avicii's Exclusive Club Mix).mid
+M: 4/4
+L: 1/8
+Q:1/4=31
+% Last note suggests unknown mode tune
+K:D % 2 sharps
+% Nonstop2k - The Producer's Resource\0x00
+% http://www.nonstop2k.com  NS2K Member: djrenco\0x00
+% www.nonstop2k.com   -   ns2k member: djrenco\0x00
+% Piano 1     \0x00
+% GS sound set (16 bit)\0x00
+%%MIDI program 0
+V:1
+%%MIDI channel 10
+% KICKCLAPSNARE\0x00
+% Standard    \0x00
+% GS sound set (16 bit)\0x00
+%%MIDI program 0
+% Nonstop2k - The Producer's Resource\0x00
+% http://www.nonstop2k.com  NS2K Member: djrenco\0x00
+=C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2| \
+=C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2| \
+x8| \
+x8|
+x8| \
+x8| \
+x8| \
+x8|
+x8| \
+x8| \
+x8| \
+x8|
+x6 x3/2=C,,/2| \
+=C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2| \
+=C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2| \
+=C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2|
+=C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2
+V:2
+% ARP\0x00
+% Saw         \0x00
+% GS sound set (16 bit)\0x00
+%%MIDI program 81
+% Nonstop2k - The Producer's Resource\0x00
+% http://www.nonstop2k.com  NS2K Member: djrenco\0x00
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2|
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2|
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2|
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2|
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+V:3
+% BASS\0x00
+% Acoustic Bs.\0x00
+% GS sound set (16 bit)\0x00
+%%MIDI program 32
+x8| \
+x8| \
+x8| \
+x8|
+x8| \
+x8| \
+x8| \
+x8|
+x8| \
+x8| \
+x8| \
+x8|
+x6 x3/2
+% Nonstop2k - The Producer's Resource\0x00
+% http://www.nonstop2k.com  NS2K Member: djrenco\0x00
+B,,,/2| \
+B,,,/2A,,,/2x/2D,,/2 D,,/2x/2x/2B,,,/2 B,,,/2A,,,/2x/2D,,/2 D,,/2x/2x/2B,,,/2| \
+B,,,/2A,,,/2x/2D,,/2 D,,/2x/2x/2B,,,/2 B,,,/2A,,,/2x/2D,,/2 D,,/2D,,/2D,,/2B,,,/2| \
+B,,,/2A,,,/2x/2D,,/2 D,,/2x/2x/2B,,,/2 B,,,/2A,,,/2x/2D,,/2 D,,/2x/2x/2B,,,/2|
+B,,,/2A,,,/2x/2D,,/2 D,,/2x/2x/2B,,,/2 B,,,/2A,,,/2x/2G,,,/2 G,,,/2G,,,/2G,,,/2
+V:4
+% ATTACK STRINGS\0x00
+% Strings     \0x00
+% GS sound set (16 bit)\0x00
+%%MIDI program 48
+x8| \
+x8| \
+x8| \
+x8|
+x8| \
+x6 x3/2
+% Nonstop2k - The Producer's Resource\0x00
+% http://www.nonstop2k.com  NS2K Member: djrenco\0x00
+x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2|
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2|
+x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 
+V:5
+% KALIMBA\0x00
+% Kalimba     \0x00
+% GS sound set (16 bit)\0x00
+%%MIDI program 108
+x/2
+% Nonstop2k - The Producer's Resource\0x00
+% http://www.nonstop2k.com  NS2K Member: djrenco\0x00
+xxxxxxxx/2| \
+x/2xxxxxxx
+V:6
+% PADS\0x00
+% Warm Pad    \0x00
+% GS sound set (16 bit)\0x00
+%%MIDI program 89
+x8| \
+x8| \
+% Nonstop2k - The Producer's Resource\0x00
+% http://www.nonstop2k.com  NS2K Member: djrenco\0x00
+D,2 D,2 D,2 D,2| \
+D,2 D,2 D,2 D,2|
+D,2 D,2 D,2 D,2| \
+B,,2 B,,2 G,,2 A,,2| \
+D,2 D,2 D,2 D,2| \
+B,,2 B,,2 G,,2 A,,2|
+G,,3/2D,/2 A,,2 G,,3/2D,/2 A,,2| \
+G,,3/2D,/2 A,,2 B,,3/2A,,/2 D,2| \
+A,,B,, D,G,, A,,3/2G,,<A,,G,,/2| \
+A,,B,, D,G,, A,,3/2G,,/2 F,,2|
+V:7
+% MIDPADS\0x00
+% Saw         \0x00
+% GS sound set (16 bit)\0x00
+%%MIDI program 81
+x8| \
+x8| \
+x8| \
+x8|
+x8| \
+x8| \
+x8| \
+x8|
+x8| \
+x6 x3/2
+% Nonstop2k - The Producer's Resource\0x00
+% http://www.nonstop2k.com  NS2K Member: djrenco\0x00
+E/2-| \
+E/2FAGE3/2D<ED/2E/2-| \
+E/2FADE3/2D/2D2x/2|
+x6 x3/2D/2-| \
+D/2^C<FE/2x/2DC<FE/2x/2D/2-| \
+D/2C<FE/2x/2DC<FE/2x/2D/2-| \
+D/2C<FE/2x/2DC<FE/2x/2D/2-|
+D/2C<FE/2x/2DC/2B,2x/2

@@ -57,22 +57,18 @@ public class Main {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 if (file.toString().endsWith(".abc")) {
                     i.setValue(i.getValue() + 1);
-                    //if (i.getValue() % 1000 == 0) {
+                    if (i.getValue() % 1000 == 0) {
                         System.out.println(file.toString());
                         System.out.format("%d (valids: %d, invalids %d)", i.getValue(), valids.getValue(), invalids.getValue());
-                    //}
+                    }
                     try {
                         String outfile = dir + "/awe/" + file.getFileName().toString() +  ".awe";
-                        if (convert(file.toString(), outfile)) {
-                            valids.setValue(valids.getValue() + 1);
-                        } else {
-                            invalids.setValue(invalids.getValue() + 1);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } catch (AwesomeException e) {
+                        convert(file.toString(), outfile);
+                        valids.setValue(valids.getValue() + 1);
+                    } catch (Exception | AwesomeException e) {
+                        invalids.setValue(invalids.getValue() + 1);
                         System.out.println("Woopsie! " + file.toString());
+                        System.out.println(e.getMessage());
                         e.printStackTrace();
                     }
                 }
@@ -86,24 +82,16 @@ public class Main {
         });
     }
 
-    private static boolean convert(String file, String outfile) throws IOException, AwesomeException {
+    private static void convert(String file, String outfile) throws IOException, AwesomeException {
         if (new File(file).length() > 1000000) {
-            return false; //skip crazy big files, they're just mistakes by midi2abc
+            throw new AwesomeException("File is too big"); //skip crazy big files, they're just mistakes by midi2abc
         }
         String fileContents = FileManager.getFileContents(file);
         ABCFile abcFile = new ABCFile(fileContents);
         AWEFile aweFile;
-        try {
-            aweFile = ABCToAWEParser.getAWEFile(abcFile);
-        } catch (Exception e) {
-            return false;
-        }
-        //if (!aweFile.isValid()) {
-        //    return false;
-        //}
+        aweFile = ABCToAWEParser.getAWEFile(abcFile);
+        aweFile.ensureIsValid();
         String aweContents = aweFile.getFileString();
-        //FileManager.saveFileContents(outfile, aweContents);
-        return true;
+        FileManager.saveFileContents(outfile, aweContents);
     }
-
 }

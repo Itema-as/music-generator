@@ -10,47 +10,75 @@ import java.util.List;
  */
 public class AWEFile {
 
-    private List<AWELine> lines;
+    private List<AWEChannel> channels;
 
     public AWEFile() {
-        lines = new ArrayList<AWELine>();
+        channels = new ArrayList<AWEChannel>();
     }
 
-    public AWEFile(List<AWELine> lines) {
-        this.lines = lines;
+    public AWEFile(List<AWEChannel> channels) {
+        this.channels = channels;
     }
 
-    public AWELine getAWELine(int index) throws AwesomeException {
-        if(index<lines.size()) {
-            return lines.get(index);
-        }
-        throw new AwesomeException("No line at this index");
+
+    public AWELine getAWELine(int channelIndex, int index) throws AwesomeException {
+        return channels.get(channelIndex).getLines().get(index);
     }
 
     public String getFileString() {
         String res = "";
-        for(AWELine b: lines) {
-            res += b.getLineString();
+        for (AWEChannel c : channels) {
+            for (AWELine b : c.getLines()) {
+                res += b.getLineString();
+            }
         }
         return res;
     }
 
-    public List<AWELine> getLines() {
-        return lines;
-    }
-
-    public void addLine(AWELine line) {
-        this.lines.add(line);
-    }
-
-    public boolean isValid() {
-        for (AWELine line : lines) {
-            for (AWEBar bar : line.getBars()) {
-                if (bar.getTimeSlots().size() != 16) {
-                    return false;
-                }
+    public int getNumLines() {
+        int numLines = 0;
+        for (AWEChannel c : channels) {
+            for (AWELine line : c.getLines()) {
+                numLines++;
             }
         }
-        return lines.size() > 0;
+        return numLines;
     }
+
+    public void addLine(AWELine line) throws AwesomeException {
+        if (this.channels.size() == 0) {
+            throw new AwesomeException("A channel must be added before lines can be added");
+        }
+        this.channels.get(this.channels.size()-1).addLine(line);
+    }
+
+    public void ensureIsValid() throws AwesomeException {
+        int numLines = 0;
+        int prevNumTimeSlots = -1;
+        for (AWEChannel c : channels) {
+            int numTimeSlots = 0;
+            for (AWELine line : c.getLines()) {
+                numLines++;
+                for (AWEBar bar : line.getBars()) {
+                    numTimeSlots += bar.getTimeSlots().size();
+                    if (bar.getTimeSlots().size() != 16 && bar != line.getBar(0)) {
+                        throw new AwesomeException("All bars except first must have 16 timeslots");
+                    }
+                }
+            }
+            if (prevNumTimeSlots != -1 && prevNumTimeSlots != numTimeSlots) {
+                throw new AwesomeException("Number of timeslots differed between channels");
+            }
+            prevNumTimeSlots = numTimeSlots;
+        }
+        if (numLines == 0) {
+            throw new AwesomeException("No lines in the file");
+        }
+    }
+
+    public void addChannel(int instrument) {
+        channels.add(new AWEChannel(instrument));
+    }
+
+    public List<AWEChannel> getChannels() { return channels; }
 }
