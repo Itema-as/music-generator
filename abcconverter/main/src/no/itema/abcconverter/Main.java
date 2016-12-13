@@ -1,25 +1,30 @@
 package no.itema.abcconverter;
 
-import abc.notation.Tune;
-import abc.parser.TuneBook;
 import no.itema.abcconverter.io.FileManager;
 import no.itema.abcconverter.model.ABCFile;
+import no.itema.abcconverter.model.AWEChannel;
 import no.itema.abcconverter.model.AWEFile;
 import no.itema.abcconverter.util.AwesomeException;
+import no.itema.abcconverter.util.InstrumentCategories;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) throws AwesomeException {
 
         try {
-            TuneBook tuneBook = new TuneBook(new File("resources/rondo.abc"));
-            Tune tune = tuneBook.getTune(0);
+            //TuneBook tuneBook = new TuneBook(new File("resources/rondo.abc"));
+            //Tune tune = tuneBook.getTune(0);
 
             //convertAll("/media/lars/HDD2/130000_Pop_Rock_Classical_Videogame_EDM_MIDI_Archive[6_19_15]");
             //convertAll("resources/");
@@ -33,7 +38,7 @@ public class Main {
         //aweFile = ABCToAWEParser.getAWEFile(abcFile);
     }
 
-    private static void convertAll(String dir) throws IOException {
+    private static void convertAll(final String dir) throws IOException {
         class Holder<T> {
             private T value;
 
@@ -91,7 +96,36 @@ public class Main {
         AWEFile aweFile;
         aweFile = ABCToAWEParser.getAWEFile(abcFile);
         aweFile.ensureIsValid();
+
         String aweContents = aweFile.getFileString();
+        writeFilePerInstrumentCategory(aweFile, outfile);
         FileManager.saveFileContents(outfile, aweContents);
+    }
+
+    private static void writeFilePerInstrumentCategory(AWEFile aweFile, String outfile) {
+        Stream<Integer> categories = aweFile.getChannels().stream().map(c -> InstrumentCategories.getCategory(c.getInstrument()));
+        int[] allInstruments = { InstrumentCategories.PIANO, InstrumentCategories.BASS, InstrumentCategories.DRUMS, InstrumentCategories.GUITAR };
+        boolean allPresent = true;
+        for (int instrument : allInstruments) {
+            if (!categories.anyMatch(c -> c == instrument)) {
+                allPresent = false;
+            }
+        }
+
+        if (allPresent) {
+            AWEChannel piano = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.PIANO).findFirst().get();
+            AWEChannel guitar = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.GUITAR).findFirst().get();
+            AWEChannel bass = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.BASS).findFirst().get();
+            AWEChannel drums = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.DRUMS).findFirst().get();
+
+            try {
+                piano.writeToFile("PIANO" + outfile);
+                guitar.writeToFile("GUITAR" + outfile);
+                bass.writeToFile("BASS" + outfile);
+                drums.writeToFile("DRUMS" + outfile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

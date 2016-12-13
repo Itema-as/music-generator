@@ -1,5 +1,8 @@
 package no.itema.abcconverter.model;
 
+import no.itema.abcconverter.io.FileManager;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +25,15 @@ public class AWEChannel {
 
     public List<AWELine> getLines() {
         return lines;
+    }
+
+    public int getInstrument() { return instrument; }
+
+    public void writeToFile(String filename) throws IOException {
+        String res = "";
+        for (AWELine b : getLines()) {
+            res += b.getLineString();
+        }
+        FileManager.saveFileContents(filename, res);
     }
 }
