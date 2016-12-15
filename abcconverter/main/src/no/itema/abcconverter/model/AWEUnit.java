@@ -29,10 +29,6 @@ public class AWEUnit implements AWETimedUnit {
         toneLengthDenominator = 1;
     }
 
-    public AWEUnit(List<String> symbols) {
-        this.symbols = symbols;
-    }
-
     public List<String> getSymbols() {
         return symbols;
     }

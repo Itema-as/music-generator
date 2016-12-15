@@ -14,6 +14,10 @@ public class AWEChannel {
     private List<AWELine> lines;
     private int instrument;
 
+    public AWEChannel() {
+        lines = new ArrayList<AWELine>();
+    }
+
     public AWEChannel(int instrument) {
         lines = new ArrayList<AWELine>();
         this.instrument = instrument;
@@ -29,11 +33,25 @@ public class AWEChannel {
 
     public int getInstrument() { return instrument; }
 
+    public void setInstrument(int instrument) { this.instrument = instrument; }
+
     public void writeToFile(String filename) throws IOException {
+        FileManager.saveFileContents(filename, toAweString());
+    }
+
+    public String toAweString() {
         String res = "";
         for (AWELine b : getLines()) {
             res += b.getLineString();
         }
-        FileManager.saveFileContents(filename, res);
+        return res;
+    }
+
+    public List<AWEBar> getBars() {
+        ArrayList<AWEBar> bars = new ArrayList<>();
+        for (AWELine line : lines) {
+            bars.addAll(line.getBars());
+        }
+        return bars;
     }
 }

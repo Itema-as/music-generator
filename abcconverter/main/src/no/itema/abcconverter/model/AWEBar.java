@@ -4,6 +4,7 @@ import no.itema.abcconverter.util.AwesomeException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jih on 14/09/16.
@@ -44,4 +45,28 @@ public class AWEBar {
         this.timeSlots.add(timeSlot);
     }
 
+    public void padWithPausesAtEnd(double wantedDuration) {
+        double duration = 0;
+        for (AWETimeSlot t : timeSlots) {
+            duration += t.totalToneLength();
+        }
+        double remains = wantedDuration - duration;
+        if (remains > 0) {
+            int wholeRemaining = (int)remains;
+            double fractionalRemaining = remains - wholeRemaining;
+            if (fractionalRemaining > 0.0001) {
+                AWEUnit unit = new AWEUnit();
+                unit.setTone("x");
+                unit.setToneLengthDenominator(Math.round(1/fractionalRemaining));
+                timeSlots.get(timeSlots.size()-1).addUnit(unit);
+            }
+            for (int i = 0; i < wholeRemaining; i++) {
+                AWEUnit unit = new AWEUnit();
+                unit.setTone("x");
+                AWETimeSlot timeSlot = new AWETimeSlot();
+                timeSlot.addUnit(unit);
+                timeSlots.add(timeSlot);
+            }
+        }
+    }
 }

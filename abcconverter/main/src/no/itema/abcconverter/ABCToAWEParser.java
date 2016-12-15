@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 /**
  * Created by jih on 14/09/16.
@@ -27,36 +28,81 @@ public class ABCToAWEParser {
         public static final char NATURAL = '=';
         public static final char FRACTIONAL_TONE_LENGTH_START = '/';
         public static final char TIE = '-';
-
     }
 
     public static AWEFile getAWEFileWithDefaultChannel(ABCFile abcFile) throws AwesomeException {
         AWEFile awe = new AWEFile();
-        awe.addChannel(-1);
-        return getAWEFile(abcFile, awe);
+        awe.addChannel();
+        return getAWEFile(abcFile, awe, false);
     }
 
-    public static AWEFile getAWEFile(ABCFile abcFile) throws AwesomeException {
-        return getAWEFile(abcFile, new AWEFile());
+    public static AWEFile getAWEFile(ABCFile abcFile, boolean padChannels) throws AwesomeException {
+        return getAWEFile(abcFile, new AWEFile(), padChannels);
     }
 
-    public static AWEFile getAWEFile(ABCFile abcFile, AWEFile awefile) throws AwesomeException {
+    public static AWEFile getAWEFile(ABCFile abcFile, AWEFile awefile, boolean padChannels) throws AwesomeException {
 
         AWEFile awe = parse(abcFile, awefile);
 
         convertToUnifiedTimeSlots(awe);
 
+        dropEmptyChannels(awe);
+
+        if (padChannels) {
+            padWithPausesAtEnd(awe);
+        }
+
         return awe;
     }
 
+    private static void padWithPausesAtEnd(AWEFile awe) {
+        int maxBars = 0;
+        for (AWEChannel c : awe.getChannels()) {
+            int numBars = c.getBars().size();
+            maxBars = numBars > maxBars ? numBars : maxBars;
+        }
+        final int max = maxBars;
+        awe.getChannels().forEach(c -> {
+            List<AWEBar> bars = c.getBars();
+            if (bars.size() == 0) return;
+            bars.get(bars.size()-1).padWithPausesAtEnd(8);
+            int numBars = bars.size();
+            if (numBars < max) {
+                AWELine line = c.getLines().get(c.getLines().size()-1);
+                for (int i = 0; i < (max-numBars); i ++) {
+                    AWEBar bar = new AWEBar();
+                    bar.padWithPausesAtEnd(8);
+                    line.addBar(bar);
+                }
+            }
+        });
+    }
+
+    private static void dropEmptyChannels(AWEFile awe) {
+        awe.setChannels(awe.getChannels().stream().filter(c -> c.getLines().size() > 0).collect(Collectors.toList()));
+    }
 
     private static AWEFile parse(ABCFile abcFile, AWEFile awe) throws AwesomeException {
+        String lineConcat = "";
         for (String abcLine : abcFile.getLines()) {
-            if (abcLine.startsWith("%%MIDI channel")) {
+            if (abcLine.startsWith("V:")) {
+                awe.addChannel();
+                AWEChannel channel = awe.getChannels().get(awe.getChannels().size()-1);
+                channel.setInstrument(1); //default to piano, if any instrument is set in the file, this will be overwritten
+            }
+            if (abcLine.startsWith("%%MIDI program")) {
+                if (!"".equals(lineConcat)) {
+                    awe.addLine(parseLine(lineConcat));
+                    lineConcat = "";
+                }
                 int instrument = Integer.parseInt(abcLine.replaceAll("[^0-9]", ""));
-                awe.addChannel(instrument);
+                AWEChannel channel = awe.getChannels().get(awe.getChannels().size()-1);
+                channel.setInstrument(instrument + 1);//+1, because ABC stores them 0-indexed, we have them stored 1-indexed
             }
 
+            if (abcLine.startsWith("L:") && !abcLine.contains("1/8")) {
+                throw new AwesomeException("Currently only supporting L:1/8. Found: " + abcLine);
+            }
             //skip lines that aren't music.
             if (abcLine.startsWith("%")) {
                 continue;
@@ -65,7 +111,11 @@ public class ABCToAWEParser {
                 continue;
             }
 
-            awe.addLine(parseLine(abcLine));
+            lineConcat += abcLine;
+            lineConcat += " ";
+        }
+        if (!"".equals(lineConcat)) {
+            awe.addLine(parseLine(lineConcat));
         }
         return awe;
     }
@@ -126,6 +176,9 @@ public class ABCToAWEParser {
         for (int i = 0; i < symbols.length; i++) {
             char sym = symbols[i];
             if(chordStart(sym)) {
+                //if(endOfLastUnit(unit, sym)) {
+                //    container.addUnit(unit);
+                //}
                 AWEChord chord = new AWEChord();
                 container = chord;
                 timeSlot.addUnit(chord);
@@ -152,12 +205,12 @@ public class ABCToAWEParser {
                         //wrap up loose ends
                         if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
                             container.addUnit(unit);
-                            if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
-                                bar.addTimeSlot(timeSlot);
-                                if (!line.getBars().contains(bar)) {
-                                    line.addBar(bar);
-                                }
-                            }
+                        }
+                        if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
+                            bar.addTimeSlot(timeSlot);
+                        }
+                        if (bar.getTimeSlots().size() > 0 && !line.getBars().contains(bar)) {
+                            line.addBar(bar);
                         }
                     }
                 }
@@ -182,7 +235,9 @@ public class ABCToAWEParser {
                 unit.addSymbol(String.valueOf(sym));
             }
             if(tie(sym)) {
-                throw new AwesomeException("Don't know how to handle ABC ties yet");
+                //we use dash for something else, represent ties with another symbol
+                //TODO: this isn't quite perfect, we should represent the tie as one long with continuations (-) instead of two tied notes, but it will do for now.
+                unit.addSymbol("¤");
             }
 
 

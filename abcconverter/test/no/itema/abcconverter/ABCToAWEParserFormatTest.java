@@ -5,6 +5,7 @@ import no.itema.abcconverter.model.ABCFile;
 import no.itema.abcconverter.model.AWEFile;
 import no.itema.abcconverter.model.AWELine;
 import no.itema.abcconverter.util.AwesomeException;
+import no.itema.abcconverter.util.InstrumentCategories;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,9 +36,8 @@ public class ABCToAWEParserFormatTest {
     @Test
     public void testEmptyAWEFileIsCreated() throws AwesomeException {
         abcFile = new ABCFile(line);
-        AWEFile aweFile = ABCToAWEParser.getAWEFile(abcFile);
+        AWEFile aweFile = ABCToAWEParser.getAWEFileWithDefaultChannel(abcFile);
         assertTrue(aweFile != null);
-        assertEquals(aweFile.getNumLines(), 0);
     }
 
     @Test
@@ -66,6 +66,22 @@ public class ABCToAWEParserFormatTest {
     public void testShouldntRequireABarAtEnd() throws AwesomeException {
         String abcString = "A ";
         String aweString = "A | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testShouldntRequireABarAtEnd2() throws AwesomeException {
+        String abcString = "A |\n" +
+                "C/2";
+        String aweString = "A | " +
+                "C/2 | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testHandleTies() throws AwesomeException {
+        String abcString = "A- ";
+        String aweString = "¤A | ";
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
@@ -227,6 +243,7 @@ public class ABCToAWEParserFormatTest {
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
+
     @Test
     public void testTwoSimultaneouslyComplexNotes() throws AwesomeException {
         String abcString = "[_A^C] | ";
@@ -242,10 +259,27 @@ public class ABCToAWEParserFormatTest {
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
+
+    @Test
+    public void testChordsMixedWithNonChords() throws AwesomeException {
+        String abcString = "x[FDA,] | ";
+        String aweString = "x[FDA,] | ";
+        AWELine line = getAWELineFromABCString(abcString);
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
     @Test
     public void testMultipleChordsAndSingleNotes() throws AwesomeException {
         String abcString = "[CEG]D2[FAC]G4[CEG]|";
         String aweString = "[CEG] D - [FAC] G - - - [CEG] | ";
+        AWELine line = getAWELineFromABCString(abcString);
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testMultipleChordsAndSingleNotes2() throws AwesomeException {
+        String abcString = "[CEG]D[FAC]G4[CEG]|";
+        String aweString = "[CEG] D [FAC] G - - - [CEG] | ";
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
@@ -260,6 +294,13 @@ public class ABCToAWEParserFormatTest {
         assertEquals("1/16", abcFile.getLength());
         assertEquals("C", abcFile.getKey());
         assertEquals(1, abcFile.getLines().size());
+    }
+
+    @Test
+    public void testInstrumentCategories() throws AwesomeException, IOException {
+        assertEquals(InstrumentCategories.PIANO, InstrumentCategories.getCategory(1));
+        assertEquals(InstrumentCategories.PIANO, InstrumentCategories.getCategory(2));
+        assertEquals(InstrumentCategories.GUITAR, InstrumentCategories.getCategory(25));
     }
 
 }

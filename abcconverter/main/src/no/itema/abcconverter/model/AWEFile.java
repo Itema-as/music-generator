@@ -57,12 +57,13 @@ public class AWEFile {
         int prevNumTimeSlots = -1;
         for (AWEChannel c : channels) {
             int numTimeSlots = 0;
+            String s = c.toAweString();
             for (AWELine line : c.getLines()) {
                 numLines++;
                 for (AWEBar bar : line.getBars()) {
                     numTimeSlots += bar.getTimeSlots().size();
-                    if (bar.getTimeSlots().size() != 16 && bar != line.getBar(0)) {
-                        throw new AwesomeException("All bars except first must have 16 timeslots");
+                    if (bar.getTimeSlots().size() != 8 && bar != line.getBar(0)) {
+                        throw new AwesomeException("All bars except first must have 8 timeslots");
                     }
                 }
             }
@@ -76,9 +77,11 @@ public class AWEFile {
         }
     }
 
-    public void addChannel(int instrument) {
-        channels.add(new AWEChannel(instrument));
+    public void addChannel() {
+        channels.add(new AWEChannel());
     }
 
     public List<AWEChannel> getChannels() { return channels; }
+
+    public void setChannels(List<AWEChannel> channels) { this.channels = channels; }
 }
