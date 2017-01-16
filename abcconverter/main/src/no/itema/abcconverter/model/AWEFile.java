@@ -25,6 +25,16 @@ public class AWEFile {
         return channels.get(channelIndex).getLines().get(index);
     }
 
+    public String getAbcString() {
+        String res = "";
+        for (AWEChannel c : channels) {
+            for (AWELine b : c.getLines()) {
+                res += b.getAbcString();
+            }
+        }
+        return res;
+    }
+
     public String getFileString() {
         String res = "";
         for (AWEChannel c : channels) {

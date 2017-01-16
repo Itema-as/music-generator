@@ -1,6 +1,7 @@
 package no.itema.abcconverter.model;
 
 import no.itema.abcconverter.ABCToAWEParser;
+import no.itema.abcconverter.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,10 @@ public class AWEUnit implements AWETimedUnit {
         return String.join("", symbols) + transp + tone + String.join("", octaves) + toneLengthString();
     }
 
+    public String getAbcString() {
+        return String.join("", symbols) + transp + tone + String.join("", octaves) + toneLengthString();
+    }
+
     public void addSymbol(String symbol) {
         symbols.add(symbol);
     }
@@ -75,7 +80,7 @@ public class AWEUnit implements AWETimedUnit {
     private String toneLengthString() {
         double toneLength = getToneLength();
         return toneLength < (1 - 0.00001)
-                ? ("" + ABCToAWEParser.Symbol.FRACTIONAL_TONE_LENGTH_START + Math.round(1/toneLength))
+                ? ("" + Symbol.FRACTIONAL_TONE_LENGTH_START + Math.round(1/toneLength))
                 : toneLength > (1 + 0.00001)
                     ? "" + Math.round(toneLength)
                     : "";
@@ -111,7 +116,7 @@ public class AWEUnit implements AWETimedUnit {
         a.octaves = octaves;
         a.toneLengthNumerator = time;
         AWEUnit b = new AWEUnit();
-        b.tone = String.valueOf(ABCToAWEParser.Symbol.COPY);
+        b.tone = String.valueOf(Symbol.COPY);
         double remainingLength = toneLength - time;
         b.toneLengthNumerator = remainingLength;
         return new AWEUnit[] { a, b };

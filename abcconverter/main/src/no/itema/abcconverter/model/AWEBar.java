@@ -40,6 +40,16 @@ public class AWEBar {
         return res;
     }
 
+    public String getAbcString() {
+        String res = "";
+        for(AWETimeSlot u: timeSlots) {
+            res += u.getAbcString();
+            res += " ";
+        }
+        res += "| ";
+        return res;
+    }
+
     public void addTimeSlot(AWETimeSlot timeSlot) {
         this.timeSlots.add(timeSlot);
     }

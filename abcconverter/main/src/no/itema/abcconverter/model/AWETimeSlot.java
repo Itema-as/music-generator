@@ -38,6 +38,14 @@ public class AWETimeSlot implements AWEUnitContainer {
         return res;
     }
 
+    public String getAbcString() {
+        String res = "";
+        for(AWETimedUnit u: units) {
+            res += u.getAbcString();
+        }
+        return res;
+    }
+
     public void addUnit(AWETimedUnit unit) {
         this.units.add(unit);
     }

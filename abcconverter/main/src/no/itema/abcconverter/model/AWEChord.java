@@ -42,6 +42,11 @@ public class AWEChord implements AWETimedUnit, AWEUnitContainer {
         return "[" + units.stream().map(u -> u.getUnitString()).collect(Collectors.joining(""))  + "]";
     }
 
+    @Override
+    public String getAbcString() {
+        return "[" + units.stream().map(u -> u.getAbcString()).collect(Collectors.joining(""))  + "]";
+    }
+
     public List<AWETimedUnit> getUnits() {
         return units;
     }

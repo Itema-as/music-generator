@@ -4,96 +4,33 @@ import no.itema.abcconverter.model.*;
 import no.itema.abcconverter.util.AwesomeException;
 
 import static no.itema.abcconverter.Symbol.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ListIterator;
-
 /**
- * Created by jih on 14/09/16.
+ * Created by Lars on 2017-01-16.
  */
-public class ABCToAWEParser {
+public class AWEToABCParser extends ABCToAWEParser {
 
-    public static AWEFile getAWEFileWithDefaultChannel(ABCFile abcFile) throws AwesomeException {
-        AWEFile awe = new AWEFile();
-        awe.addChannel(-1);
-        return getAWEFile(abcFile, awe);
-    }
-
-    public static AWEFile getAWEFile(ABCFile abcFile) throws AwesomeException {
-        return getAWEFile(abcFile, new AWEFile());
-    }
-
-    public static AWEFile getAWEFile(ABCFile abcFile, AWEFile awefile) throws AwesomeException {
+    public static AWEFile getABCFile(ABCFile abcFile, AWEFile awefile) throws AwesomeException {
 
         AWEFile awe = parse(abcFile, awefile);
 
-        convertToUnifiedTimeSlots(awe);
+        convertToAbcTimeSlots(awe);
 
+        awe.getAWELine(0, 0).getAbcString();
         return awe;
     }
 
+    private static void convertToAbcTimeSlots(AWEFile awe) {
+        //TODO
+    }
+
+
     private static AWEFile parse(ABCFile abcFile, AWEFile awe) throws AwesomeException {
         for (String abcLine : abcFile.getLines()) {
-            if (abcLine.startsWith("%%MIDI channel")) {
-                int instrument = Integer.parseInt(abcLine.replaceAll("[^0-9]", ""));
-                awe.addChannel(instrument);
-            }
-
-            //skip lines that aren't music.
-            if (abcLine.startsWith("%")) {
-                continue;
-            }
-            if (abcLine.contains(":")) {
-                continue;
-            }
-
             awe.addLine(parseLine(abcLine));
         }
         return awe;
     }
 
-    private static void convertToUnifiedTimeSlots(AWEFile awe) {
-        for (AWEChannel channel : awe.getChannels()) {
-            for (AWELine line : channel.getLines()) {
-                for (AWEBar bar : line.getBars()) {
-                    List<AWETimeSlot> timeSlots = bar.getTimeSlots();
-                    ListIterator<AWETimeSlot> iterator = timeSlots.listIterator();
-                    AWETimeSlot prevTimeSlot = null;
-                    while (iterator.hasNext()) {
-                        AWETimeSlot timeSlot = iterator.next();
-
-                        if (prevTimeSlot != null && !prevTimeSlot.isFilled()) {
-                            List<AWETimedUnit> units = timeSlot.chopOfFromBeginning(prevTimeSlot.remainingSpace());
-                            for (AWETimedUnit unit : units) {
-                                prevTimeSlot.addUnit(unit);
-                            }
-                            if (timeSlot.totalToneLength() == 0) {
-                                iterator.remove();
-                                continue;
-                            }
-                        }
-
-                        //split timeslot into multiple, if it is overflowing
-                        while (timeSlot.overflows()) {
-                            List<AWETimedUnit> overflow = timeSlot.overflows()
-                                    ? timeSlot.chopOfOverflow()
-                                    : null;
-
-                            if (overflow != null && overflow.size() > 0) {
-                                timeSlot = new AWETimeSlot(overflow);
-                                iterator.add(timeSlot); //add after the current, but before what will be returned by iterator.next()
-                            } else {
-                                break;
-                            }
-                        }
-                        prevTimeSlot = timeSlot;
-                    }
-                }
-            }
-        }
-    }
 
     private static AWELine parseLine(String abcLine) throws AwesomeException {
 
@@ -108,6 +45,7 @@ public class ABCToAWEParser {
         boolean insideChord = false;
         for (int i = 0; i < symbols.length; i++) {
             char sym = symbols[i];
+
             if(chordStart(sym)) {
                 AWEChord chord = new AWEChord();
                 container = chord;
@@ -195,6 +133,4 @@ public class ABCToAWEParser {
 
         return line;
     }
-
-
 }

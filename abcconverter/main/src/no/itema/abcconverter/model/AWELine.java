@@ -38,6 +38,14 @@ public class AWELine {
         return res;
     }
 
+    public String getAbcString() {
+        String res = "";
+        for(AWEBar b: bars) {
+            res += b.getAbcString();
+        }
+        return res;
+    }
+
     public void addBar(AWEBar bar) {
         this.bars.add(bar);
     }
