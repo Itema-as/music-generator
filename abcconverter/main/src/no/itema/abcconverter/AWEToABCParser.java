@@ -3,20 +3,37 @@ package no.itema.abcconverter;
 import no.itema.abcconverter.model.*;
 import no.itema.abcconverter.util.AwesomeException;
 
+import java.util.List;
+
 import static no.itema.abcconverter.Symbol.*;
 /**
- * Created by Lars on 2017-01-16.
+ * Created by jih on 16/01/2017.
  */
-public class AWEToABCParser extends ABCToAWEParser {
+public class AWEToABCParser {
+    public static ABCFile getABCFile(AWEFile aweFile) {
+        ABCFile abcFile = new ABCFile("");
 
-    public static AWEFile getABCFile(ABCFile abcFile, AWEFile awefile) throws AwesomeException {
+        return abcFile;
+    }
 
-        AWEFile awe = parse(abcFile, awefile);
+    public static AWEFile getABCFile(List<String> lines) throws AwesomeException {
 
-        convertToAbcTimeSlots(awe);
+        AWEFile aweFile = parse(lines);
 
-        awe.getAWELine(0, 0).getAbcString();
-        return awe;
+        convertToAbcTimeSlots(aweFile);
+
+        return aweFile;
+    }
+
+
+    private static AWEFile parse(List<String> lines) throws AwesomeException {
+
+        AWEFile aweFile = new AWEFile();
+        for(String line : lines) {
+            aweFile.addLine(parseLine(line));
+        }
+
+        return aweFile;
     }
 
     private static void convertToAbcTimeSlots(AWEFile awe) {
@@ -31,7 +48,7 @@ public class AWEToABCParser extends ABCToAWEParser {
         return awe;
     }
 
-
+	
     private static AWELine parseLine(String abcLine) throws AwesomeException {
 
         abcLine += Symbol.LINE_END;
