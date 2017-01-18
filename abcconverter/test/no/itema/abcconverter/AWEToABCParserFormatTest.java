@@ -40,12 +40,12 @@ public class AWEToABCParserFormatTest {
 
     @Test
     public void testCleanNote() throws AwesomeException {
-        String abcString = "A |";
+        String abcString = "A | ";
         AWELine aweLine = new AWELine();
         AWEBar aweBar = new AWEBar();
         AWETimeSlot timeSlot = new AWETimeSlot();
         AWEUnit unit = new AWEUnit();
-        unit.addSymbol("A| ");
+        unit.addSymbol("A");
         timeSlot.addUnit(unit);
         aweBar.addTimeSlot(timeSlot);
         aweLine.addBar(aweBar);
@@ -94,21 +94,21 @@ public class AWEToABCParserFormatTest {
 
       @Test
       public void testFourNoteFlat() throws AwesomeException {
-          String abcString = "_A4| ";
+          String abcString = "_A4 | ";
           String aweString = "_A - - - | ";
           assertEquals(getABCLineFromAWEString(aweString), abcString);
       }
 
       @Test
       public void testEightNoteSharp() throws AwesomeException {
-          String abcString = "^A8| ";
+          String abcString = "^A8 | ";
           String aweString = "^A - - - - - - - | ";
           assertEquals(getABCLineFromAWEString(aweString), abcString);
       }
 
       @Test
       public void testTwoDifferentSimpleNotes() throws AwesomeException {
-          String abcString = "AC|";
+          String abcString = "AC | ";
           String aweString = "A C | ";
           assertEquals(getABCLineFromAWEString(aweString), abcString);
       }
@@ -198,13 +198,7 @@ public class AWEToABCParserFormatTest {
         }
 
         private String getABCLineFromAWEString(AWELine aweLine) throws AwesomeException {
-            List<AWEChannel> channels = new ArrayList<>();
-            AWEChannel channel = new AWEChannel(0);
-            channel.addLine(aweLine);
-            channels.add(channel);
-
-            ABCFile abcFile = AWEToABCParser.getABCFile(new AWEFile(channels));
-            return abcFile.getLines().get(0);
+            return aweLine.getAbcString();
         }
 
 }
