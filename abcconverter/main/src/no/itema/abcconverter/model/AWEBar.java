@@ -44,9 +44,8 @@ public class AWEBar {
         String res = "";
         for(AWETimeSlot u: timeSlots) {
             res += u.getAbcString();
-            res += " ";
         }
-        res += "| ";
+        res += " | ";
         return res;
     }
 
