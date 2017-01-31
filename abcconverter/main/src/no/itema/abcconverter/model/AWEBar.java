@@ -53,4 +53,11 @@ public class AWEBar {
         this.timeSlots.add(timeSlot);
     }
 
+    public ArrayList<AWETimedUnit> getUnits() {
+        ArrayList<AWETimedUnit> units = new ArrayList<>();
+        for (AWETimeSlot ts : timeSlots) {
+            units.addAll(ts.getUnits());
+        }
+        return units;
+    }
 }

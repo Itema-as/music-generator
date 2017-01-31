@@ -66,4 +66,14 @@ public class AWEChord implements AWETimedUnit, AWEUnitContainer {
 
         return new AWEChord[] { new AWEChord(first), new AWEChord(second) };
     }
+
+    @Override
+    public boolean isContinuation() {
+        return false;
+    }
+
+    @Override
+    public boolean isTie() {
+        return false;
+    }
 }

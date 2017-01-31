@@ -96,7 +96,7 @@ public class AWETimeSlot implements AWEUnitContainer {
         return lists;
     }
 
-    public List<AWETimedUnit> chopOfFromBeginning(double time) {
+    public List<AWETimedUnit> chopOffFromBeginning(double time) {
         ArrayList<ArrayList<AWETimedUnit>> parts = splitAt(time);
         ArrayList<AWETimedUnit> before = parts.get(0);
         ArrayList<AWETimedUnit> after = parts.get(1);

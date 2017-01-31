@@ -6,7 +6,6 @@ import no.itema.abcconverter.util.AwesomeException;
 import static no.itema.abcconverter.Symbol.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -29,10 +28,13 @@ public class ABCToAWEParser {
 
         AWEFile awe = parse(abcFile, awefile);
 
+        handleTies(awe);
+
         convertToUnifiedTimeSlots(awe);
 
         return awe;
     }
+
 
     private static AWEFile parse(ABCFile abcFile, AWEFile awe) throws AwesomeException {
         for (String abcLine : abcFile.getLines()) {
@@ -54,6 +56,29 @@ public class ABCToAWEParser {
         return awe;
     }
 
+    private static void handleTies(AWEFile awe) {
+
+        for (AWEChannel channel : awe.getChannels()) {
+            for (AWELine line : channel.getLines()) {
+                boolean makeContinuation = false;
+                for (AWEBar bar : line.getBars()) {
+                    if (makeContinuation) {
+                        AWEUnit unit = ((AWEUnit)bar.getUnits().get(0));
+                        unit.copyValuesFrom(new AWEUnit());
+                        unit.setTone(String.valueOf(Symbol.CONTINUATION));
+
+                        makeContinuation = false;
+                    }
+
+                    ArrayList<AWETimedUnit> units = bar.getUnits();
+                    if (units.get(units.size()-1).isTie()) {
+                        makeContinuation = true;
+                    }
+                }
+            }
+        }
+    }
+
     private static void convertToUnifiedTimeSlots(AWEFile awe) {
         for (AWEChannel channel : awe.getChannels()) {
             for (AWELine line : channel.getLines()) {
@@ -65,7 +90,7 @@ public class ABCToAWEParser {
                         AWETimeSlot timeSlot = iterator.next();
 
                         if (prevTimeSlot != null && !prevTimeSlot.isFilled()) {
-                            List<AWETimedUnit> units = timeSlot.chopOfFromBeginning(prevTimeSlot.remainingSpace());
+                            List<AWETimedUnit> units = timeSlot.chopOffFromBeginning(prevTimeSlot.remainingSpace());
                             for (AWETimedUnit unit : units) {
                                 prevTimeSlot.addUnit(unit);
                             }
@@ -165,7 +190,7 @@ public class ABCToAWEParser {
                 unit.addSymbol(String.valueOf(sym));
             }
             if(tie(sym)) {
-                throw new AwesomeException("Don't know how to handle ABC ties yet");
+                unit.setTie(true);
             }
 
 
@@ -177,7 +202,7 @@ public class ABCToAWEParser {
                 } else {
                     unit.setToneLengthNumerator(length);
                 }
-                boolean unitIsDone = (i+1 == symbols.length) || !fractionalToneLengthStart(symbols[i+1]);
+                boolean unitIsDone = (i+1 == symbols.length) || (!fractionalToneLengthStart(symbols[i+1]) && !tie(symbols[i+1]));
                 if (unitIsDone) {
                     container.addUnit(unit);
                     unit = new AWEUnit();

@@ -12,7 +12,7 @@ public class Symbol {
     public static final char PAUSE = 'x';
     public static final char SHARP = '^';
     public static final char FLAT = '_';
-    public static final char COPY = '-';
+    public static final char CONTINUATION = '☃';
     public static final char OCT_UP = '\'';
     public static final char OCT_DOWN = ',';
     public static final char CHORD_START = '[';
@@ -35,6 +35,8 @@ public class Symbol {
         }
 
         return unit == null ||                                          // This is the first unit
+                unit.isContinuation() ||
+                continuation(sym) ||
                 (unit.getTone() != "" && (sharp(sym)) || flat(sym)) ||  // Tone exists, but there is a new first symbol(sharp/flat)
                 (unit.getTone() != "" && toneHeight(sym)) ||            // Tone exists, and there is a new tone
                 (unit.getTone() == String.valueOf(Symbol.PAUSE)) ||     // Tone exists, and is a pause
@@ -52,6 +54,7 @@ public class Symbol {
     public static boolean endLine(char c) {
         return c == Symbol.LINE_END;
     }
+    public static boolean continuation(char c) { return c == Symbol.CONTINUATION; }
     public static boolean toneHeight(char c) {
         return Character.isLetter(c);
     }

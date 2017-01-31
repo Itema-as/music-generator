@@ -11,4 +11,8 @@ public interface AWETimedUnit {
     String getAbcString();
 
     AWETimedUnit[] split(double remainingSpace);
+
+    boolean isContinuation();
+
+    boolean isTie();
 }
