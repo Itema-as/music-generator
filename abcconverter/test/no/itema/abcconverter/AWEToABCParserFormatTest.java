@@ -196,6 +196,13 @@ public class AWEToABCParserFormatTest {
     }
 
     @Test
+    public void testChordHandling2() throws AwesomeException {
+        String aweString = "[ba]e[e'd] | ";
+        String abcString = "[ba]e[e'd] | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
+
+    @Test
     public void testSimultaneouslyTwoSimpleNotes() throws AwesomeException {
         String abcString = "[AC] | ";
         String aweString = "[AC] | ";
