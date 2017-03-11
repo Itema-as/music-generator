@@ -25,6 +25,8 @@ public class ABCToAWEParser {
         public static final char OCT_DOWN = ',';
         public static final char CHORD_START = '[';
         public static final char CHORD_END = ']';
+        public static final char SLUR_START = '(';
+        public static final char SLUR_END = ')';
         public static final char NATURAL = '=';
         public static final char FRACTIONAL_TONE_LENGTH_START = '/';
         public static final char TIE = '-';
@@ -86,18 +88,21 @@ public class ABCToAWEParser {
         String lineConcat = "";
         for (String abcLine : abcFile.getLines()) {
             if (abcLine.startsWith("V:")) {
+                if (!"".equals(lineConcat)) {
+                    awe.addLine(parseLine(lineConcat));
+                    lineConcat = "";
+                }
                 awe.addChannel();
                 AWEChannel channel = awe.getChannels().get(awe.getChannels().size()-1);
                 channel.setInstrument(1); //default to piano, if any instrument is set in the file, this will be overwritten
             }
             if (abcLine.startsWith("%%MIDI program")) {
-                if (!"".equals(lineConcat)) {
-                    awe.addLine(parseLine(lineConcat));
-                    lineConcat = "";
-                }
+                //note: its possible for a channel to change instruments throughout the file. we ignore that for now, and use whatever instrument type is set last
                 int instrument = Integer.parseInt(abcLine.replaceAll("[^0-9]", ""));
-                AWEChannel channel = awe.getChannels().get(awe.getChannels().size()-1);
-                channel.setInstrument(instrument + 1);//+1, because ABC stores them 0-indexed, we have them stored 1-indexed
+                if (awe.getChannels().size() > 0 && instrument > 0) {
+                    AWEChannel channel = awe.getChannels().get(awe.getChannels().size()-1);
+                    channel.setInstrument(instrument + 1);//+1, because ABC stores them 0-indexed, we have them stored 1-indexed
+                }
             }
 
             if (abcLine.startsWith("L:") && !abcLine.contains("1/8")) {
@@ -176,42 +181,41 @@ public class ABCToAWEParser {
         for (int i = 0; i < symbols.length; i++) {
             char sym = symbols[i];
             if(chordStart(sym)) {
-                //if(endOfLastUnit(unit, sym)) {
+                //if(endOfLastUnit(unit, sym) && unit != null) {
                 //    container.addUnit(unit);
                 //}
-                AWEChord chord = new AWEChord();
-                container = chord;
-                timeSlot.addUnit(chord);
                 insideChord = true;
             }
             if(chordEnd(sym)) {
                 insideChord = false;
             }
             if(endOfLastUnit(unit, sym)) {
-                if(unit != null) {
-                    if(!endLine(sym) && !"".equals(unit.getTone())) {
+                if(unit != null && !endLine(sym) && !"".equals(unit.getTone())) {
+                    container.addUnit(unit);
+                }
+                if (chordStart(sym)) {
+                    AWEChord chord = new AWEChord();
+                    container = chord;
+                    timeSlot.addUnit(chord);
+                } else if (!insideChord && timeSlot.getUnits().size() > 0) {
+                    bar.addTimeSlot(timeSlot);
+                    timeSlot = new AWETimeSlot();
+                    container = timeSlot;
+                }
+                if (bar(sym)) {
+                    line.addBar(bar);
+                    bar = new AWEBar();
+                }
+                if (unit != null && endLine(sym)) {
+                    //wrap up loose ends
+                    if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
                         container.addUnit(unit);
-                        if(!insideChord) {
-                            bar.addTimeSlot(timeSlot);
-                            timeSlot = new AWETimeSlot();
-                            container = timeSlot;
-                        }
                     }
-                    if (bar(sym)) {
+                    if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
+                        bar.addTimeSlot(timeSlot);
+                    }
+                    if (bar.getTimeSlots().size() > 0 && !line.getBars().contains(bar) && bar.getTotalToneLength() > 0) {
                         line.addBar(bar);
-                        bar = new AWEBar();
-                    }
-                    if (endLine(sym)) {
-                        //wrap up loose ends
-                        if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
-                            container.addUnit(unit);
-                        }
-                        if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
-                            bar.addTimeSlot(timeSlot);
-                        }
-                        if (bar.getTimeSlots().size() > 0 && !line.getBars().contains(bar)) {
-                            line.addBar(bar);
-                        }
                     }
                 }
 
@@ -239,6 +243,9 @@ public class ABCToAWEParser {
                 //TODO: this isn't quite perfect, we should represent the tie as one long with continuations (-) instead of two tied notes, but it will do for now.
                 unit.addSymbol("¤");
             }
+            if(slurStart(sym) || slurEnd(sym)) {
+                throw new AwesomeException("Slurs are not handled at this point");
+            }
 
 
             if(toneLength(sym)) {
@@ -249,13 +256,15 @@ public class ABCToAWEParser {
                 } else {
                     unit.setToneLengthNumerator(length);
                 }
-                boolean unitIsDone = (i+1 == symbols.length) || !fractionalToneLengthStart(symbols[i+1]);
+                boolean unitIsDone = (i+1 == symbols.length) || (!fractionalToneLengthStart(symbols[i+1]) && !tie(symbols[i+1]));
                 if (unitIsDone) {
                     container.addUnit(unit);
                     unit = new AWEUnit();
-                    bar.addTimeSlot(timeSlot);
-                    timeSlot = new AWETimeSlot();
-                    container = timeSlot;
+                    if (!insideChord) {
+                        bar.addTimeSlot(timeSlot);
+                        timeSlot = new AWETimeSlot();
+                        container = timeSlot;
+                    }
                 }
             }
 
@@ -321,6 +330,12 @@ public class ABCToAWEParser {
     }
     private static boolean chordEnd(char c) {
         return c == Symbol.CHORD_END;
+    }
+    private static boolean slurStart(char c) {
+        return c == Symbol.SLUR_START;
+    }
+    private static boolean slurEnd(char c) {
+        return c == Symbol.SLUR_END;
     }
 
 }

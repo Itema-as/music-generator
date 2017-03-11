@@ -24,10 +24,10 @@ public class Main {
             //TuneBook tuneBook = new TuneBook(new File("resources/rondo.abc"));
             //Tune tune = tuneBook.getTune(0);
 
-            //convertAll("/media/lars/HDD2/13000midiabc");
+            convertAll("/media/lars/HDD2/13000midiabc");
             //convertAll("resources/");
             //convert("resources/rondo.abc", "resources/rondo.awe");
-            convert("/media/lars/HDD2/13000midiabc/0/050620B (The Children of the Night).MID.abc", "resources/test.awe");
+            //convert("/media/lars/HDD2/13000midiabc/0/070107 (Music of the Third Kind).MID.abc", "resources/test.awe"); //15 notes per bar.. metre: 15/8
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,10 +75,10 @@ public class Main {
                         }
                     } catch (Exception | AwesomeException e) {
                         invalids.setValue(invalids.getValue() + 1);
-                        System.out.println("Woopsie! " + file.toString());
+                        /*System.out.println("Woopsie! " + file.toString());
                         e.printStackTrace();
                         System.out.flush();
-                        System.err.flush();
+                        System.err.flush();*/
                     }
                 }
                 return FileVisitResult.CONTINUE;

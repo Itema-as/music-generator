@@ -86,6 +86,27 @@ public class ABCToAWEParserFormatTest {
     }
 
     @Test
+    public void testHandleTies2() throws AwesomeException {
+        String abcString = "F2-";
+        String aweString = "¤F - | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testHandleTies3() throws AwesomeException {
+        String abcString = "F2- [G/2-F/2]G3/2 A3x|";
+        String aweString = "¤F - [¤G/2F/2]G/2 - A - - x | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testHandleTies4() throws AwesomeException {
+        String abcString = "[D/2C/2-]";
+        String aweString = "[D/2¤C/2] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
     public void testSharpNote() throws AwesomeException {
         String abcString = "^A | ";
         String aweString = "^A | ";
@@ -263,7 +284,7 @@ public class ABCToAWEParserFormatTest {
     @Test
     public void testChordsMixedWithNonChords() throws AwesomeException {
         String abcString = "x[FDA,] | ";
-        String aweString = "x[FDA,] | ";
+        String aweString = "x [FDA,] | ";
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }

@@ -41,15 +41,20 @@ public class AWEBar {
         return res;
     }
 
+    public double getTotalToneLength() {
+        double duration = 0;
+        for (AWETimeSlot t : timeSlots) {
+            duration += t.totalToneLength();
+        }
+        return duration;
+    }
+
     public void addTimeSlot(AWETimeSlot timeSlot) {
         this.timeSlots.add(timeSlot);
     }
 
     public void padWithPausesAtEnd(double wantedDuration) {
-        double duration = 0;
-        for (AWETimeSlot t : timeSlots) {
-            duration += t.totalToneLength();
-        }
+        double duration = getTotalToneLength();
         double remains = wantedDuration - duration;
         if (remains > 0) {
             int wholeRemaining = (int)remains;
