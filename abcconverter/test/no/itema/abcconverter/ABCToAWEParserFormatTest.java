@@ -242,7 +242,6 @@ public class ABCToAWEParserFormatTest {
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
-
     @Test
     public void testTwoSimultaneouslyComplexNotes() throws AwesomeException {
         String abcString = "[_A^C] | ";
@@ -258,6 +257,21 @@ public class ABCToAWEParserFormatTest {
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
+
+    @Test
+    public void testNoteBeforeChord() throws AwesomeException {
+        String abcString = "C[cC] | ";
+        String aweString = "C[cC] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testNoteBeforeChord2() throws AwesomeException {
+        String abcString = "^C,[^c'/2-^C,/2] | ";
+        String aweString = "^C,[^c'/2-^C,/2] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
     @Test
     public void testMultipleChordsAndSingleNotes() throws AwesomeException {
         String abcString = "[CEG]D2[FAC]G4[CEG]|";
@@ -265,6 +279,8 @@ public class ABCToAWEParserFormatTest {
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
+
+
 
     @Test
     public void testParseFile() throws AwesomeException, IOException {
@@ -277,5 +293,4 @@ public class ABCToAWEParserFormatTest {
         assertEquals("C", abcFile.getKey());
         assertEquals(1, abcFile.getLines().size());
     }
-
 }
