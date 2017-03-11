@@ -6,16 +6,14 @@ import no.itema.abcconverter.model.AWEChannel;
 import no.itema.abcconverter.model.AWEFile;
 import no.itema.abcconverter.util.AwesomeException;
 import no.itema.abcconverter.util.InstrumentCategories;
+import org.junit.Assert;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -28,8 +26,9 @@ public class Main {
 
             //convertAll("/media/lars/HDD2/130000_Pop_Rock_Classical_Videogame_EDM_MIDI_Archive[6_19_15]");
             //convertAll("resources/");
-            //convert("resources/rondo.abc", "resources/rondo.awe");
-            convert("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
+            convertAllBackAndForth("C:\\Users\\Lars\\Desktop\\A");
+            //convertToAwe("resources/rondo.abc", "resources/rondo.awe");
+            convertToAwe("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,7 +37,7 @@ public class Main {
         //aweFile = ABCToAWEParser.getAWEFile(abcFile);
     }
 
-    private static void convertAll(final String dir) throws IOException {
+    private static void convertAllBackAndForth(final String dir) throws IOException {
         class Holder<T> {
             private T value;
 
@@ -67,8 +66,10 @@ public class Main {
                         System.out.format("%d (valids: %d, invalids %d)", i.getValue(), valids.getValue(), invalids.getValue());
                     }
                     try {
-                        String outfile = dir + "/awe/" + file.getFileName().toString() +  ".awe";
-                        convert(file.toString(), outfile);
+                        String outfileAwe = dir + "/awe/" + file.getFileName().toString() +  ".awe";
+                        for (String instrumentAweFile : convertToAwe(file.toString(), outfileAwe)) {
+                            convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
+                        }
                         valids.setValue(valids.getValue() + 1);
                     } catch (Exception | AwesomeException e) {
                         invalids.setValue(invalids.getValue() + 1);
@@ -87,7 +88,7 @@ public class Main {
         });
     }
 
-    private static void convert(String file, String outfile) throws IOException, AwesomeException {
+    private static ArrayList<String> convertToAwe(String file, String outfile) throws IOException, AwesomeException {
         if (new File(file).length() > 1000000) {
             throw new AwesomeException("File is too big"); //skip crazy big files, they're just mistakes by midi2abc
         }
@@ -98,11 +99,29 @@ public class Main {
         aweFile.ensureIsValid();
 
         String aweContents = aweFile.getFileString();
-        writeFilePerInstrumentCategory(aweFile, outfile);
-        FileManager.saveFileContents(outfile, aweContents);
+        return writeFilePerInstrumentCategory(aweFile, outfile);
+        //FileManager.saveFileContents(outfile, aweContents);
     }
 
-    private static void writeFilePerInstrumentCategory(AWEFile aweFile, String outfile) {
+
+    private static void convertToAbc(String file, String outfile) throws IOException, AwesomeException {
+        if (new File(file).length() > 1000000) {
+            throw new AwesomeException("File is too big"); //skip crazy big files, they're just mistakes by midi2abc
+        }
+        String aweContents = FileManager.getFileContents(file);
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add(aweContents);
+        AWEFile abcFile = AWEToABCParser.getABCFile(lines);
+        //abcFile.ensureIsValid();
+
+        String abcContents = abcFile.getFileString();
+        FileManager.saveFileContents(outfile, abcContents);
+
+        Assert.assertEquals(aweContents, abcContents);
+    }
+
+
+    private static ArrayList<String> writeFilePerInstrumentCategory(AWEFile aweFile, String outfile) {
         Stream<Integer> categories = aweFile.getChannels().stream().map(c -> InstrumentCategories.getCategory(c.getInstrument()));
         int[] allInstruments = { InstrumentCategories.PIANO, InstrumentCategories.BASS, InstrumentCategories.DRUMS, InstrumentCategories.GUITAR };
         boolean allPresent = true;
@@ -112,6 +131,34 @@ public class Main {
             }
         }
 
+        AWEChannel piano = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.PIANO).findFirst().get();
+        AWEChannel guitar = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.GUITAR).findFirst().get();
+        AWEChannel bass = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.BASS).findFirst().get();
+        AWEChannel drums = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.DRUMS).findFirst().get();
+
+        ArrayList<String> filesWritten = new ArrayList<>();
+        try {
+            if (piano != null) {
+                piano.writeToFile("PIANO" + outfile);
+                filesWritten.add("PIANO" + outfile);
+            }
+            if (guitar != null) {
+                guitar.writeToFile("GUITAR" + outfile);
+                filesWritten.add("PIANO" + outfile);
+            }
+            if (bass != null)  {
+                bass.writeToFile("BASS" + outfile);
+                filesWritten.add("PIANO" + outfile);
+            }
+            if (drums != null) {
+                drums.writeToFile("DRUMS" + outfile);
+                filesWritten.add("PIANO" + outfile);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return filesWritten;
+        /*
         if (allPresent) {
             AWEChannel piano = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.PIANO).findFirst().get();
             AWEChannel guitar = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.GUITAR).findFirst().get();
@@ -126,6 +173,6 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 }

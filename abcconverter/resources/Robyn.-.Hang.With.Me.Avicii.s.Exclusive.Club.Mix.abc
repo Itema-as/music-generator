@@ -19,7 +19,13 @@ V:1
 %%MIDI program 0
 % Nonstop2k - The Producer's Resource\0x00
 % http://www.nonstop2k.com  NS2K Member: djrenco\0x00
-=C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2| \
+=C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2
+
+=C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2|
+
+=C,,
+
+=C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2 =C,,/2=C,,/2| \
 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2 =C,,/2=C,,/2=C,,/2=C,,/2| \
 x8| \
 x8|
@@ -43,7 +49,7 @@ V:2
 %%MIDI program 81
 % Nonstop2k - The Producer's Resource\0x00
 % http://www.nonstop2k.com  NS2K Member: djrenco\0x00
-x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
+x/2x/2 x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2| \
 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2 x/2x/2x/2x/2|
