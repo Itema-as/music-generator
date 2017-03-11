@@ -42,6 +42,11 @@ public class AWEChord implements AWETimedUnit, AWEUnitContainer {
         return "[" + units.stream().map(u -> u.getUnitString()).collect(Collectors.joining(""))  + "]";
     }
 
+    @Override
+    public String getAbcString() {
+        return "[" + units.stream().map(u -> u.getAbcString()).collect(Collectors.joining(""))  + "]";
+    }
+
     public List<AWETimedUnit> getUnits() {
         return units;
     }
@@ -60,5 +65,15 @@ public class AWEChord implements AWETimedUnit, AWEUnitContainer {
         ArrayList<AWETimedUnit> second = parts.stream().map(p -> p[1]).collect(Collectors.toCollection(ArrayList::new));
 
         return new AWEChord[] { new AWEChord(first), new AWEChord(second) };
+    }
+
+    @Override
+    public boolean isContinuation() {
+        return false;
+    }
+
+    @Override
+    public boolean isTie() {
+        return false;
     }
 }

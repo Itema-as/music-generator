@@ -41,6 +41,16 @@ public class AWEBar {
         return res;
     }
 
+    public String getAbcString() {
+        String res = "";
+        for(AWETimeSlot u: timeSlots) {
+            res += u.getAbcString();
+        }
+        res += " | ";
+        return res;
+    }
+
+
     public double getTotalToneLength() {
         double duration = 0;
         for (AWETimeSlot t : timeSlots) {
@@ -51,6 +61,14 @@ public class AWEBar {
 
     public void addTimeSlot(AWETimeSlot timeSlot) {
         this.timeSlots.add(timeSlot);
+    }
+
+    public ArrayList<AWETimedUnit> getUnits() {
+        ArrayList<AWETimedUnit> units = new ArrayList<>();
+        for (AWETimeSlot ts : timeSlots) {
+            units.addAll(ts.getUnits());
+        }
+        return units;
     }
 
     public void padWithPausesAtEnd(double wantedDuration) {

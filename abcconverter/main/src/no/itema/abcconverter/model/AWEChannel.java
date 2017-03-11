@@ -54,4 +54,15 @@ public class AWEChannel {
         }
         return bars;
     }
+
+    public ArrayList<AWETimedUnit> getUnits() {
+        ArrayList<AWETimedUnit> units = new ArrayList<>();
+        for (AWELine aweLine : getLines()) {
+            for (AWEBar aweBar : aweLine.getBars()) {
+                units.addAll(aweBar.getUnits());
+            }
+        }
+
+        return units;
+    }
 }

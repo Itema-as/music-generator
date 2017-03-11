@@ -8,5 +8,11 @@ public interface AWETimedUnit {
 
     String getUnitString();
 
+    String getAbcString();
+
     AWETimedUnit[] split(double remainingSpace);
+
+    boolean isContinuation();
+
+    boolean isTie();
 }

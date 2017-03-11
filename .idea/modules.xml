@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/abcconverter.iml" filepath="$PROJECT_DIR$/abcconverter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/music-generator-git.iml" filepath="$PROJECT_DIR$/.idea/music-generator-git.iml" />
     </modules>
   </component>
 </project>

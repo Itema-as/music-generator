@@ -1,6 +1,6 @@
 package no.itema.abcconverter.model;
 
-import no.itema.abcconverter.ABCToAWEParser;
+import no.itema.abcconverter.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,8 @@ public class AWEUnit implements AWETimedUnit {
     private boolean toneLengthIsFractional;
     private double toneLengthNumerator;
     private double toneLengthDenominator;
+    private boolean isContinuation;
+    private boolean tie;
 
     public AWEUnit() {
         symbols = new ArrayList<String>();
@@ -27,6 +29,7 @@ public class AWEUnit implements AWETimedUnit {
         octaves = new ArrayList<String>();
         toneLengthNumerator = 1;
         toneLengthDenominator = 1;
+        isContinuation = false;
     }
 
     public List<String> getSymbols() {
@@ -35,6 +38,10 @@ public class AWEUnit implements AWETimedUnit {
 
     public String getUnitString() {
         return String.join("", symbols) + transp + tone + String.join("", octaves) + toneLengthString();
+    }
+
+    public String getAbcString() {
+        return String.join("", symbols) + transp + tone + String.join("", octaves) + toneLengthString() + (tie ? Symbol.TIE : "");
     }
 
     public void addSymbol(String symbol) {
@@ -71,7 +78,7 @@ public class AWEUnit implements AWETimedUnit {
     private String toneLengthString() {
         double toneLength = getToneLength();
         return toneLength < (1 - 0.00001)
-                ? ("" + ABCToAWEParser.Symbol.FRACTIONAL_TONE_LENGTH_START + Math.round(1/toneLength))
+                ? ("" + Symbol.FRACTIONAL_TONE_LENGTH_START + Math.round(1/toneLength))
                 : toneLength > (1 + 0.00001)
                     ? "" + Math.round(toneLength)
                     : "";
@@ -107,11 +114,44 @@ public class AWEUnit implements AWETimedUnit {
         a.octaves = octaves;
         a.toneLengthNumerator = time;
         AWEUnit b = new AWEUnit();
-        b.tone = String.valueOf(ABCToAWEParser.Symbol.COPY);
+        b.tone = String.valueOf(Symbol.CONTINUATION);
         double remainingLength = toneLength - time;
         b.toneLengthNumerator = remainingLength;
         return new AWEUnit[] { a, b };
     }
 
 
+    public void setIsContinuation(boolean isContinuation) {
+        this.isContinuation = isContinuation;
+    }
+
+    public boolean isContinuation() {
+        return this.isContinuation;
+    }
+
+    @Override
+    public boolean isTie() {
+        return tie;
+    }
+
+    public double getToneLengthDenominator() {
+        return toneLengthDenominator;
+    }
+
+    public double getToneLengthNumerator() {
+        return toneLengthNumerator;
+    }
+
+    public void setTie(boolean tie) {
+        this.tie = tie;
+    }
+
+    public void copyValuesFrom(AWEUnit aweUnit) {
+        symbols = aweUnit.symbols;
+        tone = aweUnit.tone;
+        transp = aweUnit.transp;
+        natural = aweUnit.natural;
+        octaves = aweUnit.octaves;
+        isContinuation = false;
+    }
 }

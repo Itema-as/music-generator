@@ -210,12 +210,30 @@ public class ABCToAWEParser {
                     //wrap up loose ends
                     if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
                         container.addUnit(unit);
+                        if(!insideChord) {
+                            bar.addTimeSlot(timeSlot);
+                            timeSlot = new AWETimeSlot();
+                            container = timeSlot;
+                        }
                     }
                     if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
                         bar.addTimeSlot(timeSlot);
                     }
                     if (bar.getTimeSlots().size() > 0 && !line.getBars().contains(bar) && bar.getTotalToneLength() > 0) {
                         line.addBar(bar);
+                        bar = new AWEBar();
+                    }
+                    if (endLine(sym)) {
+                        //wrap up loose ends
+                        if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
+                            container.addUnit(unit);
+                            if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
+                                bar.addTimeSlot(timeSlot);
+                                if (!line.getBars().contains(bar)) {
+                                    line.addBar(bar);
+                                }
+                            }
+                        }
                     }
                 }
 
