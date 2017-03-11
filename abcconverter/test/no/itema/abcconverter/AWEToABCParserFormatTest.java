@@ -136,7 +136,6 @@ public class AWEToABCParserFormatTest {
         assertEquals(abcString, getABCLineFromAWEString(aweString));
     }
 
-
     @Test
     public void testTwoDifferentSimpleNotes() throws AwesomeException {
         String abcString = "AC | ";
@@ -188,6 +187,13 @@ public class AWEToABCParserFormatTest {
           AWELine line = getAWELineFromABCString(abcString);
           assertEquals(line.getBar(1).getTimeSlots().size(), 16); // First "whole" bar
       }*/
+
+    @Test
+    public void testChordHandling() throws AwesomeException {
+        String aweString = "[^F,/2G,,/2B,,,/2]x/2 | ";
+        String abcString = "[^F,/2G,,/2B,,,/2] x/2 | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
 
     @Test
     public void testSimultaneouslyTwoSimpleNotes() throws AwesomeException {
