@@ -35,7 +35,7 @@ public class AWEToABCParserFormatTest {
         aweFile = new AWEFile(channels);
         ABCFile abcFile = AWEToABCParser.getABCFile(aweFile);
         assertTrue(abcFile != null);
-        assertEquals(abcFile.getLines().size(), 1);
+        assertEquals(abcFile.getLines().size(), 0);
     }
 
     @Test
