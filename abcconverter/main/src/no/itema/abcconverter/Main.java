@@ -73,7 +73,9 @@ public class Main {
                     try {
                         String outfileAwe = dir + "/awe/" + file.getFileName().toString() +  ".awe";
                         for (String instrumentAweFile : convertToAwe(file.toString(), outfileAwe)) {
-                            convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
+                            String fullAbc = FileManager.getFileContents(file.toString());
+                            String abc = convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
+                            Assert.assertEquals(fullAbc, abc); //wont be equal, but we can manually look them here
                         }
                         valids.setValue(valids.getValue() + 1);
                     } catch (Exception | AwesomeException e) {
@@ -110,7 +112,7 @@ public class Main {
     }
 
 
-    private static void convertToAbc(String file, String outfile) throws IOException, AwesomeException {
+    private static String convertToAbc(String file, String outfile) throws IOException, AwesomeException {
         if (new File(file).length() > 1000000) {
             throw new AwesomeException("File is too big"); //skip crazy big files, they're just mistakes by midi2abc
         }
@@ -123,7 +125,7 @@ public class Main {
         String abcContents = abcFile.getFileString();
         FileManager.saveFileContents(outfile, abcContents);
 
-        Assert.assertEquals(aweContents, abcContents);
+        return abcContents;
     }
 
 
