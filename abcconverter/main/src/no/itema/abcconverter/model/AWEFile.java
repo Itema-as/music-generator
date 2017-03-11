@@ -93,6 +93,10 @@ public class AWEFile {
         channels.add(new AWEChannel());
     }
 
+    public void addChannel(int instrument) {
+        channels.add(new AWEChannel(instrument));
+    }
+
     public List<AWEChannel> getChannels() { return channels; }
 
     public void setChannels(List<AWEChannel> channels) { this.channels = channels; }

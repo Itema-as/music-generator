@@ -76,7 +76,8 @@ public class Main {
                             String fullAbc = FileManager.getFileContents(file.toString());
                             //String awe = FileManager.getFileContents(outfileAwe.toString());
                             String abc = convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
-                            Assert.assertEquals(fullAbc, abc); //wont be equal, but we can manually look them here
+                            String derp = abc;
+                            //Assert.assertEquals(fullAbc, abc); //wont be equal, but we can manually look them here
                         }
                         valids.setValue(valids.getValue() + 1);
                     } catch (Exception | AwesomeException e) {
