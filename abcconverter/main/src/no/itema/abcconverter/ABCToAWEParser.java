@@ -136,7 +136,7 @@ public class ABCToAWEParser {
                         AWETimeSlot timeSlot = iterator.next();
 
                         if (prevTimeSlot != null && !prevTimeSlot.isFilled()) {
-                            List<AWETimedUnit> units = timeSlot.chopOfFromBeginning(prevTimeSlot.remainingSpace());
+                            List<AWETimedUnit> units = timeSlot.chopOffFromBeginning(prevTimeSlot.remainingSpace());
                             for (AWETimedUnit unit : units) {
                                 prevTimeSlot.addUnit(unit);
                             }

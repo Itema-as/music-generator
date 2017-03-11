@@ -31,7 +31,8 @@ public class AWEToABCParser {
     private static AWEFile parse(List<String> lines) throws AwesomeException {
 
         AWEFile aweFile = new AWEFile();
-        aweFile.addChannel(0); //hack
+        //aweFile.addChannel(0); //hack
+        aweFile.addChannel(); //hack
         for(String line : lines) {
             aweFile.addLine(parseLine(line));
         }

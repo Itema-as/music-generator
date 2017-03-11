@@ -36,18 +36,18 @@ public class ABCToAWEParserFormatTest {
     @Test
     public void testEmptyAWEFileIsCreated() throws AwesomeException {
         abcFile = new ABCFile(line);
-        AWEFile aweFile = ABCToAWEParser.getAWEFile(abcFile);
+        AWEFile aweFile = ABCToAWEParser.getAWEFileWithDefaultChannel(abcFile);
         assertTrue(aweFile != null);
         assertEquals(aweFile.getNumLines(), 0);
     }
 
-
+/*
     @Test
     public void _testEmptyAWEFileIsCreated() throws AwesomeException {
         abcFile = new ABCFile(line);
         AWEFile aweFile = ABCToAWEParser.getAWEFileWithDefaultChannel(abcFile);
         assertTrue(aweFile != null);
-    }
+    }*/
 
 
     @Test
