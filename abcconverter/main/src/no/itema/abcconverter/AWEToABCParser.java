@@ -102,9 +102,6 @@ public class AWEToABCParser {
             char sym = symbols[i];
 
             if(chordStart(sym)) {
-                AWEChord chord = new AWEChord();
-                container = chord;
-                timeSlot.addUnit(chord);
                 insideChord = true;
             }
             if(chordEnd(sym)) {
@@ -144,6 +141,12 @@ public class AWEToABCParser {
                     timeSlot = new AWETimeSlot();
                     container = timeSlot;
                 }
+            }
+
+            if(chordStart(sym)) {
+                AWEChord chord = new AWEChord();
+                container = chord;
+                timeSlot.addUnit(chord);
             }
 
             if(fractionalToneLengthStart(sym)) {
