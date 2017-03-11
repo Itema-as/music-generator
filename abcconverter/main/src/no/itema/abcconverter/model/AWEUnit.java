@@ -32,10 +32,6 @@ public class AWEUnit implements AWETimedUnit {
         isContinuation = false;
     }
 
-    public AWEUnit(List<String> symbols) {
-        this.symbols = symbols;
-    }
-
     public List<String> getSymbols() {
         return symbols;
     }

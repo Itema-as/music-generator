@@ -2,11 +2,9 @@ package no.itema.abcconverter.io;
 
 import no.itema.abcconverter.model.Header;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
@@ -21,6 +19,8 @@ public class FileManager {
 
     public static void saveFileContents(String filename, String text) throws IOException {
         // Files.newBufferedWriter() uses UTF-8 encoding by default
+        Path pathToFile = Paths.get(filename);
+        Files.createDirectories(pathToFile.getParent());
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filename))) {
             writer.write(text);
         }

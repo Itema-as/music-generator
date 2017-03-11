@@ -29,7 +29,7 @@ public class AWEChord implements AWETimedUnit, AWEUnitContainer {
         if (!(unit instanceof AWEUnit)) {
             throw new AwesomeException("Anything added to AWEChord must be of type AWEUnit");
         }
-        units.add((AWEUnit)unit);
+        units.add(unit);
     }
 
     @Override
@@ -60,9 +60,9 @@ public class AWEChord implements AWETimedUnit, AWEUnitContainer {
         if (toneLength <= time) {
             throw new IllegalArgumentException("Split time must be greater than tone length");
         }
-        Stream<AWEUnit[]> parts = units.stream().map(u -> (AWEUnit[])u.split(time));
-        ArrayList<AWETimedUnit> first = parts.map(p -> p[0]).collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<AWETimedUnit> second = parts.map(p -> p[1]).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<AWEUnit[]> parts = units.stream().map(u -> (AWEUnit[])u.split(time)).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<AWETimedUnit> first = parts.stream().map(p -> p[0]).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<AWETimedUnit> second = parts.stream().map(p -> p[1]).collect(Collectors.toCollection(ArrayList::new));
 
         return new AWEChord[] { new AWEChord(first), new AWEChord(second) };
     }

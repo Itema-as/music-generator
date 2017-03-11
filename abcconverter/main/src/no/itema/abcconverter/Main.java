@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -24,7 +26,7 @@ public class Main {
             //TuneBook tuneBook = new TuneBook(new File("resources/rondo.abc"));
             //Tune tune = tuneBook.getTune(0);
 
-            //convertAll("/media/lars/HDD2/130000_Pop_Rock_Classical_Videogame_EDM_MIDI_Archive[6_19_15]");
+            convertAll("/media/lars/HDD2/13000midiabc");
             //convertAll("resources/");
             convertAllBackAndForth("C:\\Users\\Lars\\Desktop\\A");
             //convertToAwe("resources/rondo.abc", "resources/rondo.awe");
@@ -55,6 +57,7 @@ public class Main {
         }
         final Holder<Integer> i = new Holder<Integer>(0);
         final Holder<Integer> valids = new Holder<Integer>(0);
+        final Holder<Integer> ignored = new Holder<Integer>(0);
         final Holder<Integer> invalids = new Holder<Integer>(0);
         Path path = Files.walkFileTree(Paths.get(dir), new SimpleFileVisitor<Path>() {
             @Override
@@ -63,7 +66,7 @@ public class Main {
                     i.setValue(i.getValue() + 1);
                     if (i.getValue() % 1000 == 0) {
                         System.out.println(file.toString());
-                        System.out.format("%d (valids: %d, invalids %d)", i.getValue(), valids.getValue(), invalids.getValue());
+                        System.out.format("%d (valids: %d, ignored %d, invalids %d)", i.getValue(), valids.getValue(), ignored.getValue(), invalids.getValue());
                     }
                     try {
                         String outfileAwe = dir + "/awe/" + file.getFileName().toString() +  ".awe";
@@ -73,9 +76,10 @@ public class Main {
                         valids.setValue(valids.getValue() + 1);
                     } catch (Exception | AwesomeException e) {
                         invalids.setValue(invalids.getValue() + 1);
-                        System.out.println("Woopsie! " + file.toString());
-                        System.out.println(e.getMessage());
+                        /*System.out.println("Woopsie! " + file.toString());
                         e.printStackTrace();
+                        System.out.flush();
+                        System.err.flush();*/
                     }
                 }
                 return FileVisitResult.CONTINUE;
@@ -95,7 +99,7 @@ public class Main {
         String fileContents = FileManager.getFileContents(file);
         ABCFile abcFile = new ABCFile(fileContents);
         AWEFile aweFile;
-        aweFile = ABCToAWEParser.getAWEFile(abcFile);
+        aweFile = ABCToAWEParser.getAWEFile(abcFile, true);
         aweFile.ensureIsValid();
 
         String aweContents = aweFile.getFileString();
@@ -166,7 +170,7 @@ public class Main {
             AWEChannel drums = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.DRUMS).findFirst().get();
 
             try {
-                piano.writeToFile("PIANO" + outfile);
+                piano.writeToFile(outfile + ".PIANO");
                 guitar.writeToFile("GUITAR" + outfile);
                 bass.writeToFile("BASS" + outfile);
                 drums.writeToFile("DRUMS" + outfile);
