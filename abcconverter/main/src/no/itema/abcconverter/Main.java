@@ -74,6 +74,7 @@ public class Main {
                         String outfileAwe = dir + "/awe/" + file.getFileName().toString() +  ".awe";
                         for (String instrumentAweFile : convertToAwe(file.toString(), outfileAwe)) {
                             String fullAbc = FileManager.getFileContents(file.toString());
+                            //String awe = FileManager.getFileContents(outfileAwe.toString());
                             String abc = convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
                             Assert.assertEquals(fullAbc, abc); //wont be equal, but we can manually look them here
                         }

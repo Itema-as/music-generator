@@ -174,13 +174,15 @@ public class AWEToABCParser {
                 } else {
                     unit.setToneLengthNumerator(length);
                 }
-                boolean unitIsDone = (i+1 == symbols.length) || !fractionalToneLengthStart(symbols[i+1]);
+                boolean unitIsDone = ((i+1 == symbols.length) || !fractionalToneLengthStart(symbols[i+1])) && !tie(symbols[i+1]);
                 if (unitIsDone) {
                     container.addUnit(unit);
                     unit = new AWEUnit();
                     bar.addTimeSlot(timeSlot);
                     timeSlot = new AWETimeSlot();
-                    container = timeSlot;
+                    if (!insideChord) {
+                        container = timeSlot;
+                    }
                 }
             }
 

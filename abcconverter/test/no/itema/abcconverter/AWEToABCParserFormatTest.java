@@ -190,8 +190,8 @@ public class AWEToABCParserFormatTest {
 
     @Test
     public void testChordHandling() throws AwesomeException {
-        String aweString = "[^F,/2G,,/2B,,,/2]x/2 | ";
-        String abcString = "[^F,/2G,,/2B,,,/2] x/2 | ";
+        String aweString = "[^F,/2G,,/2B,,,/2] x/2 | ";
+        String abcString = "[^F,/2G,,/2B,,,/2]x/2 | ";
         assertEquals(abcString, getABCLineFromAWEString(aweString));
     }
 
