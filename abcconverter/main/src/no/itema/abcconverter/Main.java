@@ -16,6 +16,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -29,8 +31,8 @@ public class Main {
             //convertAll("/media/lars/HDD2/13000midiabc");
             //convertAll("resources/");
             convertAllBackAndForth("C:\\Users\\Lars\\Desktop\\A");
-            //convertToAwe("resources/rondo.abc", "resources/rondo.awe");
-            convertToAwe("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
+            //convertToAwe("C:\\Users\\Lars\\Desktop\\A\\A\\A Force - Crystal Dawn.mid.abc", "resources/derp.awe");
+            //convertToAwe("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,37 +128,37 @@ public class Main {
 
 
     private static ArrayList<String> writeFilePerInstrumentCategory(AWEFile aweFile, String outfile) {
-        Stream<Integer> categories = aweFile.getChannels().stream().map(c -> InstrumentCategories.getCategory(c.getInstrument()));
-        int[] allInstruments = { InstrumentCategories.PIANO, InstrumentCategories.BASS, InstrumentCategories.DRUMS, InstrumentCategories.GUITAR };
-        boolean allPresent = true;
+        //List<Integer> categories = aweFile.getChannels().stream().map(c -> InstrumentCategories.getCategory(c.getInstrument())).collect(Collectors.toList());
+        //int[] allInstruments = { InstrumentCategories.PIANO, InstrumentCategories.BASS, InstrumentCategories.DRUMS, InstrumentCategories.GUITAR };
+        /*boolean allPresent = true;
         for (int instrument : allInstruments) {
-            if (!categories.anyMatch(c -> c == instrument)) {
+            if (!categories.contains(instrument)) {
                 allPresent = false;
             }
-        }
+        }*/
 
-        AWEChannel piano = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.PIANO).findFirst().get();
-        AWEChannel guitar = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.GUITAR).findFirst().get();
-        AWEChannel bass = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.BASS).findFirst().get();
-        AWEChannel drums = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.DRUMS).findFirst().get();
+        Optional<AWEChannel> piano = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.PIANO).findFirst();
+        Optional<AWEChannel> guitar = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.GUITAR).findFirst();
+        Optional<AWEChannel> bass = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.BASS).findFirst();
+        Optional<AWEChannel> drums = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.DRUMS).findFirst();
 
         ArrayList<String> filesWritten = new ArrayList<>();
         try {
-            if (piano != null) {
-                piano.writeToFile("PIANO" + outfile);
-                filesWritten.add("PIANO" + outfile);
+            if (piano.isPresent()) {
+                piano.get().writeToFile(outfile + "PIANO.awe");
+                filesWritten.add(outfile + "PIANO.awe");
             }
-            if (guitar != null) {
-                guitar.writeToFile("GUITAR" + outfile);
-                filesWritten.add("PIANO" + outfile);
+            if (guitar.isPresent()) {
+                guitar.get().writeToFile(outfile + "GUITAR.awe");
+                filesWritten.add(outfile + "GUITAR.awe");
             }
-            if (bass != null)  {
-                bass.writeToFile("BASS" + outfile);
-                filesWritten.add("PIANO" + outfile);
+            if (bass.isPresent())  {
+                bass.get().writeToFile(outfile + "BASS.awe");
+                filesWritten.add(outfile + "BASS.awe");
             }
-            if (drums != null) {
-                drums.writeToFile("DRUMS" + outfile);
-                filesWritten.add("PIANO" + outfile);
+            if (drums.isPresent()) {
+                drums.get().writeToFile(outfile + "DRUMS.awe");
+                filesWritten.add(outfile + "DRUMS.awe");
             }
         } catch (IOException e) {
             e.printStackTrace();

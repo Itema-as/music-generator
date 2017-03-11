@@ -1,6 +1,7 @@
 package no.itema.abcconverter.model;
 
 import no.itema.abcconverter.util.AwesomeException;
+import no.itema.abcconverter.util.InstrumentCategories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,8 @@ public class AWEFile {
 
     public void addLine(AWELine line) throws AwesomeException {
         if (this.channels.size() == 0) {
-            throw new AwesomeException("A channel must be added before lines can be added");
+            this.channels.add(new AWEChannel(-1));
+            //throw new AwesomeException("A channel must be added before lines can be added");
         }
         this.channels.get(this.channels.size()-1).addLine(line);
     }
