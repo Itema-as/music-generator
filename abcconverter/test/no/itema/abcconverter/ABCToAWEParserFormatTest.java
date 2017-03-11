@@ -268,7 +268,7 @@ public class ABCToAWEParserFormatTest {
 
     @Test
     public void testParseFile() throws AwesomeException, IOException {
-        String file = "resources/rondo.abc";
+        String file = "abcconverter/resources/rondo.abc";
         ABCFile abcFile = new ABCFile(FileManager.getFileContents(file));
         assertEquals("14", abcFile.getReferenceNumber());
         assertEquals("K331 piano sonata n11 3mov simplified", abcFile.getComposer());
