@@ -168,17 +168,34 @@ public class ABCToAWEParser {
         for (int i = 0; i < symbols.length; i++) {
             char sym = symbols[i];
             if(chordStart(sym)) {
-                AWEChord chord = new AWEChord();
-                container = chord;
-                timeSlot.addUnit(chord);
+                //if(endOfLastUnit(unit, sym) && unit != null) {
+                //    container.addUnit(unit);
+                //}
                 insideChord = true;
             }
             if(chordEnd(sym)) {
                 insideChord = false;
             }
             if(endOfLastUnit(unit, sym)) {
-                if(unit != null) {
-                    if(!endLine(sym) && !"".equals(unit.getTone())) {
+                if(unit != null && !endLine(sym) && !"".equals(unit.getTone())) {
+                    container.addUnit(unit);
+                }
+                if (chordStart(sym)) {
+                    AWEChord chord = new AWEChord();
+                    container = chord;
+                    timeSlot.addUnit(chord);
+                } else if (!insideChord && timeSlot.getUnits().size() > 0) {
+                    bar.addTimeSlot(timeSlot);
+                    timeSlot = new AWETimeSlot();
+                    container = timeSlot;
+                }
+                if (bar(sym)) {
+                    line.addBar(bar);
+                    bar = new AWEBar();
+                }
+                if (unit != null && endLine(sym)) {
+                    //wrap up loose ends
+                    if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
                         container.addUnit(unit);
                         if(!insideChord) {
                             bar.addTimeSlot(timeSlot);
@@ -186,7 +203,10 @@ public class ABCToAWEParser {
                             container = timeSlot;
                         }
                     }
-                    if (bar(sym)) {
+                    if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
+                        bar.addTimeSlot(timeSlot);
+                    }
+                    if (bar.getTimeSlots().size() > 0 && !line.getBars().contains(bar) && bar.getTotalToneLength() > 0) {
                         line.addBar(bar);
                         bar = new AWEBar();
                     }
