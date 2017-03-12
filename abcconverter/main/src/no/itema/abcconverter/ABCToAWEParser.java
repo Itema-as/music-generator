@@ -210,18 +210,6 @@ public class ABCToAWEParser {
                         line.addBar(bar);
                         bar = new AWEBar();
                     }
-                    if (endLine(sym)) {
-                        //wrap up loose ends
-                        if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
-                            container.addUnit(unit);
-                            if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
-                                bar.addTimeSlot(timeSlot);
-                                if (!line.getBars().contains(bar)) {
-                                    line.addBar(bar);
-                                }
-                            }
-                        }
-                    }
                 }
 
                 unit = new AWEUnit();
