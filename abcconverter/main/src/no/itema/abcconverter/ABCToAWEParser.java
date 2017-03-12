@@ -144,7 +144,6 @@ public class ABCToAWEParser {
                         lastUnit = chord.getUnits().get(chord.getUnits().size()-1);
                     }
                     if (lastUnit.isTie()) {
-                        System.out.println(bar.getBarString());
                         makeContinuation = true;
                     }
                 }
