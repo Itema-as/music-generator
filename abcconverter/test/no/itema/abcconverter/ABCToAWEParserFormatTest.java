@@ -261,14 +261,14 @@ public class ABCToAWEParserFormatTest {
     @Test
     public void testNoteBeforeChord() throws AwesomeException {
         String abcString = "C[cC] | ";
-        String aweString = "C[cC] | ";
+        String aweString = "C [cC] | ";
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
     @Test
     public void testNoteBeforeChord2() throws AwesomeException {
-        String abcString = "^C,[^c'/2-^C,/2] | ";
-        String aweString = "^C,[^c'/2-^C,/2] | ";
+        String abcString = "^C,[^c'/2^C,/2] | ";
+        String aweString = "^C, [^c'/2^C,/2] | ";
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 

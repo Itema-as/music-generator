@@ -240,9 +240,11 @@ public class ABCToAWEParser {
                 if (unitIsDone) {
                     container.addUnit(unit);
                     unit = new AWEUnit();
-                    bar.addTimeSlot(timeSlot);
-                    timeSlot = new AWETimeSlot();
-                    container = timeSlot;
+                    if (!insideChord) {
+                        bar.addTimeSlot(timeSlot);
+                        timeSlot = new AWETimeSlot();
+                        container = timeSlot;
+                    }
                 }
             }
 
