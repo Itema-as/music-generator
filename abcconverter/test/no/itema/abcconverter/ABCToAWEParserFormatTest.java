@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -88,6 +89,14 @@ public class ABCToAWEParserFormatTest {
         String abcString = "A,,,/2 | ";
         String aweString = "A,,,/2 | ";
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testHandlesMultilineBars() throws AwesomeException {
+        String abcString = "x2 \n" +
+                "a2 f3=d|";
+        String aweString = "x ☃ a ☃ f ☃ ☃ =d | ";
+        assertEquals(aweString, getAWEStringFromABCString(abcString));
     }
 
     @Test
@@ -213,11 +222,17 @@ public class ABCToAWEParserFormatTest {
         AWELine line = getAWELineFromABCString(abcString);
         assertEquals(line.getBar(1).getTimeSlots().size(), 16); // First "whole" bar
     }
+
     private AWELine getAWELineFromABCString(String abcString) throws AwesomeException {
-        List<String> lines = new ArrayList<>();
-        lines.add(abcString);
+        List<String> lines =  Arrays.asList(abcString.split("\n"));
         AWEFile aweFile = ABCToAWEParser.getAWEFileWithDefaultChannel(new ABCFile(lines));
         return aweFile.getAWELine(0, 0);
+    }
+
+    private String getAWEStringFromABCString(String abcString) throws AwesomeException {
+        List<String> lines =  Arrays.asList(abcString.split("\n"));
+        AWEFile aweFile = ABCToAWEParser.getAWEFileWithDefaultChannel(new ABCFile(lines));
+        return aweFile.getFileString();
     }
 
     @Test

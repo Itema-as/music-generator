@@ -1,6 +1,7 @@
 package no.itema.abcconverter.model;
 
 import no.itema.abcconverter.io.FileManager;
+import no.itema.abcconverter.util.InstrumentCategories;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class AWEChannel {
 
     private List<AWELine> lines;
     private int instrument;
+    private boolean isDrums;
 
     public AWEChannel() {
         lines = new ArrayList<AWELine>();
@@ -32,6 +34,10 @@ public class AWEChannel {
     }
 
     public int getInstrument() { return instrument; }
+
+    public int getInstrumentCategory() {
+        return isDrums ? InstrumentCategories.DRUMS : InstrumentCategories.getCategory(this.instrument);
+    }
 
     public void setInstrument(int instrument) { this.instrument = instrument; }
 
@@ -64,5 +70,13 @@ public class AWEChannel {
         }
 
         return units;
+    }
+
+    public void setIsDrums(boolean isDrums) {
+        this.isDrums = isDrums;
+    }
+
+    public boolean isDrums() {
+        return this.isDrums;
     }
 }

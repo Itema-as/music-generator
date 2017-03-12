@@ -57,7 +57,8 @@ public class ABCToAWEParser {
         awe.getChannels().forEach(c -> {
             List<AWEBar> bars = c.getBars();
             if (bars.size() == 0) return;
-            bars.get(bars.size()-1).padWithPausesAtEnd(8);
+            AWEBar lastbar = bars.get(bars.size()-1);
+            lastbar.padWithPausesAtEnd(8);
             int numBars = bars.size();
             if (numBars < max) {
                 AWELine line = c.getLines().get(c.getLines().size()-1);
@@ -71,10 +72,28 @@ public class ABCToAWEParser {
     }
 
     private static AWEFile parse(ABCFile abcFile, AWEFile awe) throws AwesomeException {
+        String lineConcat = "";
         for (String abcLine : abcFile.getLines()) {
+            if (abcLine.startsWith("V:")) {
+                if (!"".equals(lineConcat)) {
+                    awe.addLine(parseLine(lineConcat));
+                    lineConcat = "";
+                }
+                awe.addChannel();
+            }
             if (abcLine.startsWith("%%MIDI channel")) {
+                int channel = Integer.parseInt(abcLine.replaceAll("[^0-9]", ""));
+                if (channel == 10) {
+                    AWEChannel lastChannel = awe.getChannels().get(awe.getChannels().size()-1);
+                    lastChannel.setIsDrums(true);
+                } else {
+                    throw new AwesomeException("Unexpected channel number: "+channel);
+                }
+            }
+            if (abcLine.startsWith("%%MIDI program")) {
                 int instrument = Integer.parseInt(abcLine.replaceAll("[^0-9]", ""));
-                awe.addChannel(instrument);
+                AWEChannel lastChannel = awe.getChannels().get(awe.getChannels().size()-1);
+                lastChannel.setInstrument(instrument);
             }
 
             //skip lines that aren't music.
@@ -85,7 +104,11 @@ public class ABCToAWEParser {
                 continue;
             }
 
-            awe.addLine(parseLine(abcLine));
+            lineConcat += abcLine;
+            lineConcat += " ";
+        }
+        if (!"".equals(lineConcat)) {
+            awe.addLine(parseLine(lineConcat));
         }
         return awe;
     }
@@ -97,6 +120,7 @@ public class ABCToAWEParser {
                 boolean makeContinuation = false;
                 for (AWEBar bar : line.getBars()) {
                     if (makeContinuation) {
+                        //AWETimedUnit o = bar.getUnits().get(0);
                         AWEUnit unit = ((AWEUnit)bar.getUnits().get(0));
                         unit.copyValuesFrom(new AWEUnit());
                         unit.setTone(String.valueOf(Symbol.CONTINUATION));

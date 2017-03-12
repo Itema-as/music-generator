@@ -70,13 +70,12 @@ public class AWEFile {
         for (AWEChannel c : channels) {
             int numTimeSlots = 0;
             String s = c.toAweString();
-            for (AWELine line : c.getLines()) {
-                numLines++;
-                for (AWEBar bar : line.getBars()) {
-                    numTimeSlots += bar.getTimeSlots().size();
-                    if (bar.getTimeSlots().size() != 8 && bar != line.getBar(0)) {
-                        throw new AwesomeException("All bars except first must have 8 timeslots");
-                    }
+            int barCount = 0;
+            for (AWEBar bar : c.getBars()) {
+                barCount++;
+                numTimeSlots += bar.getTimeSlots().size();
+                if (bar.getTimeSlots().size() != 8 && barCount != 1) {
+                    throw new AwesomeException("All bars except first must have 8 timeslots");
                 }
             }
             if (prevNumTimeSlots != -1 && prevNumTimeSlots != numTimeSlots) {

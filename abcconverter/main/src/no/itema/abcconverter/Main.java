@@ -82,10 +82,10 @@ public class Main {
                         valids.setValue(valids.getValue() + 1);
                     } catch (Exception | AwesomeException e) {
                         invalids.setValue(invalids.getValue() + 1);
-                        /*System.out.println("Woopsie! " + file.toString());
+                        System.out.println("Woopsie! " + file.toString());
                         e.printStackTrace();
                         System.out.flush();
-                        System.err.flush();*/
+                        System.err.flush();/**/
                     }
                 }
                 return FileVisitResult.CONTINUE;
@@ -141,10 +141,10 @@ public class Main {
             }
         }*/
 
-        Optional<AWEChannel> piano = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.PIANO).findFirst();
-        Optional<AWEChannel> guitar = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.GUITAR).findFirst();
-        Optional<AWEChannel> bass = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.BASS).findFirst();
-        Optional<AWEChannel> drums = aweFile.getChannels().stream().filter(c -> c.getInstrument() == InstrumentCategories.DRUMS).findFirst();
+        Optional<AWEChannel> piano = aweFile.getChannels().stream().filter(c -> c.getInstrumentCategory() == InstrumentCategories.PIANO).findFirst();
+        Optional<AWEChannel> guitar = aweFile.getChannels().stream().filter(c -> c.getInstrumentCategory() == InstrumentCategories.GUITAR).findFirst();
+        Optional<AWEChannel> bass = aweFile.getChannels().stream().filter(c -> c.getInstrumentCategory() == InstrumentCategories.BASS).findFirst();
+        Optional<AWEChannel> drums = aweFile.getChannels().stream().filter(c -> c.getInstrumentCategory() == InstrumentCategories.DRUMS).findFirst();
 
         ArrayList<String> filesWritten = new ArrayList<>();
         try {
