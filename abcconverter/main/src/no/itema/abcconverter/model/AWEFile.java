@@ -65,7 +65,7 @@ public class AWEFile {
     }
 
     public void ensureIsValid() throws AwesomeException {
-        int numLines = 0;
+        int numBars = 0;
         int prevNumTimeSlots = -1;
         for (AWEChannel c : channels) {
             int numTimeSlots = 0;
@@ -78,13 +78,14 @@ public class AWEFile {
                     throw new AwesomeException("All bars except first must have 8 timeslots");
                 }
             }
+            numBars += barCount;
             if (prevNumTimeSlots != -1 && prevNumTimeSlots != numTimeSlots) {
                 throw new AwesomeException("Number of timeslots differed between channels");
             }
             prevNumTimeSlots = numTimeSlots;
         }
-        if (numLines == 0) {
-            throw new AwesomeException("No lines in the file");
+        if (numBars == 0) {
+            throw new AwesomeException("No bars in the file");
         }
     }
 
