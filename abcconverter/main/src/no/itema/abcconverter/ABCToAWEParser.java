@@ -120,16 +120,31 @@ public class ABCToAWEParser {
                 boolean makeContinuation = false;
                 for (AWEBar bar : line.getBars()) {
                     if (makeContinuation) {
-                        //AWETimedUnit o = bar.getUnits().get(0);
-                        AWEUnit unit = ((AWEUnit)bar.getUnits().get(0));
-                        unit.copyValuesFrom(new AWEUnit());
-                        unit.setTone(String.valueOf(Symbol.CONTINUATION));
+                        AWETimedUnit u = bar.getUnits().get(0);
+                        if (u instanceof AWEUnit) {
+                            AWEUnit unit = ((AWEUnit)u);
+                            unit.copyValuesFrom(new AWEUnit());
+                            unit.setTone(String.valueOf(Symbol.CONTINUATION));
+                        } else {
+                            AWEChord chord = ((AWEChord)u);
+                            for (AWETimedUnit tu : chord.getUnits()) {
+                                AWEUnit unit = ((AWEUnit)tu);
+                                unit.copyValuesFrom(new AWEUnit());
+                                unit.setTone(String.valueOf(Symbol.CONTINUATION));
+                            }
+                        }
 
                         makeContinuation = false;
                     }
 
                     ArrayList<AWETimedUnit> units = bar.getUnits();
-                    if (units.get(units.size()-1).isTie()) {
+                    AWETimedUnit lastUnit = units.get(units.size()-1);
+                    if (lastUnit instanceof AWEChord) {
+                        AWEChord chord = ((AWEChord)lastUnit);
+                        lastUnit = chord.getUnits().get(chord.getUnits().size()-1);
+                    }
+                    if (lastUnit.isTie()) {
+                        System.out.println(bar.getBarString());
                         makeContinuation = true;
                     }
                 }
@@ -192,9 +207,6 @@ public class ABCToAWEParser {
         for (int i = 0; i < symbols.length; i++) {
             char sym = symbols[i];
             if(chordStart(sym)) {
-                //if(endOfLastUnit(unit, sym) && unit != null) {
-                //    container.addUnit(unit);
-                //}
                 insideChord = true;
             }
             if(chordEnd(sym)) {

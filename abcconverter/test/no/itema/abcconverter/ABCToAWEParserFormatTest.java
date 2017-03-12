@@ -258,6 +258,20 @@ public class ABCToAWEParserFormatTest {
     }
 
     @Test
+    public void testTwoChords() throws AwesomeException {
+        String aweString = "[ge] | [ge] | ";
+        String abcString = "[ge] | [ge] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testChordTies() throws AwesomeException {
+        String abcString = "[g-e-] | [ge] | ";
+        String aweString = "[ge] | [☃☃] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
     public void testTwoSimultaneouslyComplexNotes() throws AwesomeException {
         String abcString = "[_A^C] | ";
         String aweString = "[_A^C] | ";
