@@ -92,7 +92,7 @@ public class ABCToAWEParser {
             }
             if (abcLine.startsWith("%%MIDI program")) {
                 int instrument = Integer.parseInt(abcLine.replaceAll("[^0-9]", ""));
-                AWEChannel lastChannel = awe.getChannels().get(awe.getChannels().size()-1);
+                AWEChannel lastChannel = awe.getChannels().isEmpty() ? new AWEChannel() : awe.getChannels().get(awe.getChannels().size()-1);
                 lastChannel.setInstrument(instrument);
             }
 
@@ -121,10 +121,12 @@ public class ABCToAWEParser {
                 for (AWEBar bar : line.getBars()) {
                     if (makeContinuation) {
                         //AWETimedUnit o = bar.getUnits().get(0);
-                        AWEUnit unit = ((AWEUnit)bar.getUnits().get(0));
-                        unit.copyValuesFrom(new AWEUnit());
-                        unit.setTone(String.valueOf(Symbol.CONTINUATION));
-
+                        AWETimedUnit aweTimedUnit = bar.getUnits().get(0);
+                        if (!(aweTimedUnit instanceof AWEChord)) {
+                            AWEUnit unit = ((AWEUnit) aweTimedUnit);
+                            unit.copyValuesFrom(new AWEUnit());
+                            unit.setTone(String.valueOf(Symbol.CONTINUATION));
+                        }
                         makeContinuation = false;
                     }
 
