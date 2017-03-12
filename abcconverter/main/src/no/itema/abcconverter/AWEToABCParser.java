@@ -167,6 +167,9 @@ public class AWEToABCParser {
             if(tie(sym)) {
                 throw new AwesomeException("Don't know how to handle ABC ties yet");
             }
+            if (slur(sym)) {
+                throw new AwesomeException("Don't know how to handle ABC slurs yet");
+            }
 
 
             if(toneLength(sym)) {
