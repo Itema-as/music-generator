@@ -30,8 +30,9 @@ public class Main {
 
             //convertAll("/media/lars/HDD2/13000midiabc");
             //convertAll("resources/");
-            convertAllBackAndForth("C:\\Users\\Lars\\Desktop\\A");
+            convertAllBackAndForth("/Users/robert/Documents/Itema/MusicGenerator/5");
             //convertToAwe("C:\\Users\\Lars\\Desktop\\A\\A\\A Force - Crystal Dawn.mid.abc", "resources/derp.awe");
+            //convertToAwe("/Users/robert/Documents/Itema/MusicGenerator/5/50's-Rock.mid.abc", "/Users/robert/Documents/Itema/MusicGenerator/5/50'sRock/derp.awe");
             //convertToAwe("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,7 +67,7 @@ public class Main {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 if (file.toString().endsWith(".abc")) {
                     i.setValue(i.getValue() + 1);
-                    if (i.getValue() % 1000 == 0) {
+                    if (i.getValue() % 10 == 0) {
                         System.out.println(file.toString());
                         System.out.format("%d (valids: %d, ignored %d, invalids %d)", i.getValue(), valids.getValue(), ignored.getValue(), invalids.getValue());
                     }
@@ -102,6 +103,12 @@ public class Main {
         if (new File(file).length() > 1000000) {
             throw new AwesomeException("File is too big"); //skip crazy big files, they're just mistakes by midi2abc
         }
+        if (!new File(file).exists()) {
+            throw new AwesomeException("File does not exist");
+        }
+        if (new File(file).length() == 0) {
+            throw new AwesomeException("File is empty");
+        }
         String fileContents = FileManager.getFileContents(file);
         ABCFile abcFile = new ABCFile(fileContents);
         AWEFile aweFile;
@@ -117,6 +124,12 @@ public class Main {
     private static String convertToAbc(String file, String outfile) throws IOException, AwesomeException {
         if (new File(file).length() > 1000000) {
             throw new AwesomeException("File is too big"); //skip crazy big files, they're just mistakes by midi2abc
+        }
+        if (!new File(file).exists()) {
+            throw new AwesomeException("File does not exist");
+        }
+        if (new File(file).length() == 0) {
+            throw new AwesomeException("File is empty");
         }
         String aweContents = FileManager.getFileContents(file);
         ArrayList<String> lines = new ArrayList<>();

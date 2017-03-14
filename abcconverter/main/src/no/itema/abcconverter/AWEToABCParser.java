@@ -96,9 +96,13 @@ public class AWEToABCParser {
         AWEBar bar = new AWEBar();
         AWETimeSlot timeSlot = new AWETimeSlot();
         AWEUnitContainer container = timeSlot;
+        boolean foundSlurEnd;
+        boolean foundSlurStart;
 
         boolean insideChord = false;
         for (int i = 0; i < symbols.length; i++) {
+            foundSlurEnd = false;
+            foundSlurStart = false;
             char sym = symbols[i];
 
             if(chordStart(sym)) {
@@ -167,21 +171,31 @@ public class AWEToABCParser {
             if(tie(sym)) {
                 throw new AwesomeException("Don't know how to handle ABC ties yet");
             }
-            if (slur(sym)) {
-                throw new AwesomeException("Don't know how to handle ABC slurs yet");
+            if (slurStart(sym)) {
+                foundSlurStart = true;
+            }
+            if (slurEnd(sym)) {
+                foundSlurEnd = true;
             }
 
-
-            if(toneLength(sym)) {
+            if(toneLength(sym) || foundSlurEnd || foundSlurStart) {
                 // Create a new unit
-                int length = Integer.parseInt(String.valueOf(sym));
-                if (unit.getToneLengthIsFractional()) {
-                    unit.setToneLengthDenominator(length);
-                } else {
-                    unit.setToneLengthNumerator(length);
+                if (sym != SLUR_END && sym != SLUR_START) {
+                    int length = Integer.parseInt(String.valueOf(sym));
+                    if (unit.getToneLengthIsFractional()) {
+                        unit.setToneLengthDenominator(length);
+                    } else {
+                        unit.setToneLengthNumerator(length);
+                    }
                 }
                 boolean unitIsDone = ((i+1 == symbols.length) || !fractionalToneLengthStart(symbols[i+1])) && !tie(symbols[i+1]);
                 if (unitIsDone) {
+                    if (foundSlurEnd) {
+                        unit.setTone(unit.getTone() + ")");
+                    }
+                    if (foundSlurStart) {
+                        unit.setTone("("+ unit.getTone());
+                    }
                     container.addUnit(unit);
                     unit = new AWEUnit();
                     bar.addTimeSlot(timeSlot);

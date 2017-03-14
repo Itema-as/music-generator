@@ -20,6 +20,8 @@ public class AWEUnit implements AWETimedUnit {
     private double toneLengthDenominator;
     private boolean isContinuation;
     private boolean tie;
+    private boolean slurStart;
+    private boolean slurEnd;
 
     public AWEUnit() {
         symbols = new ArrayList<String>();
@@ -146,6 +148,22 @@ public class AWEUnit implements AWETimedUnit {
         this.tie = tie;
     }
 
+    public void setSlurStart(boolean slurStart) {
+        this.slurStart = slurStart;
+    }
+
+    public void setSlurEnd(boolean slurEnd) {
+        this.slurEnd = slurEnd;
+    }
+
+    public boolean isSlurStart() {
+        return slurStart;
+    }
+
+    public boolean isSlurEnd() {
+        return slurEnd;
+    }
+
     public void copyValuesFrom(AWEUnit aweUnit) {
         symbols = aweUnit.symbols;
         tone = aweUnit.tone;
@@ -154,4 +172,5 @@ public class AWEUnit implements AWETimedUnit {
         octaves = aweUnit.octaves;
         isContinuation = false;
     }
+
 }

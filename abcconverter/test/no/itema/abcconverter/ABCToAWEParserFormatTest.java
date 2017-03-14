@@ -310,6 +310,27 @@ public class ABCToAWEParserFormatTest {
     }
 
     @Test
+    public void testSlurStartOnly() throws AwesomeException {
+        String abcString = "GD/2E4-E/2  (3DED| ";
+        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 (  ☃ ☃ D E D | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testSlurs() throws AwesomeException {
+        String abcString = "GD/2E4-E/2  (3DE)D| ";
+        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 (  ☃ ☃ D E) D | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testSlursWithHalfNotes() throws AwesomeException {
+        String abcString = "(E2)| ";
+        String aweString = "( E ☃ ) | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
     public void testParseFile() throws AwesomeException, IOException {
         String file = "abcconverter/resources/rondo.abc";
         ABCFile abcFile = new ABCFile(FileManager.getFileContents(file));

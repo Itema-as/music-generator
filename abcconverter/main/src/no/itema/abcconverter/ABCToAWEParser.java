@@ -269,20 +269,31 @@ public class ABCToAWEParser {
             if(tie(sym)) {
                 unit.setTie(true);
             }
-            if (slur(sym)) {
-                throw new AwesomeException("We do not handle slur yet");
+            if (slurStart(sym)) {
+                unit.setSlurStart(true);
+            }
+            if (slurEnd(sym)) {
+                unit.setSlurEnd(true);
             }
 
-            if(toneLength(sym)) {
+            if(toneLength(sym) || unit.isSlurEnd() || unit.isSlurStart()) {
                 // Create a new unit
-                int length = Integer.parseInt(String.valueOf(sym));
-                if (unit.getToneLengthIsFractional()) {
-                    unit.setToneLengthDenominator(length);
-                } else {
-                    unit.setToneLengthNumerator(length);
+                if (!unit.isSlurEnd() && !unit.isSlurStart()) {
+                    int length = Integer.parseInt(String.valueOf(sym));
+                    if (unit.getToneLengthIsFractional()) {
+                        unit.setToneLengthDenominator(length);
+                    } else {
+                        unit.setToneLengthNumerator(length);
+                    }
                 }
                 boolean unitIsDone = (i+1 == symbols.length) || (!fractionalToneLengthStart(symbols[i+1]) && !tie(symbols[i+1]));
                 if (unitIsDone) {
+                    if (unit.isSlurEnd()) {
+                        unit.setTone(unit.getTone() + ")");
+                    }
+                    if (unit.isSlurStart()) {
+                        unit.setTone("(" + unit.getTone());
+                    }
                     container.addUnit(unit);
                     unit = new AWEUnit();
                     if (!insideChord) {

@@ -20,7 +20,8 @@ public class Symbol {
     public static final char NATURAL = '=';
     public static final char FRACTIONAL_TONE_LENGTH_START = '/';
     public static final char TIE = '-';
-    public static final char SLUR = '(';
+    public static final char SLUR_START = '(';
+    public static final char SLUR_END = ')';
 
     public static boolean endOfLastUnit(AWEUnit unit, char sym) {
         //System.out.println("Symbol " + sym + ": " + (unit == null) + ":");
@@ -74,7 +75,8 @@ public class Symbol {
     public static boolean octaveDown(char c) { return c == Symbol.OCT_DOWN; }
     public static boolean natural(char c) { return c == Symbol.NATURAL; }
     public static boolean tie(char c) { return c == Symbol.TIE; }
-    public static boolean slur(char c) { return c == Symbol.SLUR; }
+    public static boolean slurStart(char c) { return c == Symbol.SLUR_START; }
+    public static boolean slurEnd(char c) { return c == Symbol.SLUR_END; }
 
     public static boolean chordStart(char c) {
         return c == Symbol.CHORD_START;

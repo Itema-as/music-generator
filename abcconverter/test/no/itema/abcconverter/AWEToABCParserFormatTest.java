@@ -230,6 +230,20 @@ public class AWEToABCParserFormatTest {
         assertEquals(getABCLineFromAWEString(aweString), abcString);
     }
 
+    @Test
+    public void testSlurStartOnly() throws AwesomeException {
+        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 (  ☃ ☃ D E D | ";
+        String abcString = "GD/2E4-E/2  (3DED | ";
+        assertEquals(getABCLineFromAWEString(aweString), abcString);
+    }
+
+    @Test
+    public void testSlurs() throws AwesomeException {
+        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 (  ☃ ☃ D E) D | ";
+        String abcString = "GD/2E4-E/2  (3DE)D| ";
+        assertEquals(getABCLineFromAWEString(aweString), abcString);
+    }
+
     /*
           @Test
           public void testDividedNotes() throws AwesomeException {
