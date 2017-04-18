@@ -92,8 +92,15 @@ public class ABCToAWEParser {
             }
             if (abcLine.startsWith("%%MIDI program")) {
                 int instrument = Integer.parseInt(abcLine.replaceAll("[^0-9]", ""));
-                AWEChannel lastChannel = awe.getChannels().isEmpty() ? new AWEChannel() : awe.getChannels().get(awe.getChannels().size()-1);
+                if (awe.getChannels().isEmpty()) {
+                    awe.addChannel();
+                }
+                AWEChannel lastChannel = awe.getChannels().get(awe.getChannels().size()-1);
                 lastChannel.setInstrument(instrument);
+            }
+
+            if (abcLine.startsWith("L:") && !abcLine.contains("1/8")) {
+                throw new AwesomeException("Currently only supporting L:1/8. Found: " + abcLine);
             }
 
             //skip lines that aren't music.

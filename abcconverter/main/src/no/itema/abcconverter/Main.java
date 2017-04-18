@@ -30,7 +30,8 @@ public class Main {
 
             //convertAll("/media/lars/HDD2/13000midiabc");
             //convertAll("resources/");
-            convertAllBackAndForth("C:\\Users\\Lars\\Desktop\\A");
+            //convertAllBackAndForth("C:\\Users\\Lars\\Desktop\\A");
+            convertOneBackAndForth("C:\\Users\\Lars\\Desktop\\A\\A\\A HA.Dark is the night.mid.abc", "resources/derp.awe");
             //convertToAwe("C:\\Users\\Lars\\Desktop\\A\\A\\A Force - Crystal Dawn.mid.abc", "resources/derp.awe");
             //convertToAwe("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
         } catch (IOException e) {
@@ -39,6 +40,23 @@ public class Main {
 
 
         //aweFile = ABCToAWEParser.getAWEFile(abcFile);
+    }
+
+    private static void convertOneBackAndForth(String file, String outfileAwe) throws IOException {
+        try {
+            for (String instrumentAweFile : convertToAwe(file, outfileAwe)) {
+                String fullAbc = FileManager.getFileContents(file);
+                //String awe = FileManager.getFileContents(outfileAwe.toString());
+                String abc = convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
+                String derp = abc;
+                //Assert.assertEquals(fullAbc, abc); //wont be equal, but we can manually look them here
+            }
+        } catch (Exception | AwesomeException e) {
+            System.out.println("Woopsie! " + file.toString());
+            e.printStackTrace();
+            System.out.flush();
+            System.err.flush();
+        }
     }
 
     private static void convertAllBackAndForth(final String dir) throws IOException {
