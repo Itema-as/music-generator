@@ -276,7 +276,9 @@ public class ABCToAWEParser {
             if(tie(sym)) {
                 unit.setTie(true);
             }
-
+            if (slur(sym)) {
+                throw new AwesomeException("We do not handle slur yet");
+            }
 
             if(toneLength(sym)) {
                 // Create a new unit

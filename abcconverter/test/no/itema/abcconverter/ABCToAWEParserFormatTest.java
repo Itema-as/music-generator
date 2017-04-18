@@ -308,8 +308,6 @@ public class ABCToAWEParserFormatTest {
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
-
-
     @Test
     public void testParseFile() throws AwesomeException, IOException {
         String file = "abcconverter/resources/rondo.abc";
