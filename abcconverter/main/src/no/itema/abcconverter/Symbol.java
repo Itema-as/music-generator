@@ -20,6 +20,7 @@ public class Symbol {
     public static final char NATURAL = '=';
     public static final char FRACTIONAL_TONE_LENGTH_START = '/';
     public static final char TIE = '-';
+    public static final char BLANK = ' ';
     public static final char SLUR_START = '(';
     public static final char SLUR_END = ')';
 
@@ -37,7 +38,7 @@ public class Symbol {
         }
 
         return unit == null ||                                          // This is the first unit
-                unit.isContinuation() ||
+                (unit.isContinuation() && !(toneLength(sym) || fractionalToneLengthStart(sym))) ||
                 continuation(sym) ||
                 (unit.getTone() != "" && (sharp(sym)) || flat(sym)) ||  // Tone exists, but there is a new first symbol(sharp/flat)
                 (unit.getTone() != "" && toneHeight(sym)) ||            // Tone exists, and there is a new tone
@@ -75,6 +76,7 @@ public class Symbol {
     public static boolean octaveDown(char c) { return c == Symbol.OCT_DOWN; }
     public static boolean natural(char c) { return c == Symbol.NATURAL; }
     public static boolean tie(char c) { return c == Symbol.TIE; }
+    public static boolean blank(char c) { return c == Symbol.BLANK; }
     public static boolean slurStart(char c) { return c == Symbol.SLUR_START; }
     public static boolean slurEnd(char c) { return c == Symbol.SLUR_END; }
 

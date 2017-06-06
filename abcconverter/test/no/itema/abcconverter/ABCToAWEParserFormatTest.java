@@ -93,8 +93,7 @@ public class ABCToAWEParserFormatTest {
 
     @Test
     public void testHandlesMultilineBars() throws AwesomeException {
-        String abcString = "x2 \n" +
-                "a2 f3=d|";
+        String abcString = "x2 a2 f3=d|";
         String aweString = "x ☃ a ☃ f ☃ ☃ =d | ";
         assertEquals(aweString, getAWEStringFromABCString(abcString));
     }

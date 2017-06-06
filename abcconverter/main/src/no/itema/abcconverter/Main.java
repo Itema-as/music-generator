@@ -26,19 +26,17 @@ public class Main {
         try {
             //TuneBook tuneBook = new TuneBook(new File("resources/rondo.abc"));
             //Tune tune = tuneBook.getTune(0);
-            String dir = "/Users/robert/Documents/Itema/MusicGenerator/5";
-            String songTarget = "/Users/robert/Documents/Itema/MusicGenerator/5/songs";
-            //String dir = "/Users/robert/Documents/Itema/MusicGenerator/abcfiler";
-            //String songTarget = "/Users/robert/Documents/Itema/MusicGenerator/songs";
-            //String dir = "resources";
-            //String songTarget = "resources/songs";
-            convertAllBackAndForth(dir);
-            //convertAll(dir);
-            //convertAllBackAndForth(dir);
+
+            //convertAll("/media/lars/HDD2/13000midiabc");
+            //convertAll("resources/");
+            convertAllBackAndForth("C:\\Users\\Lars\\Desktop\\A");
             //convertToAwe("C:\\Users\\Lars\\Desktop\\A\\A\\A Force - Crystal Dawn.mid.abc", "resources/derp.awe");
-            //convertToAwe("/Users/robert/Documents/Itema/MusicGenerator/5/50's-Rock.mid.abc", "/Users/robert/Documents/Itema/MusicGenerator/5/50'sRock/derp.awe");
             //convertToAwe("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
 
+
+	    String dir = "/Users/robert/Documents/Itema/MusicGenerator/5";
+            String songTarget = "/Users/robert/Documents/Itema/MusicGenerator/5/songs";
+            
             collectSameSongFiles(dir, songTarget);
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,6 +45,25 @@ public class Main {
 
         //aweFile = ABCToAWEParser.getAWEFile(abcFile);
     }
+
+    private static void convertOneBackAndForth(String file, String outfileAwe) throws IOException {
+        try {
+            for (String instrumentAweFile : convertToAwe(file, outfileAwe)) {
+                String fullAbc = FileManager.getFileContents(file);
+                //String awe = FileManager.getFileContents(outfileAwe.toString());
+                String abc = convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
+                String derp = abc;
+                //Assert.assertEquals(fullAbc, abc); //wont be equal, but we can manually look them here
+            }
+        } catch (Exception | AwesomeException e) {
+            System.out.println("Woopsie! " + file.toString());
+            e.printStackTrace();
+            System.out.flush();
+            System.err.flush();
+        }
+    }
+
+
 
     private static void collectSameSongFiles(String dir, String songTarget) {
         File directory = new File(dir + "/awe/");
@@ -391,12 +408,12 @@ public class Main {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 if (file.toString().endsWith(".abc")) {
                     i.setValue(i.getValue() + 1);
-                    if (i.getValue() % 10 == 0) {
+                    if (i.getValue() % 1000 == 0) {
                         System.out.println(file.toString());
                         System.out.format("%d (valids: %d, ignored %d, invalids %d)", i.getValue(), valids.getValue(), ignored.getValue(), invalids.getValue());
                     }
                     try {
-                        String outfileAwe = dir + "/awe/" + file.getFileName().toString() + ".awe";
+                        String outfileAwe = dir + "/awe/" + file.getFileName().toString() +  ".awe";
                         for (String instrumentAweFile : convertToAwe(file.toString(), outfileAwe)) {
                             String fullAbc = FileManager.getFileContents(file.toString());
                             //String awe = FileManager.getFileContents(outfileAwe.toString());
@@ -408,7 +425,8 @@ public class Main {
                         valids.setValue(valids.getValue() + 1);
                     } catch (Exception | AwesomeException e) {
                         invalids.setValue(invalids.getValue() + 1);
-                        System.out.println("Woopsie! " + file.toString() + "  -  " + e.getMessage());
+                        System.out.println("Woopsie! " + file.toString());
+                        e.printStackTrace();
                         System.out.flush();
                         System.err.flush();/**/
                     }

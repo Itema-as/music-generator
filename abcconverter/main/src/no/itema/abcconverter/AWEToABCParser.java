@@ -41,6 +41,7 @@ public class AWEToABCParser {
     }
 
     private static void convertToAbcTimeSlots(AWEFile awe) {
+        AWEChord prevChord = null;
         for (AWEChannel channel : awe.getChannels()) {
             for (AWELine line : channel.getLines()) {
                 AWEBar prevBar = null;
@@ -54,6 +55,17 @@ public class AWEToABCParser {
                             } else {
                                 prevUnit = unit;
                             }
+                        } else if (timedUnit instanceof AWEChord) {
+                            AWEChord chord = (AWEChord)timedUnit;
+                            List<AWETimedUnit> units = chord.getUnits();
+                            for (int i = 0; i < units.size(); i++) {
+                                if (units.get(i).isContinuation()) {
+                                    AWEUnit prevUnitInChord = (AWEUnit)prevChord.getUnits().get(i);
+                                    ((AWEUnit)units.get(i)).copyValuesFrom(prevUnitInChord);
+                                    prevUnitInChord.setTie(true); //make sure the previous non-continuation is a tie.
+                                }
+                            }
+                            prevChord = chord;
                         }
                     }
                     prevBar = bar;
@@ -104,6 +116,9 @@ public class AWEToABCParser {
             foundSlurEnd = false;
             foundSlurStart = false;
             char sym = symbols[i];
+            if (blank(sym)) {
+                continue;
+            }
 
             if(chordStart(sym)) {
                 insideChord = true;
@@ -116,7 +131,9 @@ public class AWEToABCParser {
                     if(!endLine(sym) && (!"".equals(unit.getTone()) || unit.isContinuation())) {
                         container.addUnit(unit);
                         if(!insideChord) {
-                            bar.addTimeSlot(timeSlot);
+                            if (timeSlot.getUnits().size() > 0) {
+                                bar.addTimeSlot(timeSlot);
+                            }
                             timeSlot = new AWETimeSlot();
                             container = timeSlot;
                         }
@@ -130,12 +147,14 @@ public class AWEToABCParser {
                         //wrap up loose ends
                         if (!"".equals(unit.getTone()) && !container.getUnits().contains(unit)) {
                             container.addUnit(unit);
-                            if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
+                        }
+                        if (timeSlot.totalToneLength() > 0 && !bar.getTimeSlots().contains(timeSlot)) {
+                            if (timeSlot.getUnits().size() > 0) {
                                 bar.addTimeSlot(timeSlot);
-                                if (!line.getBars().contains(bar)) {
-                                    line.addBar(bar);
-                                }
                             }
+                        }
+                        if (!line.getBars().contains(bar) && bar.getUnits().size() > 0) {
+                            line.addBar(bar);
                         }
                     }
                 }
@@ -198,7 +217,9 @@ public class AWEToABCParser {
                     }
                     container.addUnit(unit);
                     unit = new AWEUnit();
-                    bar.addTimeSlot(timeSlot);
+                    if (timeSlot.getUnits().size() > 0) {
+                        bar.addTimeSlot(timeSlot);
+                    }
                     timeSlot = new AWETimeSlot();
                     if (!insideChord) {
                         container = timeSlot;

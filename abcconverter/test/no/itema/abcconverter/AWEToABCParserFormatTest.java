@@ -196,6 +196,24 @@ public class AWEToABCParserFormatTest {
     }
 
     @Test
+    public void testLongChordHandling() throws AwesomeException {
+        String aweString = "[a/2f/2f/2c/2c/2B/2A/2=F/2B,,,/2][a/2f/2f/2c/2c/2_B/2A/2F/2] [a/2f/2f/2c/2c/2B/2A/2F/2][a/2f/2f/2c/2c/2B/2A/2F/2] | ";
+        String abcString = "[a/2f/2f/2c/2c/2B/2A/2=F/2B,,,/2][a/2f/2f/2c/2c/2_B/2A/2F/2][a/2f/2f/2c/2c/2B/2A/2F/2][a/2f/2f/2c/2c/2B/2A/2F/2] | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
+
+    @Test
+    public void testLongChordHandling2() throws AwesomeException {
+        //[a/2] | [☃/2]
+        //[a/2-] | [a/2]
+        //a | ☃
+        //a- | a
+        String aweString = "[a/2f/2f/2c/2c/2B/2A/2A/2F/2F,/2C,/2] | [☃/2☃/2☃/2☃/2☃/2☃/2☃/2☃/2☃/2☃/2☃/2]";
+        String abcString = "[a/2-f/2-f/2-c/2-c/2-B/2-A/2-A/2-F/2-F,/2-C,/2-] | [a/2f/2f/2c/2c/2B/2A/2A/2F/2F,/2C,/2] | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
+
+    @Test
     public void testChordHandling2() throws AwesomeException {
         String aweString = "[ba]e[e'd] | ";
         String abcString = "[ba]e[e'd] | ";
@@ -262,4 +280,10 @@ public class AWEToABCParserFormatTest {
         return aweLine.getAbcString();
     }
 
+    @Test
+    public void aweToAbc() throws AwesomeException {
+        String awe = "x ☃ ☃ ☃ ☃ ☃ D ☃ | G ☃ A ☃ B ☃ G ☃ | A ☃ B ☃ c ☃ c ☃ | d ☃ e ☃ f ☃ A ☃ | A ☃ G ☃ F ☃ d ☃ | e ☃ d c c c B ☃ | c B A ☃ G ☃ G ☃ | F ☃ ☃ ☃ x ☃ F ☃ | B ☃ c ☃ d ☃ A ☃ | G ☃ A ☃ B ☃ G ☃ | A ☃ B c d ☃ A ☃ | G ☃ A ☃ G ☃ F ☃ | E ☃ E ☃ F ☃ D ☃ | G ☃ A ☃ A ☃ B ☃ | A ☃ A ☃ G ☃ G ☃ | G ☃ G ☃ c ☃ A ☃ | G ☃ F ☃ F ☃ ☃ ☃ | B ☃ A ☃ G ☃ F ☃ | E ☃ ☃ ☃ D ☃ ☃ ☃ | x ☃ ☃ ☃ ☃ ☃ D ☃ | E ☃ D ☃ D ☃ D ☃ | D ☃ D ☃ D ☃ E ☃ | A, ☃ ☃ ☃ G, ☃ E ☃ | D ☃ E ☃ D ☃ ☃ ☃ | E ☃ E ☃ =C B,/2A,/2 B, ☃ | B, ☃ A, ☃ A, ☃ G, ☃ | G, ☃ ☃ F, G, ☃ E, ☃ | A, ☃ ^G, ☃ A, ☃ ☃ ☃ | x ☃ ☃ ☃ ☃ ☃ G, ☃ | C B, A, G, A, ☃ G, ☃ | F, ☃ ☃ ☃ x ☃ G, ☃ | E, ^F, G, ☃ A, ☃ B, ☃ | C B, A, G, F, ☃ x ☃ | E, G, D C B, ☃ C D | D ☃ G ☃ G ☃ F ☃ | E ☃ D ☃ C ☃ B, ☃ | A, ☃ D ☃ D ☃ ☃ C | B, ☃ ☃ ☃ x ☃ C ☃ | C ☃ B, ☃ A, ☃ ☃ G, | A, ☃ B, ☃ C ☃ C ☃ | F ☃ E ☃ D ☃ E D/2C/2 | B, ☃ G, ☃ A, ☃ B, ☃ | A, ☃ ☃ ☃ x ☃ G, ☃ | G, ☃ C ☃ C ☃ B, ☃ | C ☃ ^D ☃ =D ☃ A, ☃ | D ☃ D ☃ D ☃ D ☃ | E D C ☃ B, ☃ F E | D ☃ C ☃ C ☃ =D C | B, ☃ C D E D C ☃ | F ☃ ☃ E E ☃ D ☃ | C ☃ D ☃ D C B, ☃ | A, B, C ☃ F ☃ ☃ E | D ☃ E ☃ F ☃ E D | C ☃ ☃ ☃ ☃ ☃ ☃ ☃ | x ☃ ☃ ☃ ☃ ☃ =G, A, | F, ☃ G, ☃ A, ☃ F, ☃ | G, ☃ D, ☃ E, ☃ E, ☃ | F, ☃ ☃ ☃ =F, ☃ E, F, | G, ☃ =A, G, F, E, D, C, | B,, ☃ ☃ ☃ ☃ ☃ A,, ☃ | D, ☃ C, ☃ B,, ☃ C, ☃ | D, ☃ E, ☃ F, ☃ G, ☃ | A, B, C ☃ B, ☃ =B, ☃ | C ☃ C, ☃ G, ☃ G, ☃ | C, ☃ D, ☃ E, ☃ F, ☃ | C, ☃ D, ☃ G,, ☃ D, ☃ | G, ☃ F, ☃ E, ☃ D, ☃ | C, ☃ ☃ C, C, ☃ C, ☃ | F, ☃ G, A, B, ☃ F, ☃ | B, ☃ F, ☃ B,, ☃ F, ☃ | B,, C, D, ☃ C, ☃ F, ☃ | G, ☃ C, ☃ F, ☃ A,, G,, | ^A, ☃ ^A,, ☃ B,, ☃ B,, ☃ | C, ☃ F, ☃ C, ☃ F, E, | D, ☃ E, ☃ ^A,, ☃ B,, ☃ | C, ☃ F, ☃ E, ☃ D, ☃ | G, ☃ F, ☃ E, ☃ D, C, | B,, ☃ C, ☃ F,, ☃ F, ☃ | ";
+        String abc = getABCLineFromAWEString(awe);
+        String derp = abc;
+    }
 }
