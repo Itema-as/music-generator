@@ -269,6 +269,42 @@ public class AWEToABCParserFormatTest {
         assertEquals(abcString, getABCLineFromAWEString(aweString));
     }
 
+
+    @Test
+    public void testNaturalPrefix() throws AwesomeException {
+        String abcString = "A=G | ";
+        String aweString = "A =G | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
+
+    @Test
+    public void testFlatPrefix() throws AwesomeException {
+        String abcString = "A_G | ";
+        String aweString = "A _G | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
+
+    @Test
+    public void testDoubleFlatPrefix() throws AwesomeException {
+        String abcString = "A__G | ";
+        String aweString = "A __G | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
+
+    @Test
+    public void testSharpPrefix() throws AwesomeException {
+        String abcString = "A^G | ";
+        String aweString = "A ^G | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
+
+    @Test
+    public void testDoubleSharpPrefix() throws AwesomeException {
+        String abcString = "A^^G | ";
+        String aweString = "A ^^G | ";
+        assertEquals(abcString, getABCLineFromAWEString(aweString));
+    }
+
     /*
           @Test
           public void testDividedNotes() throws AwesomeException {

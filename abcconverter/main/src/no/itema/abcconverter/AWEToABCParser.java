@@ -40,12 +40,14 @@ public class AWEToABCParser {
         return aweFile;
     }
 
-    private static void convertToAbcTimeSlots(AWEFile awe) {
+    private static void convertToAbcTimeSlots(AWEFile awe) throws AwesomeException {
         AWEChord prevChord = null;
         for (AWEChannel channel : awe.getChannels()) {
+            int barCount = 0;
             for (AWELine line : channel.getLines()) {
                 AWEBar prevBar = null;
                 for (AWEBar bar : line.getBars()) {
+                    barCount++;
                     AWEUnit prevUnit = null;
                     for (AWETimedUnit timedUnit : bar.getUnits()) {
                         if (timedUnit instanceof AWEUnit) {
@@ -60,8 +62,11 @@ public class AWEToABCParser {
                             List<AWETimedUnit> units = chord.getUnits();
                             for (int i = 0; i < units.size(); i++) {
                                 if (units.get(i).isContinuation()) {
+                                    if (i >= prevChord.getUnits().size()) {
+                                        throw new AwesomeException("Mismatched continuation in chord: " + bar.getBarString());
+                                    }
                                     AWEUnit prevUnitInChord = (AWEUnit)prevChord.getUnits().get(i);
-                                    ((AWEUnit)units.get(i)).copyValuesFrom(prevUnitInChord);
+                                    ((AWEUnit) units.get(i)).copyValuesFrom(prevUnitInChord);
                                     prevUnitInChord.setTie(true); //make sure the previous non-continuation is a tie.
                                 }
                             }

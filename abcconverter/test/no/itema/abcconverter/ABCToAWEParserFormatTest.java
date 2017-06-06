@@ -271,6 +271,66 @@ public class ABCToAWEParserFormatTest {
     }
 
     @Test
+    public void testChordTies2() throws AwesomeException {
+        String abcString = "[g-e-] [ge] | ";
+        String aweString = "[ge] [☃☃] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testChordTies3() throws AwesomeException {
+        String abcString = "[A-D-F-] [ADF] | ";
+        String aweString = "[ADF] [☃☃☃] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testChordTies4() throws AwesomeException {
+        //All notes in all chords have to be ties before we replace with a continuation
+        String abcString = "[A-D-F-] [ADFC] | ";
+        String aweString = "[ADF] [ADFC] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+
+    @Test
+    public void testChordPartialTies0() throws AwesomeException {
+        //Sometimes only a subset of notes in a chord are held into the next
+        //This can't be unambigously represented in AWE, we ignore the tie in this case
+        String abcString = "[ge-] | [ge] | ";
+        String aweString = "[ge] | [ge] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testChordPartialTies1() throws AwesomeException {
+        //Sometimes only a subset of notes in a chord are held into the next
+        //This can't be unambigously represented in AWE, we ignore the tie in this case
+        String abcString = "[CF-D][DF] | ";
+        String actuallyCorrectAweString = "[CF-D][D☃] | ";
+        String aweString = "[CFD] [DF] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testChordPartialTies2() throws AwesomeException {
+        //Sometimes only a subset of notes in a chord are held into the next
+        //This can't be unambigously represented in AWE, we ignore the tie in this case
+        String abcString = "[A-D-F] | [ADF] | ";
+        String aweString = "[ADF] | [ADF] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testChordPartialTies3() throws AwesomeException {
+        //Sometimes only a subset of notes in a chord are held into the next
+        //This can't be unambigously represented in AWE, we ignore the tie in this case
+        String abcString = "[A-D-F] [ADF] | ";
+        String aweString = "[ADF] [ADF] | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
     public void testTwoSimultaneouslyComplexNotes() throws AwesomeException {
         String abcString = "[_A^C] | ";
         String aweString = "[_A^C] | ";

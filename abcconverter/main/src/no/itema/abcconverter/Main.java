@@ -31,7 +31,8 @@ public class Main {
             //convertAll("resources/");
 
             convertAllBackAndForth("/media/lars/HDD2/13000midiabc");
-            //convertToAwe("/media/lars/HDD2/13000midiabc/1/100%-Pure-Love.mid.abc", null);
+            //convertOneBackAndForth("/media/lars/HDD2/13000midiabc/9/90203_10.MID.abc", "resources/testout.abc");
+            //convertToAwe("/media/lars/HDD2/13000midiabc/A/A/ace_of_base-beautiful_life.mid.abc", null);
 
             //convertToAwe("C:\\Users\\Lars\\Desktop\\A\\A\\A Force - Crystal Dawn.mid.abc", "resources/derp.awe");
             //convertToAwe("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
@@ -40,7 +41,7 @@ public class Main {
 	        //String dir = "/Users/robert/Documents/Itema/MusicGenerator/5";
             //String songTarget = "/Users/robert/Documents/Itema/MusicGenerator/5/songs";
             
-            //collectSameSongFiles(dir, songTarget);
+            collectSameSongFiles("/media/lars/HDD2/13000midiabc", "/media/lars/HDD2/13000midiabc/songs");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +53,8 @@ public class Main {
     private static void convertOneBackAndForth(String file, String outfileAwe) throws IOException {
         try {
             for (String instrumentAweFile : convertToAwe(file, outfileAwe)) {
-                String fullAbc = FileManager.getFileContents(file);
+                String fullAwe = FileManager.getFileContents(instrumentAweFile);
+
                 //String awe = FileManager.getFileContents(outfileAwe.toString());
                 String abc = convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
                 String derp = abc;
@@ -386,6 +388,9 @@ public class Main {
         }
     }
 
+
+
+
     private static void convertAllBackAndForth(final String dir) throws IOException {
         class Holder<T> {
             private T value;
@@ -415,16 +420,12 @@ public class Main {
                         System.out.println(file.toString());
                         System.out.format("%d (valids: %d, ignored %d, invalids %d)", i.getValue(), valids.getValue(), ignored.getValue(), invalids.getValue());
                     }
-                    if (i.getValue() == 10000) {
-                        throw new NullPointerException();
-                    }
                     try {
                         String outfileAwe = dir + "/awe/" + file.getFileName().toString() +  ".awe";
                         for (String instrumentAweFile : convertToAwe(file.toString(), outfileAwe)) {
                             String fullAbc = FileManager.getFileContents(file.toString());
                             //String awe = FileManager.getFileContents(outfileAwe.toString());
                             String abc = convertToAbc(instrumentAweFile, instrumentAweFile + ".abc");
-                            String derp = abc;
                             System.out.println("OK");
                             //Assert.assertEquals(fullAbc, abc); //wont be equal, but we can manually look them here
                         }
@@ -435,7 +436,7 @@ public class Main {
                         } else {
                             invalids.setValue(invalids.getValue() + 1);
                         }
-                        System.out.println("Woopsie! " + file.toString() + " - " + e.getMessage());
+                        System.out.println("Woopsie! " + file.toString() + " - " + e);
                         //e.printStackTrace();
                         System.out.flush();
                         System.err.flush();/**/

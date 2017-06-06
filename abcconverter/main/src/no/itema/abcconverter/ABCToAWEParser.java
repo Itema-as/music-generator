@@ -122,15 +122,55 @@ public class ABCToAWEParser {
     private static void handleTies(AWEFile awe) {
 
         for (AWEChannel channel : awe.getChannels()) {
+            boolean makeContinuation = false;
+            int tiedChordSize = -1;
+            for (AWETimedUnit u : channel.getUnits()) {
+                if (makeContinuation) {
+                    if (u instanceof AWEUnit) {
+                        AWEUnit unit = ((AWEUnit)u);
+                        unit.copyValuesFrom(new AWEUnit());
+                        unit.setTone(String.valueOf(Symbol.CONTINUATION));
+                    } else {
+                        AWEChord chord = ((AWEChord)u);
+                        if (tiedChordSize == chord.getUnits().size()) { //dont replace with continuation unless both chords are same size
+                            for (AWETimedUnit tu : chord.getUnits()) {
+                                AWEUnit unit = ((AWEUnit)tu);
+                                unit.copyValuesFrom(new AWEUnit());
+                                unit.setTone(String.valueOf(Symbol.CONTINUATION));
+                            }
+                        }
+                    }
+
+                    makeContinuation = false;
+                }
+
+                if (u instanceof AWEChord) {
+                    //only make continuations out of ties in chords if every note in chord has a tie
+                    //if not, we can't represent it unambiguosly in AWE, so we just ignore the tie character
+                    AWEChord chord = ((AWEChord)u);
+                    boolean allAreTies = true;
+                    for (AWETimedUnit unitInChord : chord.getUnits()) {
+                        if (!unitInChord.isTie()) {
+                            allAreTies = false;
+                        }
+                    }
+                    tiedChordSize = chord.getUnits().size();
+                    makeContinuation = allAreTies;
+                } else if (u.isTie()) {
+                    makeContinuation = true;
+                }
+            }
+            /*
             for (AWELine line : channel.getLines()) {
                 boolean makeContinuation = false;
+
                 for (AWEBar bar : line.getBars()) {
                     if (makeContinuation) {
                         AWETimedUnit u = bar.getUnits().get(0);
                         if (u instanceof AWEUnit) {
                             AWEUnit unit = ((AWEUnit)u);
-                        unit.copyValuesFrom(new AWEUnit());
-                        unit.setTone(String.valueOf(Symbol.CONTINUATION));
+                            unit.copyValuesFrom(new AWEUnit());
+                            unit.setTone(String.valueOf(Symbol.CONTINUATION));
                         } else {
                             AWEChord chord = ((AWEChord)u);
                             for (AWETimedUnit tu : chord.getUnits()) {
@@ -146,14 +186,21 @@ public class ABCToAWEParser {
                     ArrayList<AWETimedUnit> units = bar.getUnits();
                     AWETimedUnit lastUnit = units.get(units.size()-1);
                     if (lastUnit instanceof AWEChord) {
+                        //only make continuations out of ties in chords if every note in chord has a tie
+                        //if not, we can't represent it unambiguosly in AWE, so we just ignore the tie character
                         AWEChord chord = ((AWEChord)lastUnit);
-                        lastUnit = chord.getUnits().get(chord.getUnits().size()-1);
-                    }
-                    if (lastUnit.isTie()) {
+                        boolean allAreTies = true;
+                        for (AWETimedUnit unitInChord : chord.getUnits()) {
+                            if (!unitInChord.isTie()) {
+                                allAreTies = false;
+                            }
+                        }
+                        makeContinuation = allAreTies;
+                    } else if (lastUnit.isTie()) {
                         makeContinuation = true;
                     }
                 }
-            }
+            }*/
         }
     }
 
