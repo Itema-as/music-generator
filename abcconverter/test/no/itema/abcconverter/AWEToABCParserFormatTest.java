@@ -262,6 +262,13 @@ public class AWEToABCParserFormatTest {
         assertEquals(getABCLineFromAWEString(aweString), abcString);
     }
 
+    @Test
+    public void testJoinContinuations() throws AwesomeException {
+        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2D | ";
+        String abcString = "GD/2E4-E/2D| ";
+        assertEquals(getABCLineFromAWEString(aweString), abcString);
+    }
+
     /*
           @Test
           public void testDividedNotes() throws AwesomeException {
