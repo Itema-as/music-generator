@@ -86,7 +86,10 @@ public class AWEToABCParser {
                 }
             }
         } else {
-            prevUnit.setToneLengthNumerator(prevUnit.getToneLengthDenominator() + prevUnit.getToneLengthNumerator());
+            //prevUnit.setToneLengthNumerator(prevUnit.getToneLengthDenominator() + prevUnit.getToneLengthNumerator());
+
+            //increase length of prevUnit by length of unit
+            prevUnit.setToneLengthNumerator(prevUnit.getToneLengthNumerator() + (prevUnit.getToneLengthDenominator() * unit.getToneLength()));
         }
         return prevUnit;
     }

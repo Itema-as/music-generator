@@ -43,7 +43,9 @@ public class AWEUnit implements AWETimedUnit {
     }
 
     public String getAbcString() {
-        return String.join("", symbols) + transp + tone + String.join("", octaves) + toneLengthString() + (tie ? Symbol.TIE : "");
+        return isContinuation()
+                ? ""
+                : String.join("", symbols) + transp + tone + String.join("", octaves) + toneLengthString() + (tie ? Symbol.TIE : "");
     }
 
     public void addSymbol(String symbol) {
