@@ -38,10 +38,11 @@ public class Symbol {
         }
 
         return unit == null ||                                          // This is the first unit
+                slurStart(sym) ||                                       //Next symbol is a slur, that's not a part of the unit we have read up til now
                 (unit.isContinuation() && !(toneLength(sym) || fractionalToneLengthStart(sym))) ||
                 continuation(sym) ||
-                (unit.getTone() != "" && (sharp(sym)) || flat(sym)) ||  // Tone exists, but there is a new first symbol(sharp/flat)
-                (unit.getTone() != "" && toneHeight(sym)) ||            // Tone exists, and there is a new tone
+                (!unit.getTone().equals("") && (sharp(sym) || flat(sym) || natural(sym))) ||  // Tone exists, but there is a new first symbol(sharp/flat)
+                (!unit.getTone().equals("") && toneHeight(sym)) ||            // Tone exists, and there is a new tone
                 (unit.getTone() == String.valueOf(Symbol.PAUSE)) ||     // Tone exists, and is a pause
                 chordStart(sym) ||                                      // Start of a new chord
                 chordEnd(sym)   ||                                      // End of a chord

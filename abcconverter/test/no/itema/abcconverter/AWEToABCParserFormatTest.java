@@ -249,16 +249,9 @@ public class AWEToABCParserFormatTest {
     }
 
     @Test
-    public void testSlurStartOnly() throws AwesomeException {
-        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 (  ☃ ☃ D E D | ";
-        String abcString = "GD/2E4E/2(3DED | ";
-        assertEquals(getABCLineFromAWEString(aweString), abcString);
-    }
-
-    @Test
     public void testSlurs() throws AwesomeException {
-        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 (  ☃ ☃ D E) D | ";
-        String abcString = "GD/2E4E/2(3DE)D | ";
+        String abcString = "GD/2E4E/2(D3DE)D | ";
+        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 ( D ☃ ☃ D E) D | ";
         assertEquals(getABCLineFromAWEString(aweString), abcString);
     }
 

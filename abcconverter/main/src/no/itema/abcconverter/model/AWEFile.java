@@ -75,7 +75,7 @@ public class AWEFile {
                 barCount++;
                 numTimeSlots += bar.getTimeSlots().size();
                 if (bar.getTimeSlots().size() != 8 && barCount != 1) {
-                    throw new AwesomeException("All bars except first must have 8 timeslots");
+                    throw new AwesomeException("All bars except first must have 8 timeslots (bar " + barCount + "/" + c.getBars().size() + ")");
                 }
             }
             numBars += barCount;

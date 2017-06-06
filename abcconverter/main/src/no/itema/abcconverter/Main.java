@@ -29,15 +29,18 @@ public class Main {
 
             //convertAll("/media/lars/HDD2/13000midiabc");
             //convertAll("resources/");
-            convertAllBackAndForth("C:\\Users\\Lars\\Desktop\\A");
+
+            convertAllBackAndForth("/media/lars/HDD2/13000midiabc");
+            //convertToAwe("/media/lars/HDD2/13000midiabc/1/100%-Pure-Love.mid.abc", null);
+
             //convertToAwe("C:\\Users\\Lars\\Desktop\\A\\A\\A Force - Crystal Dawn.mid.abc", "resources/derp.awe");
             //convertToAwe("resources/Robyn.-.Hang.With.Me.Avicii.s.Exclusive.Club.Mix.abc", "resources/hangwithme.awe");
 
 
-	    String dir = "/Users/robert/Documents/Itema/MusicGenerator/5";
-            String songTarget = "/Users/robert/Documents/Itema/MusicGenerator/5/songs";
+	        //String dir = "/Users/robert/Documents/Itema/MusicGenerator/5";
+            //String songTarget = "/Users/robert/Documents/Itema/MusicGenerator/5/songs";
             
-            collectSameSongFiles(dir, songTarget);
+            //collectSameSongFiles(dir, songTarget);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -408,9 +411,12 @@ public class Main {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 if (file.toString().endsWith(".abc")) {
                     i.setValue(i.getValue() + 1);
-                    if (i.getValue() % 1000 == 0) {
+                    if (i.getValue() % 100 == 0) {
                         System.out.println(file.toString());
                         System.out.format("%d (valids: %d, ignored %d, invalids %d)", i.getValue(), valids.getValue(), ignored.getValue(), invalids.getValue());
+                    }
+                    if (i.getValue() == 10000) {
+                        throw new NullPointerException();
                     }
                     try {
                         String outfileAwe = dir + "/awe/" + file.getFileName().toString() +  ".awe";
@@ -424,9 +430,13 @@ public class Main {
                         }
                         valids.setValue(valids.getValue() + 1);
                     } catch (Exception | AwesomeException e) {
-                        invalids.setValue(invalids.getValue() + 1);
-                        System.out.println("Woopsie! " + file.toString());
-                        e.printStackTrace();
+                        if (e.getMessage() != null && e.getMessage().contains("only supporting")) {
+                            ignored.setValue(ignored.getValue() + 1);
+                        } else {
+                            invalids.setValue(invalids.getValue() + 1);
+                        }
+                        System.out.println("Woopsie! " + file.toString() + " - " + e.getMessage());
+                        //e.printStackTrace();
                         System.out.flush();
                         System.err.flush();/**/
                     }

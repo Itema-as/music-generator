@@ -102,7 +102,6 @@ public class ABCToAWEParser {
             if (abcLine.startsWith("L:") && !abcLine.contains("1/8")) {
                 throw new AwesomeException("Currently only supporting L:1/8. Found: " + abcLine);
             }
-
             //skip lines that aren't music.
             if (abcLine.startsWith("%")) {
                 continue;
@@ -210,6 +209,7 @@ public class ABCToAWEParser {
         AWEUnitContainer container = timeSlot;
 
         boolean insideChord = false;
+        int skipNotes = 0;
         for (int i = 0; i < symbols.length; i++) {
             char sym = symbols[i];
             if(chordStart(sym)) {
@@ -220,7 +220,11 @@ public class ABCToAWEParser {
             }
             if(endOfLastUnit(unit, sym)) {
                 if(unit != null && !endLine(sym) && !"".equals(unit.getTone())) {
-                    container.addUnit(unit);
+                    if (skipNotes > 0) {
+                        skipNotes--; //dont add the unit
+                    } else {
+                        container.addUnit(unit);
+                    }
                 }
                 if (chordStart(sym)) {
                     AWEChord chord = new AWEChord();
@@ -276,6 +280,13 @@ public class ABCToAWEParser {
             if(tie(sym)) {
                 unit.setTie(true);
             }
+
+            if (isPNotesOfTimeK(sym, symbols, i)) {
+                SkipResult res = skipPNotesOfTimeK(sym, symbols, i);
+                i = res.index;
+                skipNotes = res.numNotesToSkip;
+                continue;
+            }
             if (slurStart(sym)) {
                 unit.setSlurStart(true);
             }
@@ -301,7 +312,11 @@ public class ABCToAWEParser {
                     if (unit.isSlurStart()) {
                         unit.setTone("(" + unit.getTone());
                     }
-                    container.addUnit(unit);
+                    if (skipNotes > 0) {
+                        skipNotes--; //dont add the unit
+                    } else {
+                        container.addUnit(unit);
+                    }
                     unit = new AWEUnit();
                     if (!insideChord) {
                         bar.addTimeSlot(timeSlot);
@@ -320,5 +335,44 @@ public class ABCToAWEParser {
         return line;
     }
 
+    private static boolean isPNotesOfTimeK(char sym, char[] symbols, int i) {
+        if (i + 1 == symbols.length) {
+            return false;
+        }
+        return (slurStart(sym) && Character.isDigit(symbols[i + 1]));
+    }
 
+    private static SkipResult skipPNotesOfTimeK(char sym, char[] symbols, int i) {
+        //returns index advanced to the last symbol in the PNotesOfTimeK constellation
+        if (!isPNotesOfTimeK(sym, symbols, i)) {
+            return new SkipResult(i, 0);
+        }
+        if (i + 1 == symbols.length) {
+            return new SkipResult(i, 0);
+        }
+        //skip (p:q:n case, which means p notes in time of q for the next n notes
+        if (slurStart(sym) && i + 6 < symbols.length &&
+              Character.isDigit(symbols[i + 1]) && ':' == symbols[i + 2] &&
+              Character.isDigit(symbols[i + 3]) && ':' == symbols[i + 4] &&
+              Character.isDigit(symbols[i + 5]) && ':' == symbols[i + 6]) {
+            int p = Character.getNumericValue(symbols[i + 1]);
+            return new SkipResult(i+6, p-2);
+        }
+        //skip (p case, which means p notes in the time of 2, which we handle by skipping the next p-2 notes
+        if (slurStart(sym) && i + 1 < symbols.length && Character.isDigit(symbols[i + 1])) {
+            int p = Character.getNumericValue(symbols[i + 1]);
+            return new SkipResult(i+1, p-2);
+        }
+        return new SkipResult(i, 0);
+    }
+
+    private static class SkipResult {
+        public final int index;
+        public final int numNotesToSkip;
+
+        public SkipResult(int i, int notesToSkip) {
+            index = i;
+            numNotesToSkip = notesToSkip;
+        }
+    }
 }

@@ -309,16 +309,10 @@ public class ABCToAWEParserFormatTest {
     }
 
     @Test
-    public void testSlurStartOnly() throws AwesomeException {
-        String abcString = "GD/2E4-E/2  (3DED| ";
-        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 (  ☃ ☃ D E D | ";
-        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
-    }
-
-    @Test
     public void testSlurs() throws AwesomeException {
-        String abcString = "GD/2E4-E/2  (3DE)D| ";
-        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 (  ☃ ☃ D E) D | ";
+        String abcString = "GD/2E4E/2 (D3DE)D| ";
+        String aweString = "G D/2E/2 ☃ ☃ ☃ ☃/2E/2 ( D ☃ ☃ D E) D | ";
+        AWELine line = getAWELineFromABCString(abcString);
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
@@ -326,6 +320,55 @@ public class ABCToAWEParserFormatTest {
     public void testSlursWithHalfNotes() throws AwesomeException {
         String abcString = "(E2)| ";
         String aweString = "( E ☃ ) | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testNaturalPrefix() throws AwesomeException {
+        String abcString = "A =G | ";
+        String aweString = "A =G | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testFlatPrefix() throws AwesomeException {
+        String abcString = "A _G | ";
+        String aweString = "A _G | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testDoubleFlatPrefix() throws AwesomeException {
+        String abcString = "A __G | ";
+        String aweString = "A __G | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testSharpPrefix() throws AwesomeException {
+        String abcString = "A ^G | ";
+        String aweString = "A ^G | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testDoubleSharpPrefix() throws AwesomeException {
+        String abcString = "A ^^G | ";
+        String aweString = "A ^^G | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testIgnoresPNotesInTimeOfK() throws AwesomeException {
+        String abcString = "A (3G/2A/2B/2 | "; //The (3 means 3 notes in the time of 2. Can't handle this yet, so we cut off the first note in this case
+        String aweString = "A A/2B/2 | ";
+        assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
+    }
+
+    @Test
+    public void testIgnoresPNotesInTimeOfK_2() throws AwesomeException {
+        String abcString = "(3ABC  (3ABC E/2x3x/2 | "; //The (3 means 3 notes in the time of 2. Can't handle this yet, so we cut off the first note in this case
+        String aweString = "B C B C E/2x/2 ☃ ☃ ☃/2x/2 | ";
         assertEquals(aweString, getAWELineFromABCString(abcString).getLineString());
     }
 
